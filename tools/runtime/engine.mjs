@@ -1,6 +1,6 @@
 // Pine Engineering Lab V5 -- PineTS execution adapter (called by tools/pinelab.py).
 // Usage: node engine.mjs REQUEST.json RESPONSE.json
-// REQUEST: {script, csv, base_timeframe, timeframe, symbol, inputs?, max_bars?, max_loops?}
+// REQUEST: {script, csv, base_timeframe, timeframe, symbol, inputs?, max_bars?, max_loops?, mintick?}
 // RESPONSE: {ok, engine, error?, time[], plots{}, strategy?, warnings[], alerts[], logs[], duration_ms}
 // Never reports success for transpile/runtime/data errors; never approximates unsupported timeframes.
 import fs from 'fs';
@@ -36,7 +36,8 @@ const clean = (o, depth = 0) => {
 
 let out;
 try {
-  const provider = new LocalProvider({ csv: req.csv, baseTimeframe: String(req.base_timeframe) });
+  const symbolInfo = req.mintick ? { mintick: Number(req.mintick), pricescale: Math.round(1 / Number(req.mintick)) } : {};
+  const provider = new LocalProvider({ csv: req.csv, baseTimeframe: String(req.base_timeframe), symbolInfo });
   const pine = new PineTS(provider, req.symbol || 'LOCAL:SYNTH', String(req.timeframe), req.max_bars || undefined);
   pine.setMaxLoops(req.max_loops || 100000);
   const src = fs.readFileSync(req.script, 'utf8');

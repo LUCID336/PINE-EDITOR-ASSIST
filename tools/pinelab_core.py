@@ -87,7 +87,7 @@ def input_titles(source):
 
 
 def run_engine(script, csv=None, base_tf=None, timeframe='60', symbol='LOCAL:SYNTH', inputs=None,
-               max_bars=None, timeout_s=None):
+               max_bars=None, timeout_s=None, mintick=None):
     """Run a Pine script in PineTS on a local CSV. Returns the engine response dict (+ 'process' metadata).
     Raises nothing for script problems; they come back as ok=False with error.type."""
     csv = Path(csv or DEFAULT_DATA)
@@ -96,7 +96,8 @@ def run_engine(script, csv=None, base_tf=None, timeframe='60', symbol='LOCAL:SYN
         if unknown:   # PineTS silently ignores unknown titles; TradingView MCP answers input_invalid
             return {'ok': False, 'error': {'type': 'INPUT_INVALID', 'message': f'unknown input title(s): {unknown}'}}
     req = {'script': str(Path(script).resolve()), 'csv': str(csv.resolve()), 'base_timeframe': str(base_tf or DEFAULT_BASE_TF),
-           'timeframe': str(timeframe), 'symbol': symbol, 'inputs': inputs, 'max_bars': max_bars, 'max_loops': LIMITS['max_loops']}
+           'timeframe': str(timeframe), 'symbol': symbol, 'inputs': inputs, 'max_bars': max_bars, 'max_loops': LIMITS['max_loops'],
+           'mintick': mintick}
     with tempfile.TemporaryDirectory(prefix='pinelab-') as td:
         rq, rs = Path(td, 'req.json'), Path(td, 'res.json')
         rq.write_text(json.dumps(req))

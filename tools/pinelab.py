@@ -133,7 +133,8 @@ def runtime_stage(script, args, env):
     if data is None:
         return None
     inputs = json.loads(args.inputs) if getattr(args, 'inputs', None) else None
-    res = core.run_engine(script, csv=data, base_tf=args.base_tf, timeframe=args.tf, inputs=inputs, max_bars=getattr(args, 'bars', None))
+    res = core.run_engine(script, csv=data, base_tf=args.base_tf, timeframe=args.tf, inputs=inputs, max_bars=getattr(args, 'bars', None),
+                          mintick=getattr(args, 'mintick', None))
     if not res.get('ok'):
         err = res.get('error', {})
         m = re.search(r'at (\d+):(\d+)', err.get('message', ''))
@@ -324,7 +325,7 @@ def cmd_run_backtest(args):
     if 'sig_entry_long' in plots and 'sig_exit_long' in plots:
         bars = _load_bars(args.data or core.DEFAULT_DATA, args.base_tf, args.tf, res['time'])
         cfg = s.get('config') or {}
-        mintick = 0.0001  # LocalProvider symbol info
+        mintick = getattr(args, 'mintick', None) or 0.0001  # LocalProvider symbol info
         p = bt.Params(initial_capital=float(cfg.get('initial_capital', params['initial_capital'])),
                       qty_type='percent_of_equity' if cfg.get('default_qty_type') == 'percent_of_equity' else 'fixed',
                       qty_value=float(cfg.get('default_qty_value', params['default_qty_value'])),
@@ -450,7 +451,9 @@ def cmd_get_capabilities(args):
 
 def cmd_export_txt(args):
     t0 = time.time()
-    env = cmd_validate(argparse.Namespace(script=args.script, no_runtime=args.no_runtime, data=None, base_tf=core.DEFAULT_BASE_TF, tf='60'))
+    env = cmd_validate(argparse.Namespace(script=args.script, no_runtime=args.no_runtime, data=getattr(args, 'data', None),
+                                          base_tf=getattr(args, 'base_tf', None) or core.DEFAULT_BASE_TF, tf=getattr(args, 'tf', None) or '60',
+                                          inputs=getattr(args, 'inputs', None), mintick=getattr(args, 'mintick', None)))
     env['command'] = 'export_txt'
     if env['status'] == 'FAILED':
         env['errors'].append(core.diag('export refused: validation FAILED', code='export_refused', stage='export'))
@@ -483,6 +486,9 @@ def main(argv=None):
         p.add_argument('--base-tf', default=core.DEFAULT_BASE_TF, help='timeframe of the CSV rows (e.g. 15, 60, D)')
         p.add_argument('--tf', default='60', help='chart timeframe (>= base)')
         p.add_argument('--inputs', default=None, help='JSON {input title: value}')
+        p.add_argument('--mintick', type=float, default=None, help='symbol tick size for the local symbol (default 0.0001); gold: 0.01')
+        p.add_argument('--heap-mb', type=int, default=None, help='Node heap for long data (default 1024; ~6144 for 130k bars)')
+        p.add_argument('--timeout-s', type=int, default=None, help='engine wall-clock limit (default 60 s; CPU limit follows)')
     v = sub.add_parser('validate'); v.add_argument('script'); v.add_argument('--no-runtime', action='store_true'); data_args(v)
     r = sub.add_parser('run_indicator'); r.add_argument('script'); data_args(r); r.add_argument('--bars', type=int, default=None)
     b = sub.add_parser('run_backtest'); b.add_argument('script'); data_args(b)
@@ -491,9 +497,15 @@ def main(argv=None):
     sub.add_parser('get_capabilities')
     e = sub.add_parser('export_txt'); e.add_argument('script'); e.add_argument('--name', required=True)
     e.add_argument('--version', default=1); e.add_argument('--no-runtime', action='store_true')
+    data_args(e)
     for sp in sub.choices.values():
         sp.add_argument('--pretty', action='store_true', default=argparse.SUPPRESS)
     a = ap.parse_args(argv)
+    if getattr(a, 'heap_mb', None):
+        core.LIMITS['node_heap_mb'] = a.heap_mb
+    if getattr(a, 'timeout_s', None):
+        core.LIMITS['timeout_s'] = a.timeout_s
+        core.LIMITS['cpu_seconds'] = max(core.LIMITS['cpu_seconds'], a.timeout_s)
     fn = {'validate': cmd_validate, 'run_indicator': cmd_run_indicator, 'run_backtest': cmd_run_backtest,
           'get_capabilities': cmd_get_capabilities, 'export_txt': cmd_export_txt}[a.cmd]
     try:

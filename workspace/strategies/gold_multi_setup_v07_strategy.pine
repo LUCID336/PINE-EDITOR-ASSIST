@@ -1,0 +1,491 @@
+//@version=6
+strategy("Gold Multi-Setup v7 · Strategie (5m)", shorttitle = "GOLD MULTI v7 S", overlay = true,
+     initial_capital = 10000, currency = currency.USD, pyramiding = 6,
+     default_qty_type = strategy.fixed, default_qty_value = 1,
+     commission_type = strategy.commission.cash_per_contract, commission_value = 0.10, slippage = 0,
+     margin_long = 5, margin_short = 5, process_orders_on_close = false, calc_on_every_tick = false, close_entries_rule = "ANY",
+     max_labels_count = 500, max_lines_count = 100, max_boxes_count = 50)
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  GOLD MULTI-SETUP · v7 · STRATEGIE · XAUUSD 5-Minuten
+//  Zweck: Profitabilität der 5 Setups im TradingView Strategy Tester messen (Backtest), nicht automatisch handeln.
+//  Signale: identische Logik wie der v7-Indikator (5 Setups, 1h-EMA200-Trendfilter, nur geschlossene Kerzen).
+//  Trade-Management je Setup: 4 Teilausstiege à 25 % an TP1–TP4 (1× / 1.5× / 2× / 3× TP1), SL fest,
+//  nach TP1 Stopp der restlichen 75 % auf Einstand (wie per Webhook: zum Schluss der TP1-Kerze).
+//
+//  Unterschiede zum Indikator (bewusst, für realistischere Ergebnisse):
+//   • Einstieg zum Eröffnungskurs der NÄCHSTEN Kerze (TradingView Broker-Emulator), nicht zum Signal-Schluss.
+//   • Spread/Kosten über die Kommission (Standard 0.10 $/Unze je Seite = 0.20 $ ≈ 2 Pips je Runde) – im Tab
+//     "Eigenschaften" an deinen Broker anpassen. Menge in Unzen (1 Lot = 100 oz bei den meisten Brokern).
+//   • TradingView führt EINE Netto-Position je Symbol: Setups in gleicher Richtung laufen parallel (Pyramiding 5);
+//     ein Gegensignal, während ein ANDERES Setup in Gegenrichtung offen ist, wird übersprungen und gezählt.
+//   • Positionsgröße: fester Risikobetrag je Trade (SL-Abstand → Unzen), Ergebnis zusätzlich in R.
+//  Kosten-Stresstest: Eigenschaften → Kommission ×2/×3 und Slippage 2–5 Ticks; Ergebnis in R vergleichen.
+//  Keine Alarme/Webhooks in dieser Version (Backtest-Werkzeug). Für Live-Signale den v7-Indikator nutzen.
+//  Ergebnisse sind Vergangenheitswerte auf den geladenen Daten und keine Gewinnzusage.
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ───────────────────────────── EINSTELLUNGEN ─────────────────────────────
+G1 = "① SETUPS  (an/aus · SL in Pips · TP1 in R)"
+on1  = input.bool(true,  "FVG-Retest",        inline = "1", group = G1)
+sl1  = input.float(60,   "SL",  minval = 1,   inline = "1", group = G1)
+rt1  = input.float(1.0,  "TP1 R", minval = 0.1, inline = "1", group = G1)
+on2  = input.bool(false, "EMA-Cross 9/21",    inline = "2", group = G1)
+sl2  = input.float(80,   "SL",  minval = 1,   inline = "2", group = G1)
+rt2  = input.float(1.0,  "TP1 R", minval = 0.1, inline = "2", group = G1)
+on3  = input.bool(true,  "Bollinger-Squeeze", inline = "3", group = G1)
+sl3  = input.float(160,  "SL",  minval = 1,   inline = "3", group = G1)
+rt3  = input.float(1.0,  "TP1 R", minval = 0.1, inline = "3", group = G1)
+on4  = input.bool(true,  "Trend-Pullback NY", inline = "4", group = G1)
+sl4  = input.float(120,  "SL",  minval = 1,   inline = "4", group = G1)
+rt4  = input.float(1.0,  "TP1 R", minval = 0.1, inline = "4", group = G1)
+on5  = input.bool(true,  "RSI NY spät",       inline = "5", group = G1)
+sl5  = input.float(160,  "SL",  minval = 1,   inline = "5", group = G1)
+rt5  = input.float(1.0,  "TP1 R", minval = 0.1, inline = "5", group = G1,
+     tooltip = "TP2 / TP3 / TP4 = 1.5× / 2× / 3× TP1. Voreingestellt sind die Werte laut Autor (nicht neu geprüft).")
+
+G2 = "② HANDEL & RISIKO"
+pipSz    = input.float(0.10, "1 Pip = $", minval = 0.001, step = 0.01, group = G2)
+riskUsd  = input.float(100, "Risiko je Trade ($)", minval = 1, group = G2, tooltip = "Menge = Risiko / SL-Abstand, abgerundet auf 4 gleiche Teile im Mengen-Schritt. Ergebnis je Trade in R = Netto-Gewinn / tatsächlich geplantes Risiko (Menge × SL-Abstand).")
+lotStep  = input.float(1.0, "Mengen-Schritt (Einheiten)", minval = 0.0001, group = G2, tooltip = "Kleinste handelbare Menge je Teil in Symbol-Einheiten (meist Unzen). Bei 100 oz/Lot entspricht 0.01 Lot = 1 oz. Es gilt mindestens syminfo.mincontract des Symbols.")
+useBE    = input.bool(true, "Stopp nach TP1 auf Einstand", group = G2)
+maxDay   = input.int(10, "Max. Signale pro Tag (alle Setups)", minval = 1, group = G2)
+cooldown = input.int(2, "Pause je Setup nach TP1 / SL (Bars)", minval = 0, group = G2)
+only5m   = input.bool(true, "Nur auf 5m handeln (getestete Zeiteinheit)", group = G2)
+
+G6 = "③ TESTZEITRAUM & OUT-OF-SAMPLE"
+fromT  = input.time(timestamp("01 Jan 2020 00:00 +0000"), "Backtest ab", group = G6)
+toT    = input.time(timestamp("31 Dec 2099 00:00 +0000"), "Backtest bis", group = G6)
+oosT   = input.time(timestamp("01 Jan 2026 00:00 +0000"), "Out-of-Sample ab", group = G6, tooltip = "Trades mit Einstieg ab diesem Datum werden im Dashboard getrennt ausgewiesen (OOS). Parameter nie anhand der OOS-Spalte optimieren.")
+
+G5 = "④ 5m-FILTER (optional · ungetestet)"
+useRoll  = input.bool(false, "Rollover-Pause 20:45–23:15 UTC", group = G5)
+useSpike = input.bool(false, "News-Spike-Filter", inline = "sp", group = G5)
+spikeK   = input.float(3.0, "Kerze > x · ATR", minval = 1.0, step = 0.5, inline = "sp", group = G5)
+useFri   = input.bool(false, "Freitag ab 20:00 UTC keine neuen Trades", group = G5)
+
+G3 = "⑤ ANZEIGE"
+showTbl   = input.bool(true, "Dashboard", inline = "t", group = G3)
+tblPosIn  = input.string("Unten links", "", options = ["Oben rechts", "Oben links", "Unten rechts", "Unten links"], inline = "t", group = G3, display = display.none)
+tblSzIn   = input.string("Klein", "", options = ["Klein", "Normal", "Groß"], inline = "t", group = G3, display = display.none)
+showSig   = input.bool(true, "Signal-Labels (Setup + Richtung)", group = G3)
+showTrend = input.bool(true, "1h-Trendlinie (EMA200)", inline = "tr", group = G3)
+showSess  = input.bool(true, "Session-Hintergrund", inline = "tr", group = G3)
+
+G4 = "⑥ FARBEN"
+cFVG  = input.color(#00897B, "FVG",      inline = "c1", group = G4)
+cEMA  = input.color(#6D4C41, "EMA",      inline = "c1", group = G4)
+cBB   = input.color(#8E24AA, "BB",       inline = "c1", group = G4)
+cPB   = input.color(#E65100, "Pullback", inline = "c2", group = G4)
+cRSI  = input.color(#0277BD, "RSI",      inline = "c2", group = G4)
+cBuy  = input.color(#22C55E, "Long",     inline = "c3", group = G4)
+cSell = input.color(#EF4444, "Short",    inline = "c3", group = G4)
+
+// ───────────────────────────── KONSTANTEN / THEME ─────────────────────────────
+color GOLD   = #D4AF37
+color PANEL  = #0F1420
+color PANEL2 = #161D2E
+color HEAD   = #1E2638
+color TXT    = #E6E8EE
+color DIM    = #8A93A6
+color GOOD   = #34D399
+color BAD    = #F87171
+tSz    = tblSzIn == "Klein" ? size.small : tblSzIn == "Groß" ? size.large : size.normal
+tblPos = tblPosIn == "Oben links" ? position.top_left : tblPosIn == "Unten rechts" ? position.bottom_right : tblPosIn == "Oben rechts" ? position.top_right : position.bottom_left
+
+NS     = 5
+NAMES  = array.from("FVG", "EMA-Cross", "BB-Squeeze", "Pullback NY", "RSI NY")
+SHORTN = array.from("FVG", "EMA", "BB", "PB", "RSI")
+ONS    = array.from(on1, on2, on3, on4, on5)
+COLS   = array.from(cFVG, cEMA, cBB, cPB, cRSI)
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  PREISE / SIGNALE  (identisch zum v7-Indikator)
+// ═════════════════════════════════════════════════════════════════════════════
+realTk = ticker.standard(syminfo.tickerid)
+[rO, rH, rL, rC] = request.security(realTk, timeframe.period, [open, high, low, close])
+h200   = request.security(realTk, "60", ta.ema(close, 200)[1], lookahead = barmerge.lookahead_on)
+utcH   = hour(time, "UTC")
+utcMin = utcH * 60 + minute(time, "UTC")
+trR    = math.max(rH - rL, math.abs(rH - nz(rC[1], rC)), math.abs(rL - nz(rC[1], rC)))
+atrV   = ta.rma(trR, 14)
+upT    = rC > h200
+dnT    = rC < h200
+ok     = barstate.isconfirmed
+
+// ── 1) FVG-Retest: Lücke (Kerze i-2 ↔ i), Rücktest innerhalb 12 Bars, Schluss über/unter der Lücke
+var float fbTop = na
+var float fbBot = na
+var float fsTop = na
+var float fsBot = na
+var int   fbBar = -100000
+var int   fsBar = -100000
+fvgB = bar_index - fbBar >= 1 and bar_index - fbBar <= 13 and rL <= fbTop and rL >= fbBot and rC > rO and rC > fbTop
+fvgS = bar_index - fsBar >= 1 and bar_index - fsBar <= 13 and rH >= fsBot and rH <= fsTop and rC < rO and rC < fsBot
+bool newBullFvg = rL > rH[2]
+bool newBearFvg = rH < rL[2]
+if newBullFvg
+    fbTop := rL
+    fbBot := rH[2]
+    fbBar := bar_index
+if newBearFvg
+    fsBot := rH
+    fsTop := rL[2]
+    fsBar := bar_index
+s1B = fvgB and upT
+s1S = fvgS and not fvgB and dnT
+
+// ── 2) EMA-Cross 9/21 über/unter EMA200 (5m), 07–20 UTC
+e9   = ta.ema(rC, 9)
+e21  = ta.ema(rC, 21)
+e200 = ta.ema(rC, 200)
+crU  = e9 > e21 and e9[1] <= e21[1]
+crD  = e9 < e21 and e9[1] >= e21[1]
+s2B  = crU and rC > e200 and utcH >= 7 and utcH < 20 and upT
+s2S  = crD and rC < e200 and utcH >= 7 and utcH < 20 and dnT
+
+// ── 3) Bollinger-Squeeze: Bandbreite im unteren 20-%-Bereich (500 Bars), Schluss außerhalb des Bands
+bbM  = ta.sma(rC, 20)
+bbD  = ta.stdev(rC, 20, false)
+bbW  = 4 * bbD / bbM
+bbQ  = ta.percentile_linear_interpolation(bbW, 500, 20)
+sq   = bbW[1] <= bbQ[1]
+s3B  = sq and rC > bbM + 2 * bbD and upT
+s3S  = sq and rC < bbM - 2 * bbD and not s3B and dnT
+
+// ── 4) Trend-Pullback NY: Impuls > 2 ATR in 6 Bars, Rücksetzer an EMA20, Schluss in Trendrichtung, 12–17 UTC
+e20  = ta.ema(rC, 20)
+impU = ta.highest(rC - rC[6] > 2 * atrV ? 1 : 0, 6) > 0
+impD = ta.highest(rC[6] - rC > 2 * atrV ? 1 : 0, 6) > 0
+pbB  = impU and rL <= e20 and rC > e20 and rC > rO
+pbS  = impD and rH >= e20 and rC < e20 and rC < rO and not pbB
+nyS  = utcH >= 12 and utcH < 17
+s4B  = pbB and nyS and upT
+s4S  = pbS and nyS and dnT
+
+// ── 5) RSI NY spät: Heikin-Ashi-RSI 5 kommt aus 30/70 zurück, HA-Farbe bestätigt, 17–21 UTC, ATR ≥ 1.5 $
+haC  = (rO + rH + rL + rC) / 4
+float haO = na
+haO := na(haO[1]) ? (rO + rC) / 2 : (haO[1] + haC[1]) / 2
+rsi5 = ta.rsi(haC, 5)
+lt   = utcH >= 17 and utcH < 21 and atrV >= 1.5
+r5B  = rsi5[1] <= 30 and rsi5 > 30 and haC > haO and lt and upT
+r5S  = rsi5[1] >= 70 and rsi5 < 70 and haC < haO and lt and dnT and not r5B
+
+sigB = array.from(on1 and ok and s1B, on2 and ok and s2B, on3 and ok and s3B, on4 and ok and s4B, on5 and ok and r5B)
+sigS = array.from(on1 and ok and s1S, on2 and ok and s2S, on3 and ok and s3S, on4 and ok and s4S, on5 and ok and r5S)
+SLP  = array.from(sl1, sl2, sl3, sl4, sl5)
+RTS  = array.from(rt1, rt2, rt3, rt4, rt5)
+MULT = array.from(1.0, 1.5, 2.0, 3.0)
+
+bool tfOk      = not only5m or timeframe.period == "5"
+bool inWindow  = time >= fromT and time <= toT
+bool rollBlock = useRoll and utcMin >= 20 * 60 + 45 and utcMin < 23 * 60 + 15
+bool spikeBlk  = useSpike and not na(atrV[1]) and (rH - rL) > spikeK * atrV[1]
+bool friBlock  = useFri and dayofweek(time, "UTC") == dayofweek.friday and utcH >= 20
+bool allowNew  = tfOk and inWindow and not rollBlock and not spikeBlk and not friBlock
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  TRADE-MANAGEMENT (Strategy-Orders je Setup)
+//  Jeder Trade hat eine eigene ID (z. B. "FVG#12") mit 4 Ausstiegs-Teilen "TP1 FVG#12" … "TP4 FVG#12".
+//  Ergebnis je Trade in R = Summe der Teil-Gewinne (netto, inkl. Kommission) / geplantes Risiko (Menge × SL-Abstand).
+// ═════════════════════════════════════════════════════════════════════════════
+var array<string> tId    = array.new<string>(NS, "")
+var array<int>    tDir   = array.new<int>(NS, 0)
+var array<int>    tStage = array.new<int>(NS, 0)
+var array<float>  tQty   = array.new<float>(NS, 0.0)
+var array<float>  tLeg   = array.new<float>(NS, 0.0)
+var array<bool>   tFill  = array.new<bool>(NS, false)
+var array<int>    sLast  = array.new<int>(NS, -100000)
+var map<string, float> mRisk = map.new<string, float>()   // geplantes Risiko in $
+var map<string, int>   mSeg  = map.new<string, int>()     // 0 = In-Sample, 1 = Out-of-Sample (nach Signalzeit)
+var map<string, float> mR    = map.new<string, float>()   // aufgelaufenes Ergebnis in R
+var map<string, bool>  mHit  = map.new<string, bool>()    // TP1 (oder höher) gefüllt
+var array<string> pend   = array.new<string>()            // beendete Trades, deren Teile noch schließen können
+// Statistik je Setup und Segment (Index k * 2 + seg)
+var array<int>    stN    = array.new<int>(NS * 2, 0)
+var array<int>    stW    = array.new<int>(NS * 2, 0)      // Netto-R > 0
+var array<int>    stT    = array.new<int>(NS * 2, 0)      // TP1 erreicht
+var array<float>  stR    = array.new<float>(NS * 2, 0.0)
+var array<float>  stR2   = array.new<float>(NS * 2, 0.0)
+var int    seq       = 0
+var int    conflicts = 0
+var int    tooSmall  = 0
+var int    rejected  = 0
+var int    dayCnt    = 0
+var int    nDays     = 0
+var int    lastClosed = 0
+bool newDay = dayofmonth(time, "UTC") != dayofmonth(time[1], "UTC")
+if newDay
+    dayCnt := 0
+if (newDay or barstate.isfirst) and inWindow
+    nDays += 1
+
+float qStep = math.max(lotStep, nz(syminfo.mincontract, 0.0))
+
+f_setupOf(string id) =>
+    int out = -1
+    string head = str.split(id, "#").get(0)
+    for k = 0 to NS - 1
+        if SHORTN.get(k) == head
+            out := k
+    out
+f_openQty(string id) =>
+    float q = 0.0
+    if strategy.opentrades > 0
+        for i = 0 to strategy.opentrades - 1
+            if strategy.opentrades.entry_id(i) == id
+                q += math.abs(strategy.opentrades.size(i))
+    q
+f_entryPrice(string id) =>
+    float p = na
+    if strategy.opentrades > 0
+        for i = 0 to strategy.opentrades - 1
+            if strategy.opentrades.entry_id(i) == id and na(p)
+                p := strategy.opentrades.entry_price(i)
+    p
+f_legQty(float q0, float leg, int j) =>
+    j < 3 ? leg : q0 - 3 * leg    // TP4 nimmt den Rest: die 4 Teile ergeben genau die Gesamtmenge
+
+// ── 1) Geschlossene (Teil-)Trades verbuchen
+if strategy.closedtrades > lastClosed
+    for i = math.max(lastClosed, strategy.closedtrades.first_index) to strategy.closedtrades - 1
+        string cid = strategy.closedtrades.entry_id(i)
+        if mRisk.contains(cid)
+            mR.put(cid, mR.get(cid) + strategy.closedtrades.profit(i) / mRisk.get(cid))
+            if str.startswith(strategy.closedtrades.exit_comment(i), "TP")
+                mHit.put(cid, true)
+            int k = f_setupOf(cid)
+            if k >= 0 and tId.get(k) == cid
+                tFill.set(k, true)
+    lastClosed := strategy.closedtrades
+
+// ── 2) Laufende Trades: Füllung prüfen, TP-Stufe aus der Restmenge, nach TP1 Stopp auf Einstand, Ende erkennen
+for k = 0 to NS - 1
+    string id = tId.get(k)
+    if id != ""
+        float rem = f_openQty(id)
+        if not tFill.get(k) and rem > 0
+            tFill.set(k, true)
+            tQty.set(k, rem)                           // tatsächlich gefüllte Menge
+        if not tFill.get(k)
+            // Einstieg nie ausgeführt (z. B. Margin/Pyramiding): nicht als Trade zählen
+            rejected += 1
+            mRisk.remove(id)
+            mSeg.remove(id)
+            mR.remove(id)
+            mHit.remove(id)
+            tId.set(k, "")
+            tDir.set(k, 0)
+        else
+            float q0   = tQty.get(k)
+            float leg  = tLeg.get(k)
+            int   prev = tStage.get(k)
+            bool  live = rem > leg / 2
+            int   stg  = live ? math.min(int(math.round((q0 - rem) / leg)), 3) : prev
+            if live and stg > prev
+                tStage.set(k, stg)
+                if prev == 0
+                    sLast.set(k, bar_index)
+                    if useBE
+                        float ep = f_entryPrice(id)
+                        for j = stg to 3
+                            strategy.exit("TP" + str.tostring(j + 1) + " " + id, from_entry = id, qty = f_legQty(q0, leg, j), profit = math.round(SLP.get(k) * pipSz * RTS.get(k) * MULT.get(j) / syminfo.mintick), stop = ep, comment_profit = "TP" + str.tostring(j + 1), comment_loss = "BE")
+            if not live
+                if rem > 0
+                    strategy.close(id, comment = "Rest")
+                if prev == 0
+                    sLast.set(k, bar_index)
+                pend.push(id)
+                tId.set(k, "")
+                tDir.set(k, 0)
+                tStage.set(k, 0)
+
+// ── 2b) Beendete Trades abrechnen, sobald keine Teilposition mehr offen ist
+if pend.size() > 0
+    for p = pend.size() - 1 to 0
+        string id = pend.get(p)
+        if f_openQty(id) == 0
+            int k = f_setupOf(id)
+            int x = k * 2 + mSeg.get(id)
+            float r = mR.get(id)
+            stN.set(x, stN.get(x) + 1)
+            stR.set(x, stR.get(x) + r)
+            stR2.set(x, stR2.get(x) + r * r)
+            if r > 0
+                stW.set(x, stW.get(x) + 1)
+            if mHit.get(id)
+                stT.set(x, stT.get(x) + 1)
+            mRisk.remove(id)
+            mSeg.remove(id)
+            mR.remove(id)
+            mHit.remove(id)
+            pend.remove(p)
+
+// ── 3) Neue Signale
+for k = 0 to NS - 1
+    bool b = sigB.get(k)
+    bool s = sigS.get(k)
+    string cur = tId.get(k)
+    if (b or s) and (cur == "" or tStage.get(k) >= 1) and bar_index - sLast.get(k) > cooldown and dayCnt < maxDay and allowNew
+        int nd = b ? 1 : -1
+        // Netto-Position: offene Gegenrichtung eines ANDEREN Trades (laut Broker-Emulator oder noch ungefüllt) -> überspringen
+        bool clash = false
+        if strategy.opentrades > 0
+            for i = 0 to strategy.opentrades - 1
+                if strategy.opentrades.entry_id(i) != cur and math.sign(strategy.opentrades.size(i)) == -nd
+                    clash := true
+        for k2 = 0 to NS - 1
+            if k2 != k and tId.get(k2) != "" and not tFill.get(k2) and tDir.get(k2) == -nd
+                clash := true
+        float slD = SLP.get(k) * pipSz
+        float leg = math.floor(riskUsd / slD / (4 * qStep)) * qStep
+        if clash
+            conflicts += 1
+        else if leg < qStep
+            tooSmall += 1
+        else
+            float qty = 4 * leg
+            if cur != ""
+                // Trade ab TP1 wird durch das neue Signal ersetzt (wie im Indikator)
+                pend.push(cur)
+                if tDir.get(k) == nd
+                    strategy.close(cur, comment = "Neues Signal")
+                // Gegenrichtung: strategy.entry dreht die eigene Restposition (andere Gegenpositionen sind ausgeschlossen)
+            seq += 1
+            string id = SHORTN.get(k) + "#" + str.tostring(seq)
+            strategy.entry(id, nd == 1 ? strategy.long : strategy.short, qty = qty, comment = SHORTN.get(k) + (nd == 1 ? " ▲" : " ▼"))
+            int slTicks = math.round(slD / syminfo.mintick)
+            for j = 0 to 3
+                strategy.exit("TP" + str.tostring(j + 1) + " " + id, from_entry = id, qty = f_legQty(qty, leg, j), profit = math.round(slD * RTS.get(k) * MULT.get(j) / syminfo.mintick), loss = slTicks, comment_profit = "TP" + str.tostring(j + 1), comment_loss = "SL")
+            mRisk.put(id, qty * slD)
+            mSeg.put(id, time >= oosT ? 1 : 0)
+            mR.put(id, 0.0)
+            mHit.put(id, false)
+            tId.set(k, id)
+            tDir.set(k, nd)
+            tStage.set(k, 0)
+            tQty.set(k, qty)
+            tLeg.set(k, leg)
+            tFill.set(k, false)
+            dayCnt += 1
+            if showSig
+                string tip = NAMES.get(k) + " " + (nd == 1 ? "LONG" : "SHORT") + " · Signal-Schluss " + str.tostring(rC, format.mintick) + "\nEinstieg zum nächsten Open · SL " + str.tostring(SLP.get(k), "0") + " Pips = " + str.tostring(slD, "0.00") + " $ · Menge " + str.tostring(qty, "0.##") + " (4 × " + str.tostring(leg, "0.##") + ")\nTP1–4 = " + str.tostring(RTS.get(k), "0.0#") + " / " + str.tostring(RTS.get(k) * 1.5, "0.0#") + " / " + str.tostring(RTS.get(k) * 2, "0.0#") + " / " + str.tostring(RTS.get(k) * 3, "0.0#") + " R"
+                if nd == 1
+                    label.new(bar_index, rL, "▲ " + SHORTN.get(k), yloc = yloc.belowbar, style = label.style_label_up, color = COLS.get(k), textcolor = color.white, size = size.small, tooltip = tip)
+                else
+                    label.new(bar_index, rH, "▼ " + SHORTN.get(k), yloc = yloc.abovebar, style = label.style_label_down, color = COLS.get(k), textcolor = color.white, size = size.small, tooltip = tip)
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  CHART-KONTEXT
+// ═════════════════════════════════════════════════════════════════════════════
+plot(showTrend ? h200 : na, "1h EMA200 (Trend)", color = upT ? color.new(cBuy, 25) : dnT ? color.new(cSell, 25) : color.new(DIM, 25), linewidth = 2, style = plot.style_stepline, display = display.pane)
+bool smallTf  = timeframe.isintraday and timeframe.in_seconds() <= 900
+bool inLondon = utcH >= 7 and utcH < 12
+bool inNY     = utcH >= 12 and utcH < 17
+bool inNYLate = utcH >= 17 and utcH < 21
+bool inRoll   = utcMin >= 20 * 60 + 45 and utcMin < 23 * 60 + 15
+bgcolor(not (showSess and smallTf) ? na : inRoll ? color.new(#6B7280, 90) : inNY ? color.new(#3B82F6, 94) : inNYLate ? color.new(#8B5CF6, 95) : inLondon ? color.new(GOLD, 95) : na, title = "Session")
+bgcolor(time >= oosT and time[1] < oosT ? color.new(GOLD, 40) : na, title = "OOS-Beginn")
+
+// Maschinenlesbare Kennzahlen (Datenfenster) – auch für lokale Tests
+plot(stR.sum(), "net_R_total", display = display.data_window)
+plot(stN.sum(), "trades_counted", display = display.data_window)
+plot(stW.sum(), "wins_counted", display = display.data_window)
+plot(stT.sum(), "tp1_hits_counted", display = display.data_window)
+plot(conflicts, "conflicts_skipped", display = display.data_window)
+plot(rejected, "entries_rejected", display = display.data_window)
+plot(sigB.get(0) ? 1 : sigS.get(0) ? -1 : 0, "sig_FVG", display = display.data_window)
+plot(sigB.get(1) ? 1 : sigS.get(1) ? -1 : 0, "sig_EMA", display = display.data_window)
+plot(sigB.get(2) ? 1 : sigS.get(2) ? -1 : 0, "sig_BB", display = display.data_window)
+plot(sigB.get(3) ? 1 : sigS.get(3) ? -1 : 0, "sig_PB", display = display.data_window)
+plot(sigB.get(4) ? 1 : sigS.get(4) ? -1 : 0, "sig_RSI", display = display.data_window)
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  DASHBOARD (Backtest-Kennzahlen je Setup; In-Sample vs Out-of-Sample)
+//  Ø R ± = 95-%-Intervall des mittleren Trade-Ergebnisses (Normal-Näherung). Urteil nur aus OOS und ab 100 Trades.
+// ═════════════════════════════════════════════════════════════════════════════
+var int firstT = time
+var table tb = table.new(tblPos, 10, 20, bgcolor = PANEL, frame_color = color.new(GOLD, 30), frame_width = 1, border_color = PANEL2, border_width = 1)
+f_c(int c, int r, string t, color tc, color bg) =>
+    table.cell(tb, c, r, t, text_color = tc, text_size = tSz, bgcolor = bg)
+f_sg(float x, string fmt) =>
+    (x >= 0 ? "+" : "") + str.tostring(x, fmt)
+f_row(int r, string t, color tc) =>
+    table.cell(tb, 0, r, t, text_color = tc, text_size = tSz, bgcolor = PANEL, text_halign = text.align_left)
+    table.merge_cells(tb, 0, r, 9, r)
+f_rc(float x) =>
+    x >= 0 ? GOOD : BAD
+f_ci(int n, float s, float s2) =>
+    float m  = n > 0 ? s / n : na
+    float sd = n > 1 ? math.sqrt(math.max(s2 - n * m * m, 0) / (n - 1)) : na
+    [m, n > 1 ? 1.96 * sd / math.sqrt(n) : na]
+
+if showTbl and barstate.islast
+    tb.clear(0, 0, 9, 19)
+    table.cell(tb, 0, 0, "◆ GOLD MULTI-SETUP v7 · STRATEGIE-BACKTEST ◆", text_color = GOLD, text_size = tSz, bgcolor = HEAD)
+    table.merge_cells(tb, 0, 0, 9, 0)
+    f_row(1, "Daten " + str.format_time(math.max(firstT, fromT), "dd.MM.yyyy", "UTC") + " – " + str.format_time(time, "dd.MM.yyyy", "UTC") + "  ·  OOS ab " + str.format_time(oosT, "dd.MM.yyyy", "UTC") + "  ·  Risiko " + str.tostring(riskUsd, "0") + " $/Trade  ·  Mengen-Schritt " + str.tostring(qStep, "0.###"), DIM)
+    f_row(2, "SL in $:  FVG " + str.tostring(sl1 * pipSz, "0.00") + "  ·  EMA " + str.tostring(sl2 * pipSz, "0.00") + "  ·  BB " + str.tostring(sl3 * pipSz, "0.00") + "  ·  PB " + str.tostring(sl4 * pipSz, "0.00") + "  ·  RSI " + str.tostring(sl5 * pipSz, "0.00") + "   (Pip-Wert prüfen: 1 Pip = " + str.tostring(pipSz, "0.00") + " $)", DIM)
+    f_c(0, 3, "Setup", DIM, PANEL2)
+    f_c(1, 3, "IS Trades", DIM, PANEL2)
+    f_c(2, 3, "IS Gewinn-%", DIM, PANEL2)
+    f_c(3, 3, "IS Ø R", DIM, PANEL2)
+    f_c(4, 3, "IS Σ R", DIM, PANEL2)
+    f_c(5, 3, "OOS Trades", DIM, PANEL2)
+    f_c(6, 3, "OOS Gewinn-%", DIM, PANEL2)
+    f_c(7, 3, "OOS Ø R ± 95%", DIM, PANEL2)
+    f_c(8, 3, "OOS Σ R", DIM, PANEL2)
+    f_c(9, 3, "Urteil (OOS)", DIM, PANEL2)
+    array<int>   tn  = array.from(0, 0)
+    array<int>   tw  = array.from(0, 0)
+    array<float> tr  = array.from(0.0, 0.0)
+    array<float> tr2 = array.from(0.0, 0.0)
+    int nGood = 0
+    int row = 4
+    for k = 0 to NS - 1
+        bool on = ONS.get(k)
+        color rowBg = row % 2 == 0 ? PANEL : PANEL2
+        f_c(0, row, "● " + NAMES.get(k) + (on ? "" : " (aus)"), on ? COLS.get(k) : DIM, rowBg)
+        for seg = 0 to 1
+            int   x = k * 2 + seg
+            int   n = stN.get(x)
+            tn.set(seg, tn.get(seg) + n)
+            tw.set(seg, tw.get(seg) + stW.get(x))
+            tr.set(seg, tr.get(seg) + stR.get(x))
+            tr2.set(seg, tr2.get(seg) + stR2.get(x))
+            [m, ci] = f_ci(n, stR.get(x), stR2.get(x))
+            int c0 = 1 + seg * 4
+            f_c(c0, row, str.tostring(n), n > 0 ? TXT : DIM, rowBg)
+            f_c(c0 + 1, row, n > 0 ? str.tostring(math.round(100.0 * stW.get(x) / n)) + "%" : "–", n > 0 ? TXT : DIM, rowBg)
+            f_c(c0 + 2, row, n > 0 ? f_sg(m, "0.00") + (seg == 1 and not na(ci) ? " ± " + str.tostring(ci, "0.00") : "") : "–", n > 0 ? f_rc(m) : DIM, rowBg)
+            f_c(c0 + 3, row, n > 0 ? f_sg(stR.get(x), "0.0") : "–", n > 0 ? f_rc(stR.get(x)) : DIM, rowBg)
+            if seg == 1
+                string v = not on and n == 0 ? "–" : n < 100 ? "⚠ < 100 Trades" : m - ci > 0 ? "✓ positiv" : m + ci < 0 ? "✕ negativ" : "≈ 0 · unklar"
+                nGood += n >= 100 and m - ci > 0 ? 1 : 0
+                f_c(9, row, v, v == "✓ positiv" ? GOOD : v == "✕ negativ" ? BAD : GOLD, rowBg)
+        row += 1
+    f_c(0, row, "GESAMT", GOLD, HEAD)
+    for seg = 0 to 1
+        int n = tn.get(seg)
+        [m, ci] = f_ci(n, tr.get(seg), tr2.get(seg))
+        int c0 = 1 + seg * 4
+        f_c(c0, row, str.tostring(n), TXT, HEAD)
+        f_c(c0 + 1, row, n > 0 ? str.tostring(math.round(100.0 * tw.get(seg) / n)) + "%" : "–", TXT, HEAD)
+        f_c(c0 + 2, row, n > 0 ? f_sg(m, "0.00") + (seg == 1 and not na(ci) ? " ± " + str.tostring(ci, "0.00") : "") : "–", n > 0 ? f_rc(m) : DIM, HEAD)
+        f_c(c0 + 3, row, f_sg(tr.get(seg), "0.0"), f_rc(tr.get(seg)), HEAD)
+    f_c(9, row, str.tostring(nGood) + " / " + str.tostring(NS) + " ✓", GOLD, HEAD)
+    float gl = strategy.grossloss
+    float pf = gl > 0 ? strategy.grossprofit / gl : na
+    f_row(row + 1, "Konto: Netto " + str.tostring(strategy.netprofit, "#,##0") + " $   ·   Profit-Faktor " + (na(pf) ? "–" : str.tostring(pf, "0.00")) + "   ·   Max. Drawdown " + str.tostring(strategy.max_drawdown, "#,##0") + " $   ·   Ø " + str.tostring(float(tn.get(0) + tn.get(1)) / math.max(nDays, 1), "0.0") + " Trades/Tag", f_rc(strategy.netprofit))
+    f_row(row + 2, "Übersprungen: " + str.tostring(conflicts) + " Gegensignale (Netto-Position) · " + str.tostring(tooSmall) + " Menge < Schritt · " + str.tostring(rejected) + " nicht ausgeführt", DIM)
+    f_row(row + 3, "Gewinn-% = Trades mit Netto-R > 0. Urteil gilt nur, wenn nichts anhand der OOS-Spalten eingestellt wurde; 5 Setups = Mehrfachtest.", DIM)
+    int wr = row + 4
+    if tn.get(0) == 0 and tn.get(1) > 0
+        f_row(wr, "⚠ Keine In-Sample-Trades: geladene Historie beginnt nach dem OOS-Datum (Datum anpassen oder mehr Historie laden)", GOLD)
+        wr += 1
+    if not chart.is_standard
+        f_row(wr, "⚠ Nicht-Standard-Chart (Heikin Ashi/Renko …): Füllkurse unrealistisch – normalen Kerzenchart verwenden", BAD)
+        wr += 1
+    if not tfOk
+        f_row(wr, "⚠ Keine Trades: nur auf 5m freigegeben (Einstellung)", BAD)

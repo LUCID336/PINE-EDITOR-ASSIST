@@ -17,3 +17,14 @@
 | 13 | `aggressor_side`, footprint, fundamentals locally | UNSUPPORTED | wait for PineTS support / provider data |
 | 14 | 886 API entries UNVERIFIED locally | OPEN | extend reference tests per namespace (arrays, maps, matrices, strings, drawings) |
 | 15 | Real market data backtests and walk-forward | NOT RUN | operator-supplied data with checked rights |
+
+## Gold Multi-Setup v7 Strategie (2026-11-27)
+- TradingView-Kompilierung und Strategy-Tester-Lauf: NOT RUN (Anleitung: workspace/strategies/GOLD_STRATEGIE_TESTANLEITUNG.md).
+- Lokal nicht abgedeckte Szenarien:
+  - abgelehnte Einstiege (Pyramiding/Margin),
+  - Drehung des eigenen Setups,
+  - TradingView-Rundung auf syminfo.mincontract,
+  - 9000-Trade-Grenze,
+  - Bar Magnifier.
+- Ob ein erneutes strategy.exit (BE) Parameter ersetzt oder zusammenführt: in der TradingView-Trade-Liste prüfen.
+- Profitabilität: nur auf echten Daten bewertbar (MT5-Export → tools/convert_mt5.py).

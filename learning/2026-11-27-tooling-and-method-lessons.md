@@ -101,3 +101,20 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 - PineTS silently ignores unknown input titles (a renamed input invalidated a test run) -> pinelab now returns
   INPUT_INVALID, mirroring the TradingView MCP code input_invalid.
 - UI: secret inputs need display = display.none (status line); white text on light setup colours fails contrast.
+
+## LR-13 Gold v7 -> Strategy conversion — VERIFIED locally (PineTS) / official docs; TradingView NOT RUN
+- `close_entries_rule` defaults to "FIFO": exits of a later entry close (and are reported against) the OLDEST open
+  trade. With several independent setups in one strategy, per-setup statistics via `entry_id` are then wrong. Use
+  "ANY" (non-US CFD/forex) so `strategy.exit(from_entry=...)` targets its own entry. PineTS 0.13.1 emulates FIFO
+  accounting the same way, which is how the bug surfaced (exit "TP1 FVG#7" attributed to RSI#6).
+- A partial-exit leg's order id names the leg even when it fills at the stop ("TP1 X" with comment "SL"): classify
+  fills by `exit_comment`, not `exit_id`.
+- Remaining-quantity arithmetic leaves float residue (1e-12) -> treat "open" as rem > half a leg; last leg = remainder.
+- An entry is not a trade until it fills: keep a pending state and count rejected entries (pyramiding/margin).
+- "TP1 reached" is not a win rate when the BE stop is only moved at bar close (TP1 and SL on one bar = -0.5R):
+  report net R per trade, mean R with CI per setup, and judge OOS per setup (>= 100 trades), not in total.
+- Lot steps: 0.01 lot = 1 oz for most XAUUSD CFDs; sizing to 0.04 oz produced untradeable legs (quant review).
+- Test design: property tests on the trade list (next-open fills, level prices, BE timing, no missed exits via raw
+  OHLC, R accounting) + 8 mutation controls, all detected. One mutation (no conflict rule) was undetected until a
+  config with EMA-Cross enabled produced a real conflict -> mutation testing exposed a coverage hole again.
+- PineTS needs ~6 GB heap for 130k 5m bars of this strategy (pinelab --heap-mb/--timeout-s added).
