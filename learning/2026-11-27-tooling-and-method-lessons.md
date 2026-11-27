@@ -78,3 +78,13 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 - Static checker now emits the T7-equivalent consistency warning (same line as TradingView; 0 false warnings on 414 examples).
 - Copilot AGENTS.md stored as CANDIDATE (knowledge/candidates/); one [D] claim corrected via ledger
   (ta.sma/ta.highest accept series int length; ta.ema/ta.rsi/ta.atr require simple int).
+
+## LR-11 V5 build lessons (independent reviews) — VERIFIED locally / by official docs
+- v6: `na()`, `nz()`, `fixnan()` reject bool; bool cannot be na (official v6 migration guide). Neither PineTS nor the old
+  checker caught `na(boolVar)`; new static rule added (0 false positives on 414 official examples).
+- A backtest report without statistical caveats is misleading even with exact engine parity: pinelab now attaches
+  bootstrap CI, concentration, sample-size and benchmark flags and a "NO EDGE CLAIM" verdict.
+- Parity between two implementations proves bookkeeping only; shared assumptions (slippage units, sizing rule) stay
+  UNVERIFIED_TV until probed on TradingView. Signals are now recomputed independently in tests.
+- Feature quality must be derived from exactly the exported field list; presence is not freshness (STALE state).
+- Reference tests that never fail need mutation checks: the pivot tie rule was invisible without dedicated fixtures.

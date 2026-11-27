@@ -1,0 +1,3 @@
+//@version=6
+indicator("EMA PoC")
+plot(ta.ema(close, 20), "ema20")

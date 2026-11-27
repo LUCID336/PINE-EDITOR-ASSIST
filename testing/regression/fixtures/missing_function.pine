@@ -1,0 +1,3 @@
+//@version=6
+indicator("missing function fixture")
+plot(ta.superema(close, 10))

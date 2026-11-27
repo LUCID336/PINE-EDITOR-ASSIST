@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "pinelab": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["tools/pinelab_mcp.py"],
+      "env": {}
+    }
+  }
+}

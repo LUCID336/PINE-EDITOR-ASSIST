@@ -1,0 +1,3 @@
+//@version=6
+indicator("syntax error fixture")
+plot(ta.sma(close, 10)
