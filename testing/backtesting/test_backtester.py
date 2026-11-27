@@ -65,3 +65,22 @@ def test_percent_of_equity_sizing_rule():
     p = bt.Params(initial_capital=10000, qty_type='percent_of_equity', qty_value=100, commission_pct=0.1)
     t = bt.run(BARS, ENTRY, EXIT, p).trades[0]
     assert t.qty * t.entry_price * 1.001 == pytest.approx(10000)
+
+
+def test_empty_segment_rejected():
+    with pytest.raises(ValueError):
+        bt.run(BARS, ENTRY, EXIT, bt.Params(), start=6, end=6)
+
+
+def test_zero_pnl_trade_is_neutral():
+    flat = mk([100] * 6, [100] * 6)
+    r = bt.run(flat, ENTRY, EXIT, bt.Params(qty_value=1))
+    m = r.metrics
+    assert m['neutral_trades'] == 1 and m['win_rate'] == 0 and m['profit_factor'] is None
+    assert m['profit_factor_note'] == 'no decisive trades'
+
+
+def test_drawdown_peak_starts_at_initial_capital():
+    falling = mk([100, 100, 95, 90, 90, 90], [100, 95, 90, 90, 90, 90])
+    r = bt.run(falling, ENTRY, [False] * 6, bt.Params(initial_capital=1000, qty_value=10))
+    assert r.metrics['max_drawdown'] == pytest.approx(100)   # 1000 -> 900, entry at bar 1 open 100

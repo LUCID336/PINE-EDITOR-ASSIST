@@ -76,3 +76,23 @@ def test_cli_backtest_report_shape():
     assert split['in_sample_bars'][1] == split['out_of_sample_bars'][0]           # contiguous, no overlap
     assert s['cost_stress']['metrics']['net_profit'] < s['independent_replay']['metrics']['net_profit']
     assert env['source_sha256'] and env['data_sha256'] and env['engine']['version']
+
+
+def test_signals_recomputed_independently(run):
+    """Independent recomputation of the strategy signals (EMA cross + prior-day HTF filter) from raw bars (review fix)."""
+    sys.path.insert(0, str(LAB / 'testing' / 'regression'))
+    from test_indicator_reference import cross, ema
+    closes = [b['close'] for b in run['bars']]
+    up, dn = cross(ema(closes, 20), ema(closes, 50), True), cross(ema(closes, 20), ema(closes, 50), False)
+    days = {}
+    for b in run['bars']:
+        days[b['time'] - b['time'] % 86400000] = b['close']
+    keys = sorted(days)
+    d_close = [days[k] for k in keys]
+    d_ema = ema(d_close, 10)
+    trend = {}
+    for j in range(1, len(keys)):                     # previous completed day: close > its EMA(10)
+        trend[keys[j]] = d_ema[j - 1] is not None and d_close[j - 1] > d_ema[j - 1]
+    exp_entry = [bool(up[i]) and trend.get(b['time'] - b['time'] % 86400000, False) for i, b in enumerate(run['bars'])]
+    assert run['ent'] == exp_entry
+    assert run['ext'] == [bool(x) for x in dn]

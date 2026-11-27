@@ -1,28 +1,32 @@
 //@version=6
-indicator("Market Features v2 | Human + AI", shorttitle = "MF v2", overlay = true, max_labels_count = 50)
+indicator("Market Features v2.1 | Human + AI", shorttitle = "MF v2.1", overlay = true)
 // Pine Engineering Lab V5. One feature core, two presentations:
-//   HUMAN: overlay EMA, confirmed swing level, compact status table (text, not color only).
-//   AI:    JSON feature event (schema 2.0) per CONFIRMED bar via alert(); optional log.info copy for local tests.
-// Temporal contract: every feature is known at the close of the bar it is stamped with (bar_close_ms).
-// HTF values use the previous completed HTF bar (close[1] + lookahead_on, TradingView-verified semantics).
-// Swing levels are reported on their observation bar (right-bar delay), never backdated.
+//   HUMAN: overlay EMA, confirmed swing level, status table (state as text, theme-aware colours).
+//   AI:    JSON feature event (schema 2.1) per CONFIRMED bar via alert(); optional log.info copy for local tests.
+// Temporal contract: every feature is known at bar_close_ms. HTF values come from the previous completed HTF bar
+// (close[1] + lookahead_on, TradingView-verified). Swing levels are reported on their observation bar, never backdated.
+// quality: READY = all features present and fresh; STALE = present but older than the staleness limits; MISSING = any null.
+// Export runs only on standard time-based charts with a valid bar close time (no NaN in JSON).
 
 // ---------------- Inputs ----------------
+const string BUILD = "mf-2.1.0"   // bound to this source version (not a user input) to keep dedup keys unique
 const string GRP_F = "Features"
+const string GRP_Q = "Quality"
 const string GRP_H = "Human view"
 const string GRP_A = "AI export"
-int    emaLenInput   = input.int(20, "EMA length", minval = 1, group = GRP_F)
-int    rsiLenInput   = input.int(14, "RSI length", minval = 1, group = GRP_F)
-int    atrLenInput   = input.int(14, "ATR length", minval = 1, group = GRP_F)
-int    volLenInput   = input.int(20, "Volume baseline length", minval = 1, group = GRP_F)
-string htfInput      = input.timeframe("D", "Higher timeframe", group = GRP_F, tooltip = "Must be higher than the chart timeframe; otherwise HTF features are null and quality is MISSING.")
-int    htfEmaInput   = input.int(10, "HTF EMA length", minval = 1, group = GRP_F)
-int    swingLenInput = input.int(3, "Swing strength (left = right bars)", minval = 1, maxval = 20, group = GRP_F)
-bool   showVisInput  = input.bool(true, "Show overlay (EMA + swing level)", group = GRP_H)
-bool   showTblInput  = input.bool(true, "Show status table", group = GRP_H)
-bool   emitAlertInput = input.bool(false, "Emit JSON alert per confirmed bar", group = GRP_A, tooltip = "Create the alert with 'Any alert() function call'. Off by default.")
-bool   emitLogInput  = input.bool(false, "Also write JSON to Pine Logs (testing)", group = GRP_A)
-string buildInput    = input.string("mf-2.0.0", "Build id", group = GRP_A)
+int    emaLenInput    = input.int(20, "EMA length", minval = 1, group = GRP_F)
+int    rsiLenInput    = input.int(14, "RSI length", minval = 1, group = GRP_F)
+int    atrLenInput    = input.int(14, "ATR length", minval = 1, group = GRP_F)
+int    volLenInput    = input.int(20, "Volume baseline length", minval = 1, group = GRP_F, tooltip = "rvol = volume / SMA(volume, length); the SMA includes the current bar.")
+string htfInput       = input.timeframe("D", "Higher timeframe", group = GRP_F, tooltip = "Must be higher than the chart timeframe; otherwise HTF features are null and quality is MISSING.")
+int    htfEmaInput    = input.int(10, "HTF EMA length", minval = 1, group = GRP_F)
+int    swingLenInput  = input.int(3, "Swing strength (left = right bars)", minval = 1, maxval = 20, group = GRP_F)
+int    swingStaleInput = input.int(500, "Swing level stale after (bars)", minval = 1, group = GRP_Q)
+int    htfStaleInput  = input.int(4, "HTF value stale after (HTF periods)", minval = 2, group = GRP_Q, tooltip = "Age of the HTF bar behind the value, in HTF periods. 4 tolerates weekends and holidays on daily HTF.")
+bool   showVisInput   = input.bool(true, "Show overlay (EMA + swing level)", group = GRP_H)
+bool   showTblInput   = input.bool(true, "Show status table", group = GRP_H)
+bool   emitAlertInput = input.bool(false, "Emit JSON alert per confirmed bar", group = GRP_A, tooltip = "Create the alert with 'Any alert() function call'. Re-create the alert after changing inputs.")
+bool   emitLogInput   = input.bool(false, "Also write JSON to Pine Logs (testing)", group = GRP_A)
 
 // ---------------- Feature core (unconditional, every bar) ----------------
 float ema   = ta.ema(close, emaLenInput)
@@ -36,35 +40,66 @@ safeRatio(float num, float den) =>
 float atrPct = 100.0 * safeRatio(atr, close)
 float rvol   = safeRatio(volume, vBase)
 
+int   htfMs    = timeframe.in_seconds(htfInput) * 1000
 bool  htfValid = timeframe.in_seconds(htfInput) > timeframe.in_seconds()
 float htfClosePrev = request.security(syminfo.tickerid, htfInput, close[1], lookahead = barmerge.lookahead_on)
 float htfEmaPrev   = request.security(syminfo.tickerid, htfInput, ta.ema(close, htfEmaInput)[1], lookahead = barmerge.lookahead_on)
+int   htfBarOpen   = request.security(syminfo.tickerid, htfInput, time[1], lookahead = barmerge.lookahead_on)
 float htfClose = htfValid ? htfClosePrev : na
-float htfTrend = htfValid and not na(htfClosePrev) and not na(htfEmaPrev) ? (htfClosePrev > htfEmaPrev ? 1.0 : -1.0) : na
+float htfTrend = htfValid and not na(htfClosePrev) and not na(htfEmaPrev) ? (htfClosePrev > htfEmaPrev ? 1.0 : htfClosePrev < htfEmaPrev ? -1.0 : 0.0) : na
+int   htfAgeMs = htfValid and not na(htfBarOpen) ? time - htfBarOpen : na
 
 float pivotHigh = ta.pivothigh(high, swingLenInput, swingLenInput)
-var float swingHigh = na
+var float swingHigh     = na
+var int   swingAnchorMs = na
+var int   swingObsBar   = na
 if barstate.isconfirmed and not na(pivotHigh)
-    swingHigh := pivotHigh
+    swingHigh     := pivotHigh
+    swingAnchorMs := time[swingLenInput]
+    swingObsBar   := bar_index
+int   swingAgeBars = na(swingObsBar) ? na : bar_index - swingObsBar
 float distSwingAtr = safeRatio(close - swingHigh, atr)
 
-bool ready = not na(ema) and not na(rsi) and not na(atrPct) and not na(rvol) and not na(htfClose) and not na(htfTrend) and not na(swingHigh)
+// Quality: derived from exactly the exported feature list
+array<string> missing = array.new<string>()
+if na(ema)
+    missing.push("ema")
+if na(rsi)
+    missing.push("rsi")
+if na(atrPct)
+    missing.push("atr_pct")
+if na(rvol)
+    missing.push("rvol")
+if na(htfClose)
+    missing.push("htf_close")
+if na(htfTrend)
+    missing.push("htf_trend")
+if na(swingHigh)
+    missing.push("swing_high")
+if na(distSwingAtr)
+    missing.push("dist_swing_atr")
+bool stale = (not na(swingAgeBars) and swingAgeBars > swingStaleInput) or (not na(htfAgeMs) and htfAgeMs > htfStaleInput * htfMs)
+string quality = missing.size() > 0 ? "MISSING" : stale ? "STALE" : "READY"
+bool exportable = chart.is_standard and not na(time_close)
 
 // ---------------- Human view ----------------
-plot(showVisInput ? ema : na, "EMA", color = color.new(color.blue, 0), linewidth = 2)
-plot(showVisInput ? swingHigh : na, "Swing high (confirmed)", color = color.new(color.gray, 0), style = plot.style_stepline)
-var table panel = table.new(position.top_right, 2, 5, border_width = 1)
+plot(showVisInput ? ema : na, "EMA", color = color.new(color.blue, 0), linewidth = 2, display = display.pane)
+plot(showVisInput ? swingHigh : na, "Swing high (confirmed)", color = color.new(color.gray, 0), style = plot.style_stepline, display = display.pane)
+var table panel = table.new(position.top_right, 2, 6, bgcolor = chart.bg_color, border_color = chart.fg_color, border_width = 1)
 if showTblInput and barstate.islast
-    table.cell(panel, 0, 0, "Quality", text_size = size.small)
-    table.cell(panel, 1, 0, ready ? "READY" : "MISSING", text_size = size.small, bgcolor = ready ? color.new(color.green, 70) : color.new(color.orange, 60))
-    table.cell(panel, 0, 1, "Bar", text_size = size.small)
-    table.cell(panel, 1, 1, barstate.isconfirmed ? "CLOSED" : "OPEN (provisional)", text_size = size.small)
-    table.cell(panel, 0, 2, "HTF trend", text_size = size.small)
-    table.cell(panel, 1, 2, na(htfTrend) ? "n/a" : htfTrend > 0 ? "UP" : "DOWN", text_size = size.small)
-    table.cell(panel, 0, 3, "RSI", text_size = size.small)
-    table.cell(panel, 1, 3, na(rsi) ? "n/a" : str.tostring(rsi, "#.0"), text_size = size.small)
-    table.cell(panel, 0, 4, "ATR %", text_size = size.small)
-    table.cell(panel, 1, 4, na(atrPct) ? "n/a" : str.tostring(atrPct, "#.00"), text_size = size.small)
+    color tc = chart.fg_color
+    table.cell(panel, 0, 0, "Quality", text_color = tc, text_size = size.small)
+    table.cell(panel, 1, 0, quality + (missing.size() > 0 ? " (" + str.tostring(missing.size()) + " null)" : ""), text_color = tc, text_size = size.small, bgcolor = quality == "READY" ? color.new(color.green, 70) : color.new(color.orange, 60))
+    table.cell(panel, 0, 1, "Bar", text_color = tc, text_size = size.small)
+    table.cell(panel, 1, 1, barstate.isconfirmed ? "CLOSED" : "OPEN (provisional)", text_color = tc, text_size = size.small)
+    table.cell(panel, 0, 2, "HTF trend", text_color = tc, text_size = size.small)
+    table.cell(panel, 1, 2, na(htfTrend) ? "n/a" : htfTrend > 0 ? "UP" : htfTrend < 0 ? "DOWN" : "FLAT", text_color = tc, text_size = size.small)
+    table.cell(panel, 0, 3, "RSI", text_color = tc, text_size = size.small)
+    table.cell(panel, 1, 3, na(rsi) ? "n/a" : str.tostring(rsi, "0.0"), text_color = tc, text_size = size.small)
+    table.cell(panel, 0, 4, "ATR %", text_color = tc, text_size = size.small)
+    table.cell(panel, 1, 4, na(atrPct) ? "n/a" : str.tostring(atrPct, "0.00"), text_color = tc, text_size = size.small)
+    table.cell(panel, 0, 5, "AI export", text_color = tc, text_size = size.small)
+    table.cell(panel, 1, 5, not exportable ? "OFF (non-standard chart)" : emitAlertInput ? "ALERT" + (emitLogInput ? " + LOG" : "") : emitLogInput ? "LOG" : "OFF", text_color = tc, text_size = size.small)
 
 // ---------------- AI view: machine-readable plots (same variables as JSON) ----------------
 plot(ema, "f_ema", display = display.data_window)
@@ -75,17 +110,25 @@ plot(htfClose, "f_htf_close", display = display.data_window)
 plot(htfTrend, "f_htf_trend", display = display.data_window)
 plot(swingHigh, "f_swing_high", display = display.data_window)
 plot(distSwingAtr, "f_dist_swing_atr", display = display.data_window)
-plot(ready ? 1 : 0, "quality_ready", display = display.data_window)
+plot(quality == "READY" ? 1 : quality == "STALE" ? 2 : 0, "quality_code", display = display.data_window)
+plot(barstate.isconfirmed ? 1 : 0, "f_bar_confirmed", display = display.data_window)
 
-// ---------------- AI view: JSON event (schema 2.0) ----------------
+// ---------------- AI view: JSON event (schema 2.1) ----------------
 jsonNum(float x) =>
     na(x) ? "null" : str.tostring(x, "0.##########")
+jsonInt(int x) =>
+    na(x) ? "null" : str.tostring(x)
 jsonStr(string s) =>
     '"' + str.replace_all(str.replace_all(s, "\\", "\\\\"), '"', '\\"') + '"'
+jsonList(array<string> a) =>
+    string out = "["
+    for [i, v] in a
+        out += (i > 0 ? "," : "") + jsonStr(v)
+    out + "]"
 
-string configId = "e" + str.tostring(emaLenInput) + "_r" + str.tostring(rsiLenInput) + "_a" + str.tostring(atrLenInput) + "_v" + str.tostring(volLenInput) + "_h" + htfInput + "_he" + str.tostring(htfEmaInput) + "_s" + str.tostring(swingLenInput)
-if barstate.isconfirmed and (emitAlertInput or emitLogInput)
-    string msg = '{"schema_version":"2.0","build":' + jsonStr(buildInput) + ',"config_id":' + jsonStr(configId) + ',"symbol":' + jsonStr(syminfo.tickerid) + ',"timeframe":' + jsonStr(timeframe.period) + ',"bar_open_ms":' + str.tostring(time) + ',"bar_close_ms":' + str.tostring(time_close) + ',"confirmed":true,"quality":' + jsonStr(ready ? "READY" : "MISSING") + ',"features":{"ema":' + jsonNum(ema) + ',"rsi":' + jsonNum(rsi) + ',"atr_pct":' + jsonNum(atrPct) + ',"rvol":' + jsonNum(rvol) + ',"htf_close":' + jsonNum(htfClose) + ',"htf_trend":' + jsonNum(htfTrend) + ',"swing_high":' + jsonNum(swingHigh) + ',"dist_swing_atr":' + jsonNum(distSwingAtr) + '}}'
+string configId = "e" + str.tostring(emaLenInput) + "_r" + str.tostring(rsiLenInput) + "_a" + str.tostring(atrLenInput) + "_v" + str.tostring(volLenInput) + "_h" + htfInput + "_he" + str.tostring(htfEmaInput) + "_s" + str.tostring(swingLenInput) + "_ss" + str.tostring(swingStaleInput) + "_hs" + str.tostring(htfStaleInput)
+if barstate.isconfirmed and exportable and (emitAlertInput or emitLogInput)
+    string msg = '{"schema_version":"2.1","build":' + jsonStr(BUILD) + ',"config_id":' + jsonStr(configId) + ',"symbol":' + jsonStr(syminfo.tickerid) + ',"currency":' + jsonStr(syminfo.currency) + ',"mintick":' + jsonNum(syminfo.mintick) + ',"timeframe":' + jsonStr(timeframe.period) + ',"bar_open_ms":' + jsonInt(time) + ',"bar_close_ms":' + jsonInt(time_close) + ',"confirmed":true,"quality":' + jsonStr(quality) + ',"missing":' + jsonList(missing) + ',"features":{"ema":' + jsonNum(ema) + ',"rsi":' + jsonNum(rsi) + ',"atr_pct":' + jsonNum(atrPct) + ',"rvol":' + jsonNum(rvol) + ',"htf_close":' + jsonNum(htfClose) + ',"htf_trend":' + jsonNum(htfTrend) + ',"swing_high":' + jsonNum(swingHigh) + ',"dist_swing_atr":' + jsonNum(distSwingAtr) + '},"meta":{"htf_bar_open_ms":' + jsonInt(htfValid ? htfBarOpen : na) + ',"swing_anchor_ms":' + jsonInt(swingAnchorMs) + ',"swing_age_bars":' + jsonInt(swingAgeBars) + '}}'
     if emitAlertInput
         alert(msg, alert.freq_once_per_bar_close)
     if emitLogInput

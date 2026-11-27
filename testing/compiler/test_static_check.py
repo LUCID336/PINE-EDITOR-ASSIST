@@ -83,6 +83,10 @@ class StaticCheckTests(unittest.TestCase):
             f = psc.check((probes / name).read_text(), LEDGER)
             self.assertIn(pos, [(x['line'], x['column']) for x in f], name)
 
+    def test_na_on_bool_is_v6_error(self):
+        self.assertTrue(errs(HEAD + 'bool up = close > open\nplot(na(up) ? 1 : 0)\n'))
+        self.assertEqual(errs(HEAD + 'float x = close\nplot(na(x) ? 1 : 0)\n'), [])
+
 
 if __name__ == '__main__':
     unittest.main()

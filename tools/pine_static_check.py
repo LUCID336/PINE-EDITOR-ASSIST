@@ -178,6 +178,13 @@ def check(src, ledger):
             decl = m.start() + len(m.group(0)) - len(m.group(0).lstrip(' \t'))
             add('ERROR', line_of(m.start()), f'type mismatch: "{declared_type}" declared but {kind} literal assigned', col_of(decl))
 
+    # v6: bool can no longer be na; na()/nz()/fixnan() reject "bool" arguments (official v6 migration guide).
+    bool_vars = set(re.findall(r'^[ \t]*(?:var[ \t]+|varip[ \t]+)?(?:series[ \t]+|simple[ \t]+)?bool[ \t]+([A-Za-z_]\w*)[ \t]*=', code, re.M))
+    for m in re.finditer(r'(?<![\w.])(na|nz|fixnan)\s*\(\s*([A-Za-z_]\w*)\s*\)', code):
+        if m.group(2) in bool_vars:
+            add('ERROR', line_of(m.start()), f'{m.group(1)}() does not accept "bool" arguments in v6 ("{m.group(2)}" is bool; '
+                                             'bool values can no longer be na)', col_of(m.start()))
+
     # TradingView consistency warning (observed T7, 2026-11-27): history-dependent ta.* call inside a conditional
     # local block (if/else/for/while/switch), not inside a function body.
     stack = []  # (indent, kind)

@@ -59,6 +59,8 @@ def run(bars, entry_sig, exit_sig, params=None, start=0, end=None, bars_per_year
     p = params or Params()
     n = len(bars)
     end = n if end is None else min(end, n)
+    if not 0 <= start < end:
+        raise ValueError(f'empty or invalid segment [{start}, {end})')
     rate = p.commission_pct / 100.0
     cash = p.initial_capital
     pos = None
@@ -125,8 +127,8 @@ def _close(t, i, time, px, rate):
 def metrics(bars, trades, equity, p, start, end, bars_per_year):
     pnl = [t.pnl for t in trades]
     wins = [x for x in pnl if x > 0]
-    losses = [x for x in pnl if x <= 0]
-    peak, mdd, mdd_pct = -math.inf, 0.0, 0.0
+    losses = [x for x in pnl if x < 0]          # zero-P&L trades are neutral in both win rate and profit factor
+    peak, mdd, mdd_pct = p.initial_capital, 0.0, 0.0   # drawdown measured from initial capital onwards
     for e in equity:
         peak = max(peak, e)
         mdd = max(mdd, peak - e)
@@ -141,8 +143,10 @@ def metrics(bars, trades, equity, p, start, end, bars_per_year):
         'net_profit': round(sum(pnl), 10),
         'gross_profit': round(sum(wins), 10),
         'gross_loss': round(sum(losses), 10),
-        'profit_factor': (sum(wins) / -sum(losses)) if losses and sum(losses) < 0 else None,
+        'profit_factor': (sum(wins) / -sum(losses)) if losses else None,
+        'profit_factor_note': None if losses else ('no losing trades (infinite)' if wins else 'no decisive trades'),
         'win_rate': len(wins) / len(trades) if trades else None,
+        'neutral_trades': sum(1 for x in pnl if x == 0),
         'avg_trade': sum(pnl) / len(trades) if trades else None,
         'commission_paid': sum(t.entry_commission + t.exit_commission for t in trades),
         'max_drawdown': mdd,
@@ -151,6 +155,9 @@ def metrics(bars, trades, equity, p, start, end, bars_per_year):
         'return_pct': 100.0 * (equity[-1] / p.initial_capital - 1) if equity else 0.0,
         'buy_hold_return_pct': 100.0 * (last / first - 1),
         'sharpe_bar_annualized': (mu / sd * math.sqrt(bars_per_year)) if sd > 0 else None,
-        'definition_sharpe': 'mean/stdev of per-bar mark-to-market equity returns * sqrt(bars_per_year); rf = 0',
+        'definition_sharpe': f'mean/stdev of per-bar mark-to-market equity returns * sqrt({bars_per_year:g} bars/year); rf = 0',
+        'definition_max_drawdown': 'largest peak-to-trough decline of bar-CLOSE mark-to-market equity, peak starts at initial capital '
+                                   '(intrabar extremes ignored; differs from TradingView/PineTS definitions)',
+        'exposure_definition': 'bars between entry fill bar and exit fill bar / segment bars',
         'forced_exits': sum(1 for t in trades if t.forced_exit),
     }

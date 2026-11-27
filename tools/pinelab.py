@@ -116,6 +116,11 @@ def capability_stage(src, env):
         env['warnings'].append(core.diag('global runtime.error combined with request.security: PineTS evaluates global code in the '
                                          'requested context and may raise it although TradingView does not (TV probes T3/T3b)',
                                          code='divergence_security_context', stage='capability', severity='warning'))
+    if re.search(r'request\.security(_lower_tf)?\s*\(', code):
+        env['warnings'].append(core.diag('request.security is PARTIAL locally: values follow a 24/7 UTC calendar aggregation of the '
+                                         'CSV; sessions, holidays, DST and realtime are not modelled (TradingView found differences '
+                                         'at session irregularities, probes T6/T6b)', code='partial_local_htf', stage='capability',
+                                         severity='warning'))
     if re.search(r'request\.footprint\s*\(', code):
         env['warnings'].append(core.diag('request.footprint returns na locally (no footprint data)', code='partial_local',
                                          stage='capability', severity='warning'))
@@ -281,6 +286,10 @@ def _tf_ms(tf):
 def cmd_run_backtest(args):
     t0 = time.time()
     env = envelope('run_backtest')
+    if not 0 < args.oos < 1 or args.cost_stress < 1:
+        env['errors'].append(core.diag('--oos must be in (0, 1) and --cost-stress >= 1', code='usage', stage='input'))
+        env['status'] = 'FAILED'
+        return env
     src = read_script(args.script, env)
     if src is None:
         env['status'] = 'FAILED'
@@ -326,7 +335,7 @@ def cmd_run_backtest(args):
             env['warnings'].append(core.diag('replay models percent commission only', code='replay_limit', stage='backtest', severity='warning'))
         ent = [bool(x) for x in plots['sig_entry_long']]
         ext = [bool(x) for x in plots['sig_exit_long']]
-        full = bt.run(bars, ent, ext, p)
+        full = bt.run(bars, ent, ext, p)  # default annualisation; recomputed below with timeframe-aware value
         # parity: compare closed trades (replay force-closes at the end; engine keeps it open)
         replay_closed = [t for t in full.trades if not t.forced_exit]
         mism = []
@@ -338,18 +347,35 @@ def cmd_run_backtest(args):
         parity = {'engine_closed': len(engine_trades), 'replay_closed': len(replay_closed),
                   'trade_mismatches': len(mism) + abs(len(engine_trades) - len(replay_closed)), 'first_mismatches': mism[:3]}
         n = len(bars)
+        bpy = 365 * 86400000 / _tf_ms(args.tf)           # 24/7 assumption (synthetic data); flagged in assumptions
+        full = bt.run(bars, ent, ext, p, bars_per_year=bpy)
         cut = int(n * (1 - args.oos))
-        is_r, oos_r = bt.run(bars, ent, ext, p, 0, cut), bt.run(bars, ent, ext, p, cut, n)
-        stress_p = bt.Params(**{**p.__dict__, 'commission_pct': p.commission_pct * args.cost_stress,
-                                'slippage_ticks': int(p.slippage_ticks * args.cost_stress)})
-        stress = bt.run(bars, ent, ext, stress_p)
+        is_r, oos_r = bt.run(bars, ent, ext, p, 0, cut, bpy), bt.run(bars, ent, ext, p, cut, n, bpy)
+        import math as _m
+        stress_ticks = int(_m.ceil(p.slippage_ticks * args.cost_stress))
+        stress_p = bt.Params(**{**p.__dict__, 'commission_pct': p.commission_pct * args.cost_stress, 'slippage_ticks': stress_ticks})
+        if p.commission_pct == 0 and p.slippage_ticks == 0:
+            env['warnings'].append(core.diag('base costs are zero: cost stress has no effect', code='cost_stress_noop',
+                                             stage='backtest', severity='warning'))
+        stress = bt.run(bars, ent, ext, stress_p, bars_per_year=bpy)
         summary.update({'independent_replay': {'model': 'testing/backtesting/backtester.py', 'params': full.params, 'metrics': full.metrics},
                         'parity_engine_vs_replay': parity,
+                        'drawdown_note': {'engine_max_drawdown': s.get('max_drawdown'), 'replay_max_drawdown': full.metrics['max_drawdown'],
+                                          'note': 'different definitions; engine definition not documented by PineTS and not '
+                                                  'TradingView-verified - not part of parity'},
                         'chronological_split': {'in_sample_bars': [0, cut], 'out_of_sample_bars': [cut, n],
                                                 'in_sample': is_r.metrics, 'out_of_sample': oos_r.metrics,
                                                 'note': 'Signals are computed on full history (indicator warm-up); trades are '
-                                                        'only opened inside each segment and force-closed at its end.'},
-                        'cost_stress': {'factor': args.cost_stress, 'metrics': stress.metrics}})
+                                                        'only opened inside each segment and force-closed at its end. No parameters '
+                                                        'were selected on the in-sample segment, so OOS does not validate a selection.'},
+                        'cost_stress': {'factor': args.cost_stress, 'slippage_ticks': stress_ticks, 'metrics': stress.metrics},
+                        'assumptions': {'fills': 'next bar open (TV_VERIFIED_RELAYED, T9)', 'commission': 'percent per side (TV_VERIFIED_RELAYED, T9)',
+                                        'slippage': 'ticks * mintick 0.0001 (UNVERIFIED_TV)', 'sizing_percent_of_equity': 'PineTS rule (UNVERIFIED_TV)',
+                                        'annualisation': f'{bpy:g} bars/year (24/7)'},
+                        'evidence': evidence_assessment(full.trades, full.metrics, args.data or core.DEFAULT_DATA,
+                                                        [is_r.metrics, oos_r.metrics])})
+        for flag in summary['evidence']['flags']:
+            env['warnings'].append(core.diag(f'evidence: {flag}', code='evidence', stage='backtest', severity='warning'))
         status_ok = parity['trade_mismatches'] == 0
         if not status_ok:
             env['warnings'].append(core.diag(f"engine vs independent replay: {parity['trade_mismatches']} trade mismatches",
@@ -362,6 +388,40 @@ def cmd_run_backtest(args):
     save(env, {'engine': res.get('strategy'), 'summary': summary}, 'backtest')
     env['duration_ms'] = int((time.time() - t0) * 1000)
     return env
+
+
+def evidence_assessment(trades, metrics, data_path, segments):
+    """Statistical caveats required by BACKTEST.md section 4 (sample size, dispersion, concentration, benchmark)."""
+    import random
+    pnl = [t.pnl for t in trades]
+    out = {'data_provenance': 'SYNTHETIC' if 'synthetic_data' in str(data_path) else 'USER_SUPPLIED (rights/quality not verified)',
+           'trades': len(pnl), 'min_trades_rule': 30}
+    if pnl:
+        rnd = random.Random(12345)
+        means = sorted(sum(rnd.choice(pnl) for _ in pnl) / len(pnl) for _ in range(2000))
+        out['bootstrap_mean_trade_95ci'] = [means[49], means[1949]]
+        out['bootstrap_p_mean_le_0'] = sum(1 for m in means if m <= 0) / len(means)
+        top3 = sum(sorted(pnl, reverse=True)[:3])
+        out['top3_trades_share_of_net'] = (top3 / sum(pnl)) if sum(pnl) > 0 else None
+    out['beats_buy_and_hold'] = metrics['return_pct'] > metrics['buy_hold_return_pct']
+    flags = []
+    if len(pnl) < 30:
+        flags.append('SMALL_SAMPLE')
+    if any(seg['trades'] < 30 for seg in segments):
+        flags.append('SMALL_SEGMENT_SAMPLE')
+    if out.get('bootstrap_p_mean_le_0', 1) > 0.05:
+        flags.append('MEAN_TRADE_NOT_SIGNIFICANT')
+    if (out.get('top3_trades_share_of_net') or 0) > 0.8:
+        flags.append('PROFIT_CONCENTRATED')
+    if not out['beats_buy_and_hold']:
+        flags.append('UNDERPERFORMS_BUY_AND_HOLD')
+    if out['data_provenance'] == 'SYNTHETIC':
+        flags.append('SYNTHETIC_DATA')
+    out['flags'] = flags
+    out['verdict'] = 'NO EDGE CLAIM - insufficient evidence' if flags else 'evidence threshold met locally (still not TradingView-verified)'
+    out['not_done'] = ['parameter selection on in-sample only (none performed: fixed defaults)', 'variant log / multiple-testing control',
+                       'walk-forward', 'real data', 'TradingView Strategy Tester comparison']
+    return out
 
 
 def cmd_get_capabilities(args):
@@ -431,6 +491,8 @@ def main(argv=None):
     sub.add_parser('get_capabilities')
     e = sub.add_parser('export_txt'); e.add_argument('script'); e.add_argument('--name', required=True)
     e.add_argument('--version', default=1); e.add_argument('--no-runtime', action='store_true')
+    for sp in sub.choices.values():
+        sp.add_argument('--pretty', action='store_true', default=argparse.SUPPRESS)
     a = ap.parse_args(argv)
     fn = {'validate': cmd_validate, 'run_indicator': cmd_run_indicator, 'run_backtest': cmd_run_backtest,
           'get_capabilities': cmd_get_capabilities, 'export_txt': cmd_export_txt}[a.cmd]

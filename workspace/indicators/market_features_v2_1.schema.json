@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pinelab/market-feature-event/2.1",
+  "title": "Market feature event v2.1 (Pine Engineering Lab V5)",
+  "description": "One event per confirmed bar on standard time-based charts. Values known at bar_close_ms. Missing = JSON null (never 0, NaN or string). Units: ema, htf_close, swing_high in quote currency (field `currency`); rsi 0-100; atr_pct percent of close; rvol = volume / SMA(volume) incl. current bar; htf_trend +1/-1/0 = previous completed HTF close above/below/equal its EMA; dist_swing_atr = (close - last confirmed swing high) / ATR. Numbers have at most 10 decimals: prices below ~1e-4 lose relative precision (compare with mintick). quality: READY all present and fresh, STALE all present but swing level or HTF bar older than configured limits, MISSING at least one null (names in `missing`). received_at / available_at are set by the receiver, not by Pine. Dedup key: build, config_id, symbol, timeframe, bar_open_ms.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "build", "config_id", "symbol", "currency", "mintick", "timeframe", "bar_open_ms", "bar_close_ms", "confirmed", "quality", "missing", "features", "meta"],
+  "properties": {
+    "schema_version": {"const": "2.1"},
+    "build": {"type": "string", "minLength": 1},
+    "config_id": {"type": "string", "minLength": 1},
+    "symbol": {"type": "string", "minLength": 1},
+    "currency": {"type": "string"},
+    "mintick": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "timeframe": {"type": "string", "minLength": 1},
+    "bar_open_ms": {"type": "integer", "minimum": 0},
+    "bar_close_ms": {"type": "integer", "minimum": 0},
+    "confirmed": {"const": true},
+    "quality": {"enum": ["READY", "STALE", "MISSING"]},
+    "missing": {"type": "array", "uniqueItems": true, "items": {"enum": ["ema", "rsi", "atr_pct", "rvol", "htf_close", "htf_trend", "swing_high", "dist_swing_atr"]}},
+    "features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ema", "rsi", "atr_pct", "rvol", "htf_close", "htf_trend", "swing_high", "dist_swing_atr"],
+      "properties": {
+        "ema": {"type": ["number", "null"]},
+        "rsi": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "atr_pct": {"type": ["number", "null"], "minimum": 0},
+        "rvol": {"type": ["number", "null"], "minimum": 0},
+        "htf_close": {"type": ["number", "null"]},
+        "htf_trend": {"enum": [1, -1, 0, null]},
+        "swing_high": {"type": ["number", "null"]},
+        "dist_swing_atr": {"type": ["number", "null"]}
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["htf_bar_open_ms", "swing_anchor_ms", "swing_age_bars"],
+      "properties": {
+        "htf_bar_open_ms": {"type": ["integer", "null"]},
+        "swing_anchor_ms": {"type": ["integer", "null"]},
+        "swing_age_bars": {"type": ["integer", "null"], "minimum": 0}
+      }
+    }
+  },
+  "if": {"properties": {"quality": {"enum": ["READY", "STALE"]}}},
+  "then": {"properties": {"missing": {"maxItems": 0}}},
+  "else": {"properties": {"missing": {"minItems": 1}}}
+}

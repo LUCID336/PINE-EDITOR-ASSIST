@@ -16,9 +16,12 @@ int    htfLenInput  = input.int(10, "HTF EMA length", minval = 1, group = GRP_HT
 // ---- Core (computed unconditionally on every bar) ----
 float fastEma = ta.ema(close, fastLenInput)
 float slowEma = ta.ema(close, slowLenInput)
-// Non-repainting HTF idiom: previous completed HTF bar, lookahead_on + [1].
-bool htfUp = request.security(syminfo.tickerid, htfInput, close[1] > ta.ema(close, htfLenInput)[1], lookahead = barmerge.lookahead_on)
-bool trendOk  = not useHtfInput or (not na(htfUp) and htfUp)
+// Non-repainting HTF idiom: previous completed HTF bar, lookahead_on + [1]. The HTF must be higher than the chart
+// timeframe (a lower one with lookahead_on could leak future data); otherwise the filter blocks all entries.
+// v6: bool cannot be na -> missing HTF history yields false (no entry), no na() on bool (review fix 2026-11-27).
+bool htfValid = timeframe.in_seconds(htfInput) > timeframe.in_seconds()
+bool htfUp    = request.security(syminfo.tickerid, htfInput, close[1] > ta.ema(close, htfLenInput)[1], lookahead = barmerge.lookahead_on)
+bool trendOk  = not useHtfInput or (htfValid and htfUp)
 bool crossUp  = ta.crossover(fastEma, slowEma)
 bool crossDn  = ta.crossunder(fastEma, slowEma)
 bool entryLong = barstate.isconfirmed and crossUp and trendOk
