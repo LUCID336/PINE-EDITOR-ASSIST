@@ -4,3 +4,4 @@ __pycache__/
 releases/dist/
 testing/regression/corpus/
 workspace/**/runs/
+workspace/runs/

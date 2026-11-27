@@ -74,6 +74,15 @@ class StaticCheckTests(unittest.TestCase):
         src = HEAD + 'f(float s) =>\n    ta.sma(s, 3)\nplot(f(close))\n'
         self.assertEqual([f for f in psc.check(src, LEDGER) if f['severity'] == 'WARN'], [])
 
+    def test_positions_match_tradingview_round3(self):
+        # TradingView compiler positions observed 2026-11-27 (T7 5:10, T8a 3:13, T8b 3:1, T8c 3:6)
+        probes = Path(__file__).resolve().parents[1] / 'regression' / 'tv_probes'
+        expect = {'T7_warning_probe.pine': (5, 10), 'T8a_bad_named_arg.pine': (3, 13),
+                  'T8b_type_mismatch.pine': (3, 1), 'T8c_unknown_variable.pine': (3, 6)}
+        for name, pos in expect.items():
+            f = psc.check((probes / name).read_text(), LEDGER)
+            self.assertIn(pos, [(x['line'], x['column']) for x in f], name)
+
 
 if __name__ == '__main__':
     unittest.main()

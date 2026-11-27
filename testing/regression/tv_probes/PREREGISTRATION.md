@@ -21,3 +21,8 @@ Status after results: each probe → TV_VERIFIED (with A/B evidence) or UNVERIFI
 | T8c barstate.isclosed | checker ERROR; PineTS returns 0 silently | exact compiler error text + line/col |
 | T9 broker emulator self-check | entries_not_on_bar_after_signal 0, max entry-open diff 0, max commission error 0 | same on TV? (fill at next bar open, percent commission per side) |
 | T10 pivot self-check | value mismatch 0, higher neighbour 0, equal neighbour 0 (synthetic data, no ties) | tie handling on real data |
+
+## T11 (prepared, not yet run on TradingView) — pivot tie side
+PineTS 0.13.1 rule observed with constructed fixtures (2026-11-27): candidate >= left neighbours, candidate > right
+neighbours (on a plateau the LAST bar becomes the pivot). Prediction for TradingView if identical:
+pivots_with_equal_LEFT_neighbour > 0, pivots_with_equal_RIGHT_neighbour = 0.

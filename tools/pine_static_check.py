@@ -79,15 +79,15 @@ def call_args(code, open_idx):
         e = seg_starts[k + 1] - 1 if k + 1 < len(seg_starts) else end
         m = re.match(r'\s*([A-Za-z_]\w*)\s*=(?!=)', code[s:e])
         if m:
-            names.append(m.group(1))
+            names.append((m.group(1), s + m.start(1)))
     return names
 
 
 def check(src, ledger):
     funcs, members, namespaces = ledger
     findings = []
-    def add(sev, line, msg):
-        findings.append({'severity': sev, 'line': line, 'message': msg})
+    def add(sev, line, msg, col=None):
+        findings.append({'severity': sev, 'line': line, 'column': col, 'message': msg})
 
     raw_lines = src.splitlines()
     versions = [i + 1 for i, l in enumerate(raw_lines) if re.match(r'^\s*//@version\s*=\s*\d+\s*$', l)]
@@ -98,6 +98,7 @@ def check(src, ledger):
 
     code = strip_code(src)
     line_of = lambda idx: code.count('\n', 0, idx) + 1
+    col_of = lambda idx: idx - code.rfind('\n', 0, idx)
 
     # user-defined names
     udf = set(re.findall(r'^\s*(?:export\s+)?(?:method\s+)?([A-Za-z_]\w*)\s*\([^\n]*\)\s*=>', code, re.M))
@@ -133,25 +134,25 @@ def check(src, ledger):
         if name in funcs:
             sigs = funcs[name]
             allowed = {re.sub(r'\W', '', p) for sig in sigs for p in sig}
-            for a in call_args(code, m.end() - 1):
+            for a, pos in call_args(code, m.end() - 1):
                 if allowed and a not in allowed:
-                    add('ERROR', line_of(start), f'{name}(): named argument "{a}" not in any official overload {sorted(allowed)}')
+                    add('ERROR', line_of(pos), f'{name}(): named argument "{a}" not in any official overload {sorted(allowed)}', col_of(pos))
             continue
         if len(parts) == 1:
             if name in udf or name in udts or name in declared:
                 continue
-            add('ERROR', line_of(start), f'unknown function "{name}()" (not a v6 built-in, not user-defined in file)')
+            add('ERROR', line_of(start), f'unknown function "{name}()" (not a v6 built-in, not user-defined in file)', col_of(start))
             continue
         if head in udts or head in imports:
             continue
         if parts[-1] == 'new' and (head in udts or head in TYPE_NAMES):
             continue
         if head in namespaces and head not in declared:
-            add('ERROR', line_of(start), f'unknown built-in "{name}()" in namespace "{head}"')
+            add('ERROR', line_of(start), f'unknown built-in "{name}()" in namespace "{head}"', col_of(start))
             continue
         # method-style call on an object: verify the method name exists somewhere
         if parts[-1] not in method_names and parts[-1] not in udf and parts[-1] != 'new':
-            add('WARN', line_of(start), f'method "{parts[-1]}" in "{name}()" matches no built-in or user method')
+            add('WARN', line_of(start), f'method "{parts[-1]}" in "{name}()" matches no built-in or user method', col_of(start))
 
     # namespace members (non-call)
     for m in re.finditer(r'(?<![\w.])([a-z_]\w*(?:\.[A-Za-z_]\w*)+)(?![\w.]|\s*[(<])', code):
@@ -163,7 +164,7 @@ def check(src, ledger):
             continue
         # NOTE: a former blanket exemption "any member.<x>" let every color.<typo> pass because
         # `color` is also a type entry (mutation test 2026-11-27: 60% -> see learning log).
-        add('ERROR', line_of(m.start(1)), f'unknown built-in variable/constant "{name}"')
+        add('ERROR', line_of(m.start(1)), f'unknown built-in variable/constant "{name}"', col_of(m.start(1)))
 
     # literal type mismatches in explicitly typed declarations (PineTS accepts these silently)
     lit = {'string': r'"[ ]*"', 'bool': r'(?:true|false)\b', 'float': r'-?\d+\.\d*|-?\.\d+', 'int': r'-?\d+(?![.\d])',
@@ -174,7 +175,8 @@ def check(src, ledger):
         kind = next(k for k, rx in lit.items() if re.fullmatch(rx, value))
         ok = kind == declared_type or (declared_type == 'float' and kind == 'int')
         if not ok:
-            add('ERROR', line_of(m.start()), f'type mismatch: "{declared_type}" declared but {kind} literal assigned')
+            decl = m.start() + len(m.group(0)) - len(m.group(0).lstrip(' \t'))
+            add('ERROR', line_of(m.start()), f'type mismatch: "{declared_type}" declared but {kind} literal assigned', col_of(decl))
 
     # TradingView consistency warning (observed T7, 2026-11-27): history-dependent ta.* call inside a conditional
     # local block (if/else/for/while/switch), not inside a function body.
@@ -189,7 +191,7 @@ def check(src, ledger):
         if any(k == 'cond' for _, k in stack):
             for m in re.finditer(r'(?<![\w.])(ta\.\w+)\s*\(', body):
                 add('WARN', ln_no, f'{m.group(1)}() inside a conditional block: TradingView warns "The function ... should be '
-                                   'called on each calculation for consistency"; compute it unconditionally')
+                                   'called on each calculation for consistency"; compute it unconditionally', ind + m.start(1) + 1)
         if re.search(r'=>\s*$', body):
             stack.append((ind, 'func'))
         elif re.match(r'(?:else\b|if\b|for\b|while\b|switch\b)|.*(?:=|:=)\s*(?:if|switch|for|while)\b', body):
@@ -197,9 +199,9 @@ def check(src, ledger):
 
     # v6 pitfalls (documented in migration guide)
     for m in re.finditer(r'\btransp\s*=', code):
-        add('ERROR', line_of(m.start()), '"transp" parameter removed; use color.new() transparency')
+        add('ERROR', line_of(m.start()), '"transp" parameter removed; use color.new() transparency', col_of(m.start()))
     for m in re.finditer(r'(?<![\w.])(study|security)\s*\(', code):
-        add('ERROR', line_of(m.start()), f'"{m.group(1)}()" is pre-v5 syntax')
+        add('ERROR', line_of(m.start()), f'"{m.group(1)}()" is pre-v5 syntax', col_of(m.start()))
     return sorted(findings, key=lambda f: (f['line'], f['severity']))
 
 
@@ -221,7 +223,8 @@ def main(argv):
             status = 'STATIC-FAIL' if any(r['severity'] == 'ERROR' for r in res) else 'STATIC-PASS'
             print(f'{status}  {f}')
             for r in res:
-                print(f"  {r['severity']:5} L{r['line']}: {r['message']}")
+                pos = f"L{r['line']}" + (f":{r['column']}" if r.get('column') else '')
+                print(f"  {r['severity']:5} {pos}: {r['message']}")
         print('Note: static API check only; TradingView compile/runtime NOT RUN.')
     return 1 if errors else 0
 

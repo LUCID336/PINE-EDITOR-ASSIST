@@ -1,0 +1,38 @@
+//@version=6
+strategy("EMA Trend Long/Flat v1", overlay = true, initial_capital = 10000, default_qty_type = strategy.fixed, default_qty_value = 50, commission_type = strategy.commission.percent, commission_value = 0.05, slippage = 2, process_orders_on_close = false, pyramiding = 1)
+// Long/flat trend example for the Pine Engineering Lab V5. Benchmark/teaching strategy, NOT a validated edge.
+// Execution assumptions (TradingView-verified 2026-11-27): market orders fill at the next bar's open,
+// percent commission per side. Signals are evaluated on closed bars only.
+
+// ---- Inputs ----
+const string GRP_SIG = "Signal"
+const string GRP_HTF = "Higher-timeframe filter"
+int    fastLenInput = input.int(20, "Fast EMA", minval = 1, group = GRP_SIG)
+int    slowLenInput = input.int(50, "Slow EMA", minval = 2, group = GRP_SIG)
+bool   useHtfInput  = input.bool(true, "Use HTF trend filter", group = GRP_HTF)
+string htfInput     = input.timeframe("D", "HTF", group = GRP_HTF)
+int    htfLenInput  = input.int(10, "HTF EMA length", minval = 1, group = GRP_HTF)
+
+// ---- Core (computed unconditionally on every bar) ----
+float fastEma = ta.ema(close, fastLenInput)
+float slowEma = ta.ema(close, slowLenInput)
+// Non-repainting HTF idiom: previous completed HTF bar, lookahead_on + [1].
+bool htfUp = request.security(syminfo.tickerid, htfInput, close[1] > ta.ema(close, htfLenInput)[1], lookahead = barmerge.lookahead_on)
+bool trendOk  = not useHtfInput or (not na(htfUp) and htfUp)
+bool crossUp  = ta.crossover(fastEma, slowEma)
+bool crossDn  = ta.crossunder(fastEma, slowEma)
+bool entryLong = barstate.isconfirmed and crossUp and trendOk
+bool exitLong  = barstate.isconfirmed and crossDn
+
+// ---- Orders ----
+if entryLong and strategy.position_size == 0
+    strategy.entry("Long", strategy.long)
+if exitLong and strategy.position_size > 0
+    strategy.close("Long")
+
+// ---- Visuals ----
+plot(fastEma, "Fast EMA", color = color.new(color.teal, 0))
+plot(slowEma, "Slow EMA", color = color.new(color.orange, 0))
+// ---- Signal contract for independent replay (data window only) ----
+plot(entryLong ? 1 : 0, "sig_entry_long", display = display.data_window)
+plot(exitLong ? 1 : 0, "sig_exit_long", display = display.data_window)

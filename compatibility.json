@@ -1,0 +1,6659 @@
+{
+ "schema": "pinelab-compatibility/1",
+ "generated": "2026-11-27",
+ "pine_version": "v6",
+ "engine": {
+  "name": "PineTS",
+  "version": "0.13.1"
+ },
+ "reference_snapshot": "2026-11-27",
+ "summary": {
+  "UNVERIFIED": 886,
+  "UNSUPPORTED": 11,
+  "SUPPORTED_TESTED": 37,
+  "PARTIAL": 14
+ },
+ "other_versions": {
+  "v5": "UNVERIFIED locally (PineTS documents v5 transpilation; not tested). Use V3 migration sheet M73.",
+  "v1-v4": "Not executable locally; use V3 migration modules M74-M76 and the official migration guides."
+ },
+ "status_rule": "LOCAL statuses never imply TradingView parity; only TV_VERIFIED* columns carry TradingView evidence.",
+ "entries": {
+  "type:array": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:bool": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:box": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:chart.point": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:color": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:const": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:float": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:footprint": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:int": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:label": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:line": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:linefill": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:map": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:matrix": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:polyline": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:series": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:simple": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:string": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:table": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "type:volume_row": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:aggressor_side": {
+   "local": "UNSUPPORTED",
+   "note": "PineTS 0.13.1: Undeclared identifier (TradingView compiles it, T5).",
+   "evidence": null,
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T5 compiles"
+  },
+  "var:ask": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:bar_index": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.isconfirmed": {
+   "local": "PARTIAL",
+   "note": "Historical bars only (always true); realtime ticks/rollback not available locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.isfirst": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.ishistory": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.islast": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.islastconfirmedhistory": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.isnew": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:barstate.isrealtime": {
+   "local": "PARTIAL",
+   "note": "No realtime bars locally (always false).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:bid": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:box.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.bg_color": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.fg_color": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_heikinashi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_kagi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_linebreak": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_pnf": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_range": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_renko": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.is_standard": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.left_visible_bar_time": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:chart.right_visible_bar_time": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:close": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:dayofmonth": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:dayofweek": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:dividends.future_amount": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:dividends.future_ex_date": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:dividends.future_pay_date": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:earnings.future_eps": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:earnings.future_period_end_time": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:earnings.future_revenue": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:earnings.future_time": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:high": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:hl2": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:hlc3": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:hlcc4": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:hour": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:label.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:last_bar_index": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:last_bar_time": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:line.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:linefill.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:low": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:minute": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:month": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:na": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ohlc4": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:open": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:polyline.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:runtime.calculation.mode": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:second": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.isfirstbar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.isfirstbar_regular": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.islastbar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.islastbar_regular": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.ismarket": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.ispostmarket": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:session.ispremarket": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.account_currency": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.avg_losing_trade": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.avg_losing_trade_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.avg_trade": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.avg_trade_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.avg_winning_trade": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.avg_winning_trade_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.closedtrades": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.closedtrades.first_index": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.equity": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.eventrades": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.grossloss": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.grossloss_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.grossprofit": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.grossprofit_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.initial_capital": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.losstrades": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.margin_liquidation_price": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_contracts_held_all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_contracts_held_long": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_contracts_held_short": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_drawdown": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_drawdown_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_runup": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.max_runup_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.netprofit": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.netprofit_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.openprofit": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.openprofit_percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.opentrades": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.opentrades.capital_held": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.position_avg_price": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.position_entry_name": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.position_size": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:strategy.wintrades": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.basecurrency": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.country": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.currency": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.current_contract": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.description": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.employees": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.expiration_date": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.industry": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.isin": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.main_tickerid": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.mincontract": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.minmove": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.mintick": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.pointvalue": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.prefix": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.pricescale": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_buy": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_buy_strong": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_date": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_hold": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_sell": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_sell_strong": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.recommendations_total": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.root": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.sector": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.session": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.shareholders": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.shares_outstanding_float": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.shares_outstanding_total": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.target_price_average": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.target_price_date": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.target_price_estimates": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.target_price_high": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.target_price_low": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.target_price_median": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.ticker": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.tickerid": {
+   "local": "PARTIAL",
+   "note": "Synthetic symbol info from LocalProvider.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.timezone": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.type": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:syminfo.volumetype": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.accdist": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.iii": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.nvi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.obv": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.pvi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.pvt": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.tr": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.vwap": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.wad": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:ta.wvad": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:table.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:time": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:time_close": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:time_tradingday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isdaily": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isdwm": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isintraday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isminutes": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.ismonthly": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isseconds": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isticks": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.isweekly": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.main_period": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.multiplier": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timeframe.period": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:timenow": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:volume": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:weekofyear": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "var:year": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:adjustment.dividends": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:adjustment.none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:adjustment.splits": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:aggressor.buy": {
+   "local": "UNSUPPORTED",
+   "note": "Depends on aggressor_side support.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:aggressor.sell": {
+   "local": "UNSUPPORTED",
+   "note": "Depends on aggressor_side support.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:alert.freq_all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:alert.freq_once_per_bar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:alert.freq_once_per_bar_close": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:backadjustment.inherit": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:backadjustment.off": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:backadjustment.on": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:barmerge.gaps_off": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:barmerge.gaps_on": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:barmerge.lookahead_off": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:barmerge.lookahead_on": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.aqua": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.black": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.blue": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.fuchsia": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.gray": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.green": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.lime": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.maroon": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.navy": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.olive": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.orange": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.purple": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.red": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.silver": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.teal": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.white": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:color.yellow": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.AED": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.ARS": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.AUD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.BDT": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.BHD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.BRL": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.BTC": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.CAD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.CHF": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.CLP": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.CNY": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.COP": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.CZK": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.DKK": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.EGP": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.ETH": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.EUR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.GBP": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.HKD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.HUF": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.IDR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.ILS": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.INR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.ISK": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.JPY": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.KES": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.KRW": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.KWD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.LKR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.MAD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.MXN": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.MYR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.NGN": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.NOK": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.NONE": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.NZD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.PEN": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.PHP": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.PKR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.PLN": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.QAR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.RON": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.RSD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.RUB": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.SAR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.SEK": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.SGD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.THB": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.TND": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.TRY": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.TWD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.USD": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.USDT": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.VES": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.VND": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:currency.ZAR": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.friday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.monday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.saturday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.sunday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.thursday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.tuesday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dayofweek.wednesday": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.data_window": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.pane": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.pine_screener": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.price_scale": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:display.status_line": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dividends.gross": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:dividends.net": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:earnings.actual": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:earnings.estimate": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:earnings.standardized": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:extend.both": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:extend.left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:extend.none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:extend.right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:false": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:font.family_default": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:font.family_monospace": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:format.inherit": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:format.mintick": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:format.percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:format.price": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:format.volume": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:hline.style_dashed": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:hline.style_dotted": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:hline.style_solid": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_arrowdown": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_arrowup": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_circle": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_cross": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_diamond": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_flag": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_center": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_down": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_lower_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_lower_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_up": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_upper_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_label_upper_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_square": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_text_outline": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_triangledown": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_triangleup": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:label.style_xcross": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:line.style_arrow_both": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:line.style_arrow_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:line.style_arrow_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:line.style_dashed": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:line.style_dotted": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:line.style_solid": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:location.abovebar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:location.absolute": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:location.belowbar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:location.bottom": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:location.top": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:math.e": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:math.phi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:math.pi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:math.rphi": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:order.ascending": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:order.descending": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.linestyle_dashed": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.linestyle_dotted": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.linestyle_solid": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_area": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_areabr": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_circles": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_columns": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_cross": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_histogram": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_line": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_linebr": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_stepline": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_stepline_diamond": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:plot.style_steplinebr": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.bottom_center": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.bottom_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.bottom_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.middle_center": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.middle_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.middle_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.top_center": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.top_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:position.top_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:runtime.calculation.mode.alert": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:runtime.calculation.mode.chart": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:scale.left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:scale.none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:scale.right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:session.extended": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:session.regular": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:settlement_as_close.inherit": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:settlement_as_close.off": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:settlement_as_close.on": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.arrowdown": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.arrowup": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.circle": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.cross": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.diamond": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.flag": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.labeldown": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.labelup": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.square": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.triangledown": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.triangleup": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:shape.xcross": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:size.auto": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:size.huge": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:size.large": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:size.normal": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:size.small": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:size.tiny": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:splits.denominator": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:splits.numerator": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.cash": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.commission.cash_per_contract": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.commission.cash_per_order": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.commission.percent": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.direction.all": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.direction.long": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.direction.short": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.fixed": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.long": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.oca.cancel": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.oca.none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.oca.reduce": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.percent_of_equity": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:strategy.short": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.align_bottom": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.align_center": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.align_left": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.align_right": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.align_top": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.format_bold": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.format_italic": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.format_none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.wrap_auto": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:text.wrap_none": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:true": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:xloc.bar_index": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:xloc.bar_time": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:yloc.abovebar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:yloc.belowbar": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "const:yloc.price": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:alert": {
+   "local": "PARTIAL",
+   "note": "Collected in engine output; delivery/frequency semantics not modelled.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:alertcondition": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.abs": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.avg": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.binary_search": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.binary_search_leftmost": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.binary_search_rightmost": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.clear": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.concat": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.covariance": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.every": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.fill": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.first": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.from": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.get": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.includes": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.indexof": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.insert": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.join": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.last": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.lastindexof": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.max": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.median": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.min": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.mode": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_bool": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_box": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_float": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_int": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_label": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_line": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_linefill": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_string": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new_table": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.new<type>": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.percentile_linear_interpolation": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.percentile_nearest_rank": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.percentrank": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.pop": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.push": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.range": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.remove": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.reverse": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.set": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.shift": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.size": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.slice": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.some": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.sort": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.sort_indices": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.standardize": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.stdev": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.sum": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.unshift": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:array.variance": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:barcolor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:bgcolor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:bool": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.delete": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.get_bottom": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.get_left": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.get_right": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.get_top": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_bgcolor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_border_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_border_style": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_border_width": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_bottom": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_bottom_right_point": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_extend": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_left": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_lefttop": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_right": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_rightbottom": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_font_family": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_formatting": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_halign": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_valign": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_text_wrap": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_top": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_top_left_point": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:box.set_xloc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:chart.point.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:chart.point.from_index": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:chart.point.from_time": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:chart.point.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:chart.point.now": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.b": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.from_gradient": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.g": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.r": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.rgb": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:color.t": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:dayofmonth": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:dayofweek": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:fill": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:fixnan": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:float": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.buy_volume": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.delta": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.get_row_by_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.poc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.rows": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.sell_volume": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.total_volume": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.vah": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:footprint.val": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:hline": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:hour": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:indicator": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.bool": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.enum": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.float": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.int": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.session": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.source": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.string": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.symbol": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.text_area": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.time": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:input.timeframe": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:int": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.delete": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.get_text": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.get_x": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.get_y": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_point": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_style": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_text": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_text_font_family": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_text_formatting": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_textalign": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_textcolor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_tooltip": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_x": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_xloc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_xy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_y": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:label.set_yloc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:library": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.delete": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.get_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.get_x1": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.get_x2": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.get_y1": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.get_y2": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_extend": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_first_point": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_second_point": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_style": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_width": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_x1": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_x2": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_xloc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_xy1": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_xy2": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_y1": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:line.set_y2": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:linefill": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:linefill.delete": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:linefill.get_line1": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:linefill.get_line2": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:linefill.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:linefill.set_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:log.error": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:log.info": {
+   "local": "PARTIAL",
+   "note": "Captured to engine logs; formatting not compared with TradingView.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:log.warning": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.clear": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.contains": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.get": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.keys": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.new<type,type>": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.put": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.put_all": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.remove": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:map.values": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.abs": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.acos": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.asin": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.atan": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.avg": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.ceil": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.cos": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.exp": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.floor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.log": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.log10": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.max": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.min": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.pow": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.random": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.round": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.round_to_mintick": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.sign": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.sin": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.sqrt": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.sum": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.tan": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.todegrees": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:math.toradians": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.add_col": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.add_row": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.avg": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.col": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.columns": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.concat": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.copy": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.det": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.diff": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.eigenvalues": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.eigenvectors": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.elements_count": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.fill": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.get": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.inv": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_antidiagonal": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_antisymmetric": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_binary": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_diagonal": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_identity": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_square": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_stochastic": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_symmetric": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_triangular": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.is_zero": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.kron": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.max": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.median": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.min": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.mode": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.mult": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.new<type>": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.pinv": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.pow": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.rank": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.remove_col": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.remove_row": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.reshape": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.reverse": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.row": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.rows": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.set": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.sort": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.submatrix": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.sum": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.swap_columns": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.swap_rows": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.trace": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:matrix.transpose": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:max_bars_back": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:minute": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:month": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:na": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:nz": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:plot": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T8a named-argument error text"
+  },
+  "fun:plotarrow": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:plotbar": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:plotcandle": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:plotchar": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:plotshape": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:polyline.delete": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:polyline.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.currency_rate": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.dividends": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.earnings": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.economic": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.financial": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.footprint": {
+   "local": "PARTIAL",
+   "note": "Returns na locally: LocalProvider has no footprint data (PineTS needs a provider footprint surface).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.quandl": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.security": {
+   "local": "PARTIAL",
+   "note": "Tested vs independent aggregation on 24/7 UTC calendar grid (D, 240; lookahead on/off historical). Divergence: PineTS re-executes the whole script in the requested context (global runtime.error fires locally, not on TradingView - TV probes T3/T3b). Sessions, holidays, DST, realtime NOT modelled.",
+   "evidence": null,
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T3/T3b/T6/T6b context + HTF idiom semantics"
+  },
+  "fun:request.security_lower_tf": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.seed": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:request.splits": {
+   "local": "UNSUPPORTED",
+   "note": "No local data source (fundamental/economic/external data).",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:runtime.error": {
+   "local": "PARTIAL",
+   "note": "Raised locally; see request.security divergence for global guards.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:second": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.contains": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.endswith": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.format": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.format_time": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.length": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.lower": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.match": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.pos": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.repeat": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.replace": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.replace_all": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.split": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.startswith": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.substring": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.tonumber": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.tostring": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.trim": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:str.upper": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy": {
+   "local": "PARTIAL",
+   "note": "PineTS broker emulator: next-bar-open fills and percent commission match TradingView (T9) and the independent Python model; slippage, percent_of_equity sizing, margin, intrabar/bar detalization NOT TradingView-verified.",
+   "evidence": "testing/backtesting/test_strategy_parity.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T9 commission"
+  },
+  "fun:strategy.cancel": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.cancel_all": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.close": {
+   "local": "PARTIAL",
+   "note": "see strategy",
+   "evidence": "testing/backtesting/test_strategy_parity.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T9 fills"
+  },
+  "fun:strategy.close_all": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.commission": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.entry_bar_index": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.entry_comment": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.entry_id": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.entry_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.entry_time": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.exit_bar_index": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.exit_comment": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.exit_id": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.exit_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.exit_time": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.max_drawdown": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.max_drawdown_percent": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.max_runup": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.max_runup_percent": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.profit": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.profit_percent": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.closedtrades.size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.convert_to_account": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.convert_to_symbol": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.default_entry_qty": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.entry": {
+   "local": "PARTIAL",
+   "note": "see strategy",
+   "evidence": "testing/backtesting/test_strategy_parity.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T9 fills"
+  },
+  "fun:strategy.exit": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.commission": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.entry_bar_index": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.entry_comment": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.entry_id": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.entry_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.entry_time": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.max_drawdown": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.max_drawdown_percent": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.max_runup": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.max_runup_percent": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.profit": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.profit_percent": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.opentrades.size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.order": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.risk.allow_entry_in": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.risk.max_cons_loss_days": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.risk.max_drawdown": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.risk.max_intraday_filled_orders": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.risk.max_intraday_loss": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:strategy.risk.max_position_size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:string": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:syminfo.prefix": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:syminfo.ticker": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.alma": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.atr": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.barssince": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.bb": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.bbw": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.cci": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.change": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.cmo": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.cog": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.correlation": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.cross": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.crossover": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.crossunder": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.cum": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.dev": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.dmi": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.ema": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T1 warm-up (first non-na bar = length-1)"
+  },
+  "fun:ta.falling": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.highest": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.highestbars": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.hma": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.kc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.kcw": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.linreg": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.lowest": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.lowestbars": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.macd": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.max": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.median": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.mfi": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.min": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.mode": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.mom": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.percentile_linear_interpolation": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.percentile_nearest_rank": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.percentrank": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.pivot_point_levels": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.pivothigh": {
+   "local": "PARTIAL",
+   "note": "Values/timing tested; tie rule locally = (>= left, > right); TradingView tie side UNVERIFIED (probe T11).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T10 timing/value"
+  },
+  "fun:ta.pivotlow": {
+   "local": "PARTIAL",
+   "note": "Values/timing tested; tie rule not tested.",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.range": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.rci": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.rising": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.rma": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.roc": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.rsi": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T2 constant series = 100"
+  },
+  "fun:ta.sar": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.sma": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.stdev": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.stoch": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.supertrend": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.swma": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.tr": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.tsi": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.valuewhen": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.variance": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.vwap": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.vwma": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.wma": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ta.wpr": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_bgcolor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_height": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text_font_family": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text_formatting": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text_halign": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text_size": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_text_valign": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_tooltip": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.cell_set_width": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.clear": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.delete": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.merge_cells": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.set_bgcolor": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.set_border_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.set_border_width": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.set_frame_color": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.set_frame_width": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:table.set_position": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.heikinashi": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.inherit": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.kagi": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.linebreak": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.modify": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.new": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.pointfigure": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.renko": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:ticker.standard": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:time": {
+   "local": "SUPPORTED_TESTED",
+   "note": "Matches independent reference (values + warm-up).",
+   "evidence": "testing/regression/test_indicator_reference.py",
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:time_close": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:timeframe.change": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:timeframe.from_seconds": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:timeframe.in_seconds": {
+   "local": "PARTIAL",
+   "note": "Context-dependent value matches TradingView inside request.security (T3b).",
+   "evidence": null,
+   "tradingview": "TV_VERIFIED_RELAYED",
+   "tradingview_evidence": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md T3b"
+  },
+  "fun:timestamp": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.buy_volume": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.delta": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.down_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.has_buy_imbalance": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.has_sell_imbalance": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.sell_volume": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.total_volume": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:volume_row.up_price": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:weekofyear": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "fun:year": {
+   "local": "UNVERIFIED",
+   "note": "Present in PineTS (function probe), not tested.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:and": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:enum": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:export": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:for": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:for...in": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:if": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:import": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:method": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:not": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:once": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:or": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:switch": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:type": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:var": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:varip": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "kw:while": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:-": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:-=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op::=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:!=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:?:": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:[]": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:*": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:*=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:/": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:/=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:%": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:%=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:+": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:+=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:<": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:<=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:==": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:=>": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:>": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "op:>=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@description": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@enum": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@field": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@function": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@param": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@returns": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@strategy_alert_message": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@type": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@variable": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  },
+  "an:@version=": {
+   "local": "UNVERIFIED",
+   "note": "Not tested locally.",
+   "evidence": null,
+   "tradingview": "NOT_TESTED",
+   "tradingview_evidence": null
+  }
+ }
+}

@@ -1,0 +1,16 @@
+//@version=6
+indicator("T11 pivot tie side probe")
+int leftBars  = 2
+int rightBars = 2
+float ph = ta.pivothigh(high, leftBars, rightBars)
+var int tieLeftAccepted  = 0
+var int tieRightAccepted = 0
+if not na(ph)
+    for k = 0 to leftBars + rightBars
+        if k != rightBars and high[k] == high[rightBars]
+            if k > rightBars
+                tieLeftAccepted += 1
+            else
+                tieRightAccepted += 1
+plot(tieLeftAccepted, "pivots_with_equal_LEFT_neighbour")
+plot(tieRightAccepted, "pivots_with_equal_RIGHT_neighbour")
