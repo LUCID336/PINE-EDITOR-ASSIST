@@ -1,0 +1,454 @@
+//@version=6
+indicator("Gold Multi-Setup Pro (5m)", shorttitle = "GOLD MULTI v7", overlay = true, max_labels_count = 500, max_lines_count = 500, max_boxes_count = 200)
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  GOLD MULTI-SETUP PRO · v7 · XAUUSD 5-Minuten
+//  5 Trend-Setups: FVG-Retest | EMA-Cross 9/21 | Bollinger-Squeeze | Trend-Pullback (NY) | RSI-Reaktion (NY spät)
+//  Alle Setups handeln NUR mit dem 1h-Trend (EMA200 auf abgeschlossenen 1h-Kerzen, ohne Repaint).
+//  Signale nur auf geschlossener Kerze; Entry/TP/SL auf echten Kursen (auch auf Heikin-Ashi-Charts).
+//
+//  Angaben des Autors (v6, nicht neu geprüft): getestet auf 22 Monaten Ultima-MT5-Daten (01/2025–10/2026,
+//  echte Spreads), jedes Setup in 2025 H1, 2025 H2 und 2026 einzeln positiv; TP1 = 1R: ca. 9–10 Signale/Tag,
+//  TP1 ca. 50–53 %, Ø ca. +0.04 bis +0.07 R. EMA-Cross standardmäßig aus (lag live im Minus).
+//
+//  v7 gegenüber v6:
+//   • Gleiche Setup-Logik, gleiche Standardwerte, gleiches Webhook-JSON (Felder/Events unverändert).
+//   • Neues Design: Setup-Farben, kompakte Signale mit Tooltip-Details, Positions-Flächen (Risiko/Ziel),
+//     FVG-Zonen, 1h-Trendlinie, Session-Schattierung, Dashboard mit Trend/Session/Tageszähler.
+//   • 5m: Signale standardmäßig nur auf 5m; Gap-realistische Statistik (Gap über SL = echter Verlust);
+//     optionale, UNGETESTETE Filter (Rollover-Pause, News-Spike, Freitag-Abend) – standardmäßig aus.
+//   • Secret wird JSON-sicher maskiert.
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ───────────────────────────── EINSTELLUNGEN ─────────────────────────────
+G1 = "① SETUPS  (an/aus · SL in Pips · TP1 in R)"
+on1  = input.bool(true,  "FVG-Retest",        inline = "1", group = G1)
+sl1  = input.float(60,   "SL",                inline = "1", group = G1)
+rt1  = input.float(1.0,  "TP1 R",             inline = "1", group = G1)
+on2  = input.bool(false, "EMA-Cross 9/21",    inline = "2", group = G1)
+sl2  = input.float(80,   "SL",                inline = "2", group = G1)
+rt2  = input.float(1.0,  "TP1 R",             inline = "2", group = G1)
+on3  = input.bool(true,  "Bollinger-Squeeze", inline = "3", group = G1)
+sl3  = input.float(160,  "SL",                inline = "3", group = G1)
+rt3  = input.float(1.0,  "TP1 R",             inline = "3", group = G1)
+on4  = input.bool(true,  "Trend-Pullback NY", inline = "4", group = G1)
+sl4  = input.float(120,  "SL",                inline = "4", group = G1)
+rt4  = input.float(1.0,  "TP1 R",             inline = "4", group = G1)
+on5  = input.bool(true,  "RSI NY spät",       inline = "5", group = G1)
+sl5  = input.float(160,  "SL",                inline = "5", group = G1)
+rt5  = input.float(1.0,  "TP1 R",             inline = "5", group = G1,
+     tooltip = "TP2 / TP3 / TP4 = 1.5× / 2× / 3× TP1. Getestete Werte sind voreingestellt.")
+
+G2 = "② ALLGEMEIN"
+pipSz    = input.float(0.10, "1 Pip = $", minval = 0.001, step = 0.01, group = G2)
+spreadIn = input.float(2.0, "Spread / Kosten (Pips)", minval = 0, step = 0.1, group = G2, tooltip = "Ultima XAUUSD ca. 2 Pips (0.20 $).")
+useBE    = input.bool(true, "SL auf Einstieg nach TP1 (Break-even)", group = G2)
+maxDay   = input.int(10, "Max. Signale pro Tag (alle Setups)", minval = 1, group = G2)
+cooldown = input.int(2, "Pause je Setup nach TP1 / SL (Bars)", minval = 0, group = G2)
+only5m   = input.bool(true, "Signale nur auf 5m (getestete Zeiteinheit)", group = G2, tooltip = "Auf anderen Zeiteinheiten werden keine neuen Signale erzeugt; das Dashboard zeigt einen Hinweis.")
+gapReal  = input.bool(true, "Gap-realistische Statistik", group = G2, tooltip = "Echtes Gap (voriger Schluss diesseits, Eröffnung jenseits von SL/BE, z. B. nach dem Wochenende): der Verlust zählt ab Eröffnungskurs statt exakt −1R. Betrifft nur die Statistik-Box, nicht Signale oder Alarme.")
+whSecret = input.string("", "Webhook SECRET", group = G2, tooltip = "Wird als \"secret\" in jede Alarm-Nachricht geschrieben, damit dein Cloudflare-Worker fremde Anfragen ablehnen kann. Hinweis: Eingaben werden mit dem Chart-Layout gespeichert – beim Teilen des Layouts nicht mitgeben. Sicherer: geheimer Token im Webhook-URL-Pfad.")
+
+G5 = "③ 5m-FILTER (optional · ungetestet)"
+useRoll  = input.bool(false, "Rollover-Pause 20:45–23:15 UTC", group = G5, tooltip = "Gold-Tagesrollover mit breiten Spreads. Blockiert nur NEUE Signale. Nicht im Backtest des Autors enthalten.")
+useSpike = input.bool(false, "News-Spike-Filter", inline = "sp", group = G5)
+spikeK   = input.float(3.0, "Kerze > x · ATR", minval = 1.0, step = 0.5, inline = "sp", group = G5, tooltip = "Kein neues Signal, wenn die Signalkerze größer als x · ATR(14) ist (typisch für News-Kerzen). Ungetestet.")
+useFri   = input.bool(false, "Freitag ab 20:00 UTC keine neuen Signale", group = G5, tooltip = "Vermeidet offene Trades über das Wochenend-Gap. Ungetestet.")
+
+G3 = "④ ANZEIGE"
+showTbl   = input.bool(true, "Dashboard", inline = "t", group = G3)
+tblPosIn  = input.string("Oben rechts", "", options = ["Oben rechts", "Oben links", "Unten rechts", "Unten links"], inline = "t", group = G3)
+tblSzIn   = input.string("Normal", "", options = ["Klein", "Normal", "Groß"], inline = "t", group = G3)
+lblMode   = input.string("Kompakt", "Signal-Labels", options = ["Kompakt", "Detail"], group = G3, tooltip = "Kompakt: Setup + Richtung, Details (Entry/SL/TP) per Mouse-Over. Detail: Preise direkt im Label.")
+showLvls  = input.bool(true, "Aktive Trades zeichnen", inline = "a", group = G3)
+showZones = input.bool(true, "Risiko-/Zielflächen", inline = "a", group = G3)
+showHits  = input.bool(true, "TP / SL / BE Treffer markieren", group = G3)
+showFVG   = input.bool(true, "FVG-Zonen anzeigen", group = G3)
+showTrend = input.bool(true, "1h-Trendlinie (EMA200)", inline = "tr", group = G3)
+showSess  = input.bool(true, "Session-Hintergrund", inline = "tr", group = G3)
+showSq    = input.bool(false, "Bollinger-Squeeze markieren", group = G3)
+
+G4 = "⑤ FARBEN"
+cFVG  = input.color(#26A69A, "FVG",         inline = "c1", group = G4)
+cEMA  = input.color(#7E57C2, "EMA",         inline = "c1", group = G4)
+cBB   = input.color(#EC407A, "BB",          inline = "c1", group = G4)
+cPB   = input.color(#FFA726, "Pullback",    inline = "c2", group = G4)
+cRSI  = input.color(#29B6F6, "RSI",         inline = "c2", group = G4)
+cBuy  = input.color(#22C55E, "Long",        inline = "c3", group = G4)
+cSell = input.color(#EF4444, "Short",       inline = "c3", group = G4)
+
+// ───────────────────────────── KONSTANTEN / THEME ─────────────────────────────
+color GOLD    = #D4AF37
+color PANEL   = #0F1420
+color PANEL2  = #161D2E
+color HEAD    = #1E2638
+color TXT     = #E6E8EE
+color DIM     = #8A93A6
+color GOOD    = #34D399
+color BAD     = #F87171
+tSz    = tblSzIn == "Klein" ? size.small : tblSzIn == "Groß" ? size.large : size.normal
+tblPos = tblPosIn == "Oben links" ? position.top_left : tblPosIn == "Unten rechts" ? position.bottom_right : tblPosIn == "Unten links" ? position.bottom_left : position.top_right
+
+NS     = 5
+NAMES  = array.from("FVG", "EMA-Cross", "BB-Squeeze", "Pullback NY", "RSI NY")
+SHORTN = array.from("FVG", "EMA", "BB", "PB", "RSI")
+ONS    = array.from(on1, on2, on3, on4, on5)
+COLS   = array.from(cFVG, cEMA, cBB, cPB, cRSI)
+spread = spreadIn * pipSz
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  PREISE / BASIS  (unverändert zu v6)
+// ═════════════════════════════════════════════════════════════════════════════
+realTk = ticker.standard(syminfo.tickerid)
+[rO, rH, rL, rC] = request.security(realTk, timeframe.period, [open, high, low, close])
+h200   = request.security(realTk, "60", ta.ema(close, 200)[1], lookahead = barmerge.lookahead_on)
+utcH   = hour(time, "UTC")
+utcMin = utcH * 60 + minute(time, "UTC")
+trR    = math.max(rH - rL, math.abs(rH - nz(rC[1], rC)), math.abs(rL - nz(rC[1], rC)))
+atrV   = ta.rma(trR, 14)
+upT    = rC > h200
+dnT    = rC < h200
+ok     = barstate.isconfirmed
+
+// ── 1) FVG-Retest: Lücke (Kerze i-2 ↔ i), Rücktest innerhalb 12 Bars, Schluss über/unter der Lücke
+var float fbTop = na
+var float fbBot = na
+var float fsTop = na
+var float fsBot = na
+var int   fbBar = -100000
+var int   fsBar = -100000
+fvgB = bar_index - fbBar >= 1 and bar_index - fbBar <= 13 and rL <= fbTop and rL >= fbBot and rC > rO and rC > fbTop
+fvgS = bar_index - fsBar >= 1 and bar_index - fsBar <= 13 and rH >= fsBot and rH <= fsTop and rC < rO and rC < fsBot
+bool newBullFvg = rL > rH[2]
+bool newBearFvg = rH < rL[2]
+if newBullFvg
+    fbTop := rL
+    fbBot := rH[2]
+    fbBar := bar_index
+if newBearFvg
+    fsBot := rH
+    fsTop := rL[2]
+    fsBar := bar_index
+s1B = fvgB and upT
+s1S = fvgS and not fvgB and dnT
+
+// ── 2) EMA-Cross 9/21 über/unter EMA200 (5m), 07–20 UTC
+e9   = ta.ema(rC, 9)
+e21  = ta.ema(rC, 21)
+e200 = ta.ema(rC, 200)
+crU  = e9 > e21 and e9[1] <= e21[1]
+crD  = e9 < e21 and e9[1] >= e21[1]
+s2B  = crU and rC > e200 and utcH >= 7 and utcH < 20 and upT
+s2S  = crD and rC < e200 and utcH >= 7 and utcH < 20 and dnT
+
+// ── 3) Bollinger-Squeeze: Bandbreite im unteren 20-%-Bereich (500 Bars), Schluss außerhalb des Bands
+bbM  = ta.sma(rC, 20)
+bbD  = ta.stdev(rC, 20, false)
+bbW  = 4 * bbD / bbM
+bbQ  = ta.percentile_linear_interpolation(bbW, 500, 20)
+sq   = bbW[1] <= bbQ[1]
+s3B  = sq and rC > bbM + 2 * bbD and upT
+s3S  = sq and rC < bbM - 2 * bbD and not s3B and dnT
+
+// ── 4) Trend-Pullback NY: Impuls > 2 ATR in 6 Bars, Rücksetzer an EMA20, Schluss in Trendrichtung, 12–17 UTC
+e20  = ta.ema(rC, 20)
+impU = ta.highest(rC - rC[6] > 2 * atrV ? 1 : 0, 6) > 0
+impD = ta.highest(rC[6] - rC > 2 * atrV ? 1 : 0, 6) > 0
+pbB  = impU and rL <= e20 and rC > e20 and rC > rO
+pbS  = impD and rH >= e20 and rC < e20 and rC < rO and not pbB
+nyS  = utcH >= 12 and utcH < 17
+s4B  = pbB and nyS and upT
+s4S  = pbS and nyS and dnT
+
+// ── 5) RSI NY spät: Heikin-Ashi-RSI 5 kommt aus 30/70 zurück, HA-Farbe bestätigt, 17–21 UTC, ATR ≥ 1.5 $
+haC  = (rO + rH + rL + rC) / 4
+float haO = na
+haO := na(haO[1]) ? (rO + rC) / 2 : (haO[1] + haC[1]) / 2
+rsi5 = ta.rsi(haC, 5)
+lt   = utcH >= 17 and utcH < 21 and atrV >= 1.5
+r5B  = rsi5[1] <= 30 and rsi5 > 30 and haC > haO and lt and upT
+r5S  = rsi5[1] >= 70 and rsi5 < 70 and haC < haO and lt and dnT and not r5B
+
+sigB = array.from(on1 and ok and s1B, on2 and ok and s2B, on3 and ok and s3B, on4 and ok and s4B, on5 and ok and r5B)
+sigS = array.from(on1 and ok and s1S, on2 and ok and s2S, on3 and ok and s3S, on4 and ok and s4S, on5 and ok and r5S)
+SLP  = array.from(sl1, sl2, sl3, sl4, sl5)
+RTS  = array.from(rt1, rt2, rt3, rt4, rt5)
+MULT = array.from(1.0, 1.5, 2.0, 3.0)
+
+// ── 5m-Freigabe für NEUE Signale (Ausstiege laufender Trades sind nie blockiert)
+bool tfOk      = not only5m or timeframe.period == "5"
+bool rollBlock = useRoll and utcMin >= 20 * 60 + 45 and utcMin < 23 * 60 + 15
+bool spikeBlk  = useSpike and not na(atrV[1]) and (rH - rL) > spikeK * atrV[1]
+bool friBlock  = useFri and dayofweek(time, "UTC") == dayofweek.friday and utcH >= 20
+bool allowNew  = tfOk and not rollBlock and not spikeBlk and not friBlock
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  TRADE-ENGINE – je Setup ein eigener Trade (4 × 25 % an TP1–TP4)  (Logik wie v6)
+// ═════════════════════════════════════════════════════════════════════════════
+var array<int>   sDir   = array.new<int>(NS, 0)
+var array<int>   sBar   = array.new<int>(NS, 0)
+var array<int>   sStage = array.new<int>(NS, 0)
+var array<int>   sLast  = array.new<int>(NS, -100000)
+var array<float> sSig   = array.new<float>(NS, na)
+var array<float> sFill  = array.new<float>(NS, na)
+var array<float> sSL    = array.new<float>(NS, na)
+var array<float> sBE    = array.new<float>(NS, na)
+var array<float> sStop  = array.new<float>(NS, na)
+var array<float> sTP    = array.new<float>(NS * 4, na)
+var array<int>   stN    = array.new<int>(NS, 0)
+var array<int>   stW    = array.new<int>(NS, 0)
+var array<float> stR    = array.new<float>(NS, 0.0)
+
+var int dayCnt = 0
+var int nDays  = 1
+if dayofmonth(time, "UTC") != dayofmonth(time[1], "UTC")
+    dayCnt := 0
+    nDays  += 1
+
+f_side(int d) =>
+    d == 1 ? "BUY" : "SELL"
+f_p(float x) =>
+    str.tostring(x, format.mintick)
+f_r(float x) =>
+    (x >= 0 ? "+" : "") + str.tostring(x, "0.00") + "R"
+// JSON-sicheres Secret (für normale Secrets identisch zu v6)
+secretJs = str.replace_all(str.replace_all(whSecret, "\\", "\\\\"), "\"", "\\\"")
+// Nachricht für Webhook: Levels = Entry ± Abstand (wie beim Broker eingegeben) – Format unverändert zu v6
+f_js(string ev, int k, int d, float px) =>
+    slD = SLP.get(k) * pipSz
+    tp1 = slD * RTS.get(k)
+    e   = sSig.get(k)
+    '{"secret":"' + secretJs + '","event":"' + ev + '","setup":"' + NAMES.get(k) + '","side":"' + f_side(d) + '","symbol":"' + syminfo.ticker +
+     '","price":' + f_p(px) + ',"entry":' + f_p(e) + ',"sl":' + f_p(e - d * slD) +
+     ',"tp1":' + f_p(e + d * tp1) + ',"tp2":' + f_p(e + d * tp1 * 1.5) + ',"tp3":' + f_p(e + d * tp1 * 2) + ',"tp4":' + f_p(e + d * tp1 * 3) + '}'
+f_hit(float y, string txt, color bg, string tip) =>
+    if showHits
+        label.new(bar_index, y, txt, style = label.style_label_center, color = color.new(bg, 15), textcolor = color.white, size = size.tiny, tooltip = tip)
+
+// ── Ausstiege
+for k = 0 to NS - 1
+    d = sDir.get(k)
+    if d != 0 and bar_index > sBar.get(k)
+        bool chk = false
+        slD0 = SLP.get(k) * pipSz
+        if sStage.get(k) == 0
+            sl  = sSL.get(k)
+            t1  = sTP.get(k * 4)
+            if d == 1 ? rL <= sl : rH >= sl
+                // echtes Gap: voriger Schluss noch diesseits des Stopps, Eröffnung bereits jenseits
+                bool gapped = gapReal and (d == 1 ? rO <= sl and rC[1] > sl : rO >= sl and rC[1] < sl)
+                float lossR = gapped ? (d == 1 ? rO - sFill.get(k) : sFill.get(k) - (rO + spread)) / slD0 : -1.0
+                stN.set(k, stN.get(k) + 1)
+                stR.set(k, stR.get(k) + lossR)
+                sDir.set(k, 0)
+                sLast.set(k, bar_index)
+                f_hit(sl, "✕ SL", cSell, NAMES.get(k) + " " + f_side(d) + " · SL " + f_p(sl) + " · " + f_r(lossR) + (gapped ? " (Gap)" : ""))
+                alert(f_js("SL", k, d, sSig.get(k) - d * SLP.get(k) * pipSz), alert.freq_once_per_bar_close)
+            else if d == 1 ? rH >= t1 : rL <= t1
+                chk := true
+                sLast.set(k, bar_index)
+        else
+            stp = sStop.get(k)
+            if d == 1 ? rL <= stp : rH >= stp
+                bool gapped = gapReal and (d == 1 ? rO <= stp and rC[1] > stp : rO >= stp and rC[1] < stp)
+                float rest  = 1 - 0.25 * sStage.get(k)
+                if not useBE
+                    stR.set(k, stR.get(k) - rest)
+                else if gapped
+                    stR.set(k, stR.get(k) + rest * (d == 1 ? rO - sFill.get(k) : sFill.get(k) - (rO + spread)) / slD0)
+                sDir.set(k, 0)
+                // nach TP1 zählt der Trade als Gewinner – Rückkehr zum Einstieg ist "BE HIT", kein SL
+                f_hit(stp, useBE ? "BE ✓" : "✕ SL", useBE ? #0D9488 : cSell, NAMES.get(k) + " " + f_side(d) + " · Rest " + str.tostring(rest * 100, "0") + " % bei " + f_p(stp) + (gapped ? " (Gap)" : ""))
+                alert(f_js(useBE ? "BE" : "SL", k, d, sSig.get(k)), alert.freq_once_per_bar_close)
+            else
+                chk := true
+        if chk
+            s0 = sStage.get(k)
+            for j = s0 to 3
+                lv = sTP.get(k * 4 + j)
+                if not (d == 1 ? rH >= lv : rL <= lv)
+                    break
+                sStage.set(k, j + 1)
+                if j == 0
+                    stN.set(k, stN.get(k) + 1)
+                    stW.set(k, stW.get(k) + 1)
+                stR.set(k, stR.get(k) + 0.25 * RTS.get(k) * MULT.get(j))
+                f_hit(lv, "TP" + str.tostring(j + 1) + " ✓", COLS.get(k), NAMES.get(k) + " " + f_side(d) + " · TP" + str.tostring(j + 1) + " " + f_p(lv) + " · +" + str.tostring(RTS.get(k) * MULT.get(j), "0.0#") + "R auf 25 %")
+                alert(f_js("TP" + str.tostring(j + 1), k, d, sSig.get(k) + d * SLP.get(k) * pipSz * RTS.get(k) * MULT.get(j)), alert.freq_once_per_bar_close)
+            if sStage.get(k) == 4
+                sDir.set(k, 0)
+            else if s0 == 0
+                sStop.set(k, useBE ? sBE.get(k) : sSL.get(k))
+
+// ── Neue Signale (je Setup: kein Trade offen ODER laufender Trade hat TP1)
+for k = 0 to NS - 1
+    d  = sDir.get(k)
+    st = sStage.get(k)
+    b  = sigB.get(k)
+    s  = sigS.get(k)
+    if (b or s) and (d == 0 or st >= 1) and bar_index - sLast.get(k) > cooldown and dayCnt < maxDay and allowNew
+        slD = SLP.get(k) * pipSz
+        if d != 0
+            ex = d == 1 ? rC : rC + spread
+            stR.set(k, stR.get(k) + (1 - 0.25 * st) * (d == 1 ? ex - sFill.get(k) : sFill.get(k) - ex) / slD)
+        nd   = b ? 1 : -1
+        fill = nd == 1 ? rC + spread : rC
+        sDir.set(k, nd)
+        sBar.set(k, bar_index)
+        sStage.set(k, 0)
+        sSig.set(k, rC)
+        sFill.set(k, fill)
+        sSL.set(k, nd == 1 ? fill - slD : fill + slD - spread)
+        sBE.set(k, nd == 1 ? fill : fill - spread)
+        sStop.set(k, sSL.get(k))
+        for j = 0 to 3
+            tpd = slD * RTS.get(k) * MULT.get(j)
+            sTP.set(k * 4 + j, nd == 1 ? fill + tpd : fill - tpd - spread)
+        dayCnt += 1
+        // Signal-Label: Setup-Farbe + Pfeil (Richtung auch ohne Farbe erkennbar), Details per Tooltip
+        string tip = NAMES.get(k) + " " + f_side(nd) + "\nEntry " + f_p(rC) + "   SL " + f_p(rC - nd * slD) +
+             "\nTP1 " + f_p(rC + nd * slD * RTS.get(k)) + "   TP2 " + f_p(rC + nd * slD * RTS.get(k) * 1.5) +
+             "\nTP3 " + f_p(rC + nd * slD * RTS.get(k) * 2) + "   TP4 " + f_p(rC + nd * slD * RTS.get(k) * 3) +
+             "\nRisiko " + str.tostring(SLP.get(k), "0") + " Pips · Signal " + str.tostring(dayCnt) + "/" + str.tostring(maxDay) + " heute"
+        string txt = (nd == 1 ? "▲ " : "▼ ") + SHORTN.get(k) + (lblMode == "Detail" ? "\n" + f_p(rC) + "\nSL " + f_p(rC - nd * slD) : "")
+        if nd == 1
+            label.new(bar_index, rL, txt, yloc = yloc.belowbar, style = label.style_label_up, color = COLS.get(k), textcolor = color.white, size = size.small, tooltip = tip)
+        else
+            label.new(bar_index, rH, txt, yloc = yloc.abovebar, style = label.style_label_down, color = COLS.get(k), textcolor = color.white, size = size.small, tooltip = tip)
+        alert(f_js("ENTRY", k, nd, rC), alert.freq_once_per_bar_close)
+
+// Sammel-Alarme (Text fest). Für Webhook mit allen Daten: Alarm "Irgendein alert()-Funktionsaufruf"
+anyEntry = false
+for k = 0 to NS - 1
+    if sDir.get(k) != 0 and sBar.get(k) == bar_index
+        anyEntry := true
+alertcondition(anyEntry, "Neues Signal (irgendein Setup)", 'Gold Multi-Setup: neues Signal auf {{ticker}}')
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  CHART-KONTEXT: 1h-Trendlinie, Sessions, Squeeze, FVG-Zonen
+// ═════════════════════════════════════════════════════════════════════════════
+color trendCol = upT ? color.new(cBuy, 25) : dnT ? color.new(cSell, 25) : color.new(DIM, 25)
+plot(showTrend ? h200 : na, "1h EMA200 (Trend)", color = trendCol, linewidth = 2, style = plot.style_stepline, display = display.pane)
+
+bool smallTf   = timeframe.isintraday and timeframe.in_seconds() <= 900
+bool inLondon  = utcH >= 7 and utcH < 12
+bool inNY      = utcH >= 12 and utcH < 17
+bool inNYLate  = utcH >= 17 and utcH < 21
+bool inRoll    = utcMin >= 20 * 60 + 45 and utcMin < 23 * 60 + 15
+color sessBg = not (showSess and smallTf) ? na : inRoll ? color.new(#6B7280, 90) : inNY ? color.new(#3B82F6, 94) : inNYLate ? color.new(#8B5CF6, 95) : inLondon ? color.new(GOLD, 95) : na
+bgcolor(sessBg, title = "Session")
+
+plotshape(showSq and sq and ok, "Bollinger-Squeeze", shape.circle, location.bottom, color.new(cBB, 40), size = size.tiny, display = display.pane)
+
+var array<box> fvgBoxes = array.new<box>()
+if showFVG and ok and (newBullFvg or newBearFvg)
+    float top = newBullFvg ? rL : rL[2]
+    float bot = newBullFvg ? rH[2] : rH
+    color zc  = newBullFvg ? cFVG : color.new(cSell, 0)
+    fvgBoxes.push(box.new(bar_index - 2, top, bar_index + 12, bot, border_color = color.new(zc, 55), border_width = 1, bgcolor = color.new(zc, 86), text = newBullFvg ? "FVG ▲" : "FVG ▼", text_size = size.tiny, text_color = color.new(zc, 20), text_halign = text.align_right, text_valign = text.align_top))
+    if fvgBoxes.size() > 40
+        fvgBoxes.shift().delete()
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  AKTIVE TRADES ZEICHNEN (Positions-Stil: Risiko-/Zielfläche, Level-Linien, Preis-Tags)
+// ═════════════════════════════════════════════════════════════════════════════
+var array<line>     dLn = array.new<line>()
+var array<label>    dLb = array.new<label>()
+var array<box>      dBx = array.new<box>()
+if barstate.islast
+    for o in dLn
+        o.delete()
+    for o in dLb
+        o.delete()
+    for o in dBx
+        o.delete()
+    dLn.clear()
+    dLb.clear()
+    dBx.clear()
+    if showLvls
+        for k = 0 to NS - 1
+            d = sDir.get(k)
+            if d != 0
+                x1   = sBar.get(k)
+                x2   = bar_index + 10
+                e    = sSig.get(k)
+                stp  = sStop.get(k)
+                tp4  = sTP.get(k * 4 + 3)
+                col  = COLS.get(k)
+                stg  = sStage.get(k)
+                if showZones
+                    dBx.push(box.new(x1, math.max(e, stp), x2, math.min(e, stp), border_color = color.new(cSell, 100), bgcolor = color.new(cSell, 85)))
+                    dBx.push(box.new(x1, math.max(e, tp4), x2, math.min(e, tp4), border_color = color.new(cBuy, 100), bgcolor = color.new(cBuy, 90)))
+                dLn.push(line.new(x1, e, x2, e, color = color.new(chart.fg_color, 10), width = 2))
+                dLn.push(line.new(x1, stp, x2, stp, color = cSell, style = line.style_dashed, width = 1))
+                dLb.push(label.new(x2, e, NAMES.get(k) + (d == 1 ? " ▲ " : " ▼ ") + f_side(d) + "  " + f_p(e) + "   Stufe " + str.tostring(stg) + "/4", style = label.style_label_left, color = col, textcolor = color.white, size = size.small))
+                dLb.push(label.new(x2, stp, (stg >= 1 and useBE ? "BE  " : "SL  ") + f_p(stp), style = label.style_label_left, color = color.new(cSell, 10), textcolor = color.white, size = size.tiny))
+                for j = 0 to 3
+                    lv  = sTP.get(k * 4 + j)
+                    hit = stg > j
+                    dLn.push(line.new(x1, lv, x2, lv, color = color.new(col, hit ? 0 : 35), style = hit ? line.style_solid : line.style_dotted))
+                    dLb.push(label.new(x2, lv, "TP" + str.tostring(j + 1) + "  " + f_p(lv) + "  " + str.tostring(RTS.get(k) * MULT.get(j), "0.0#") + "R" + (hit ? "  ✓" : ""), style = label.style_label_left, color = color.new(col, hit ? 0 : 45), textcolor = color.white, size = size.tiny))
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  DASHBOARD
+// ═════════════════════════════════════════════════════════════════════════════
+var table tb = table.new(tblPos, 6, 16, bgcolor = PANEL, frame_color = color.new(GOLD, 30), frame_width = 1, border_color = PANEL2, border_width = 1)
+f_c(int c, int r, string t, color tc, color bg) =>
+    table.cell(tb, c, r, t, text_color = tc, text_size = tSz, bgcolor = bg)
+f_sg(float x) =>
+    (x >= 0 ? "+" : "") + str.tostring(x, "0.00")
+f_row(int r, string t, color tc) =>
+    table.cell(tb, 0, r, t, text_color = tc, text_size = tSz, bgcolor = PANEL, text_halign = text.align_left)
+    table.merge_cells(tb, 0, r, 5, r)
+
+if showTbl and barstate.islast
+    tb.clear(0, 0, 5, 15)
+    table.cell(tb, 0, 0, "◆ GOLD MULTI-SETUP PRO  ·  " + timeframe.period + (timeframe.period == "5" ? "m" : "") + "  ◆", text_color = GOLD, text_size = tSz, bgcolor = HEAD)
+    table.merge_cells(tb, 0, 0, 5, 0)
+    string trendTxt = upT ? "▲ AUFWÄRTS" : dnT ? "▼ ABWÄRTS" : "— NEUTRAL"
+    string sessTxt  = inRoll ? "Rollover" : inNY ? "New York" : inNYLate ? "NY spät" : inLondon ? "London" : "Asien"
+    f_row(1, "1h-Trend  " + trendTxt + "     Session  " + sessTxt + "     ATR(5m)  " + str.tostring(atrV, "0.00") + " $", upT ? cBuy : dnT ? cSell : DIM)
+    f_c(0, 2, "Setup", DIM, PANEL2)
+    f_c(1, 2, "Trades", DIM, PANEL2)
+    f_c(2, 2, "TP1", DIM, PANEL2)
+    f_c(3, 2, "Ø R", DIM, PANEL2)
+    f_c(4, 2, "Netto R", DIM, PANEL2)
+    f_c(5, 2, "Status", DIM, PANEL2)
+    int   tN  = 0
+    int   tW  = 0
+    float tR  = 0.0
+    int   row = 3
+    for k = 0 to NS - 1
+        bool on = ONS.get(k)
+        n = stN.get(k)
+        color rowBg = row % 2 == 0 ? PANEL : PANEL2
+        if on
+            tN += n
+            tW += stW.get(k)
+            tR += stR.get(k)
+        int d = sDir.get(k)
+        string status = not on ? "aus" : d == 1 ? "▲ aktiv " + str.tostring(sStage.get(k)) + "/4" : d == -1 ? "▼ aktiv " + str.tostring(sStage.get(k)) + "/4" : "bereit"
+        f_c(0, row, "● " + NAMES.get(k), on ? COLS.get(k) : DIM, rowBg)
+        f_c(1, row, on ? str.tostring(n) : "–", on ? TXT : DIM, rowBg)
+        f_c(2, row, on and n > 0 ? str.tostring(math.round(100.0 * stW.get(k) / n)) + "%" : "–", on ? TXT : DIM, rowBg)
+        f_c(3, row, on and n > 0 ? f_sg(stR.get(k) / n) : "–", not on ? DIM : stR.get(k) >= 0 ? GOOD : BAD, rowBg)
+        f_c(4, row, on ? f_sg(stR.get(k)) : "–", not on ? DIM : stR.get(k) >= 0 ? GOOD : BAD, rowBg)
+        f_c(5, row, status, not on ? DIM : d == 1 ? cBuy : d == -1 ? cSell : DIM, rowBg)
+        row += 1
+    f_c(0, row, "GESAMT", GOLD, HEAD)
+    f_c(1, row, str.tostring(tN), TXT, HEAD)
+    f_c(2, row, tN > 0 ? str.tostring(math.round(100.0 * tW / tN)) + "%" : "–", TXT, HEAD)
+    f_c(3, row, tN > 0 ? f_sg(tR / tN) : "–", tR >= 0 ? GOOD : BAD, HEAD)
+    f_c(4, row, f_sg(tR), tR >= 0 ? GOOD : BAD, HEAD)
+    f_c(5, row, "", TXT, HEAD)
+    f_row(row + 1, "📅 Heute " + str.tostring(dayCnt) + "/" + str.tostring(maxDay) + " Signale   ·   Ø " + str.tostring(float(tN) / math.max(nDays, 1), "0.0") + " / Tag (" + str.tostring(nDays) + " Tage)", TXT)
+    f_row(row + 2, "TP1 = " + str.tostring(rt1, "0.0#") + "R (FVG) · 1R = 1 SL · Spread " + str.tostring(spreadIn) + " Pips · " + (gapReal ? "Gap-realistisch" : "Gap = −1R"), DIM)
+    int wr = row + 3
+    if not tfOk or (only5m == false and timeframe.period != "5")
+        f_row(wr, not tfOk ? "⚠ Keine neuen Signale: getestet nur auf 5m" : "⚠ Zeiteinheit " + timeframe.period + " ist ungetestet", BAD)
+        wr += 1
+    if useRoll or useSpike or useFri
+        f_row(wr, "Filter aktiv (ungetestet): " + (useRoll ? "Rollover " : "") + (useSpike ? "Spike " : "") + (useFri ? "Freitag" : ""), GOLD)
+        wr += 1
+    if not na(h200) and math.abs(rC - h200) < atrV
+        f_row(wr, "Hinweis: Kurs nahe 1h-EMA200 – Trendfilter wechselt leicht", DIM)
