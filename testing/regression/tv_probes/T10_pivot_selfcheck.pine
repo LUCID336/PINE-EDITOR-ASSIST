@@ -1,0 +1,29 @@
+//@version=6
+indicator("T10 pivot timing self-check")
+int leftBars  = 2
+int rightBars = 2
+float ph = ta.pivothigh(high, leftBars, rightBars)
+var int found         = 0
+var int valueMismatch = 0
+var int strictFails   = 0
+var int tieCases      = 0
+if not na(ph)
+    found += 1
+    if ph != high[rightBars]
+        valueMismatch += 1
+    bool strict = true
+    bool tie    = false
+    for k = 0 to leftBars + rightBars
+        if k != rightBars
+            if high[k] > high[rightBars]
+                strict := false
+            else if high[k] == high[rightBars]
+                tie := true
+    if not strict
+        strictFails += 1
+    if tie
+        tieCases += 1
+plot(found, "pivots_found")
+plot(valueMismatch, "pivot_value_not_high_at_candidate")
+plot(strictFails, "pivots_with_higher_neighbour")
+plot(tieCases, "pivots_with_equal_neighbour")

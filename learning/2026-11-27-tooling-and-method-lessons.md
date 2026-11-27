@@ -63,5 +63,5 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 - TradingView does not execute global side-effect code (runtime.error) in the security context; PineTS does →
   local runtime must flag scripts combining global runtime.error with request.security as DIVERGENT, not FAIL.
 - Six academy scripts compile on TradingView (valid:true). Copilot compile channel exposes no warnings field.
-- Synthetic 24/7 UTC data showed 0 HTF day-boundary mismatches, TradingView XAUUSD 7/234 → session/feed effects
+- Synthetic 24/7 UTC data showed 0 HTF day-boundary mismatches, TradingView XAUUSD ~3 % of day changes → session/feed effects
   are invisible to local synthetic tests; need session-shaped fixtures (weekend gaps, holidays, DST) — open item.

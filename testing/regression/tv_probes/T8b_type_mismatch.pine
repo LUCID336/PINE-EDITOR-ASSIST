@@ -1,0 +1,4 @@
+//@version=6
+indicator("T8b literal type mismatch")
+int x = "abc"
+plot(x)

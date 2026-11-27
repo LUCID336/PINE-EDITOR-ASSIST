@@ -1,0 +1,6 @@
+//@version=6
+indicator("T7 warning probe")
+float x = na
+if close > open
+    x := ta.ema(close, 10)
+plot(x, "conditional_ema")

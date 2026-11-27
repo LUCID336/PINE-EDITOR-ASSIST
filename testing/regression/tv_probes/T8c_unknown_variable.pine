@@ -1,0 +1,3 @@
+//@version=6
+indicator("T8c unknown variable")
+plot(barstate.isclosed ? 1 : 0)

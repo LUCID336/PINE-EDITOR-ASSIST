@@ -1,0 +1,33 @@
+//@version=6
+strategy("T9 broker emulator self-check", overlay = true, initial_capital = 10000, default_qty_type = strategy.fixed, default_qty_value = 1, commission_type = strategy.commission.percent, commission_value = 0.1, slippage = 0, process_orders_on_close = false, max_bars_back = 5000)
+float fast = ta.ema(close, 10)
+float slow = ta.ema(close, 30)
+bool longSig = ta.crossover(fast, slow)
+bool exitSig = ta.crossunder(fast, slow)
+if longSig and strategy.position_size == 0
+    strategy.entry("L", strategy.long)
+if exitSig
+    strategy.close("L")
+var int   checked            = 0
+var int   entryNotNextBar    = 0
+var float maxEntryVsOpenDiff = 0.0
+var float maxCommissionErr   = 0.0
+int n = strategy.closedtrades
+if n > checked
+    for i = checked to n - 1
+        int   eb   = strategy.closedtrades.entry_bar_index(i)
+        float ep   = strategy.closedtrades.entry_price(i)
+        float xp   = strategy.closedtrades.exit_price(i)
+        float q    = math.abs(strategy.closedtrades.size(i))
+        float comm = strategy.closedtrades.commission(i)
+        int   back = bar_index - eb
+        if not longSig[back + 1]
+            entryNotNextBar += 1
+        maxEntryVsOpenDiff := math.max(maxEntryVsOpenDiff, math.abs(ep - open[back]))
+        maxCommissionErr   := math.max(maxCommissionErr, math.abs(comm - 0.001 * q * (ep + xp)))
+    checked := n
+plot(checked, "closed_trades_checked")
+plot(entryNotNextBar, "entries_not_on_bar_after_signal")
+plot(maxEntryVsOpenDiff, "max_abs_entry_price_minus_open")
+plot(maxCommissionErr, "max_abs_commission_error")
+plot(strategy.netprofit, "netprofit")

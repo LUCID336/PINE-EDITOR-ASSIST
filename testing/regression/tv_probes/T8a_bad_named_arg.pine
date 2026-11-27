@@ -1,0 +1,3 @@
+//@version=6
+indicator("T8a bad named argument")
+plot(close, linewidth2 = 3)
