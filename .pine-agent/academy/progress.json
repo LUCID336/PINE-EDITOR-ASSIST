@@ -1,0 +1,69 @@
+{
+ "schema_version": 1,
+ "lessons": {
+  "L01": {
+   "status": "BLOCKED",
+   "evidence": ".pine-agent/academy/evidence/L01.json"
+  },
+  "L02": {
+   "status": "BLOCKED",
+   "evidence": ".pine-agent/academy/evidence/L02.json"
+  },
+  "L03": {
+   "status": "BLOCKED",
+   "evidence": ".pine-agent/academy/evidence/L03.json"
+  },
+  "L04": {
+   "status": "BLOCKED",
+   "evidence": ".pine-agent/academy/evidence/L04.json"
+  },
+  "L05": {
+   "status": "BLOCKED",
+   "evidence": ".pine-agent/academy/evidence/L05.json"
+  },
+  "L06": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L07": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L08": {
+   "status": "BLOCKED",
+   "evidence": ".pine-agent/academy/evidence/L08.json"
+  },
+  "L09": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L10": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L11": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L12": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L13": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L14": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L15": {
+   "status": "NOT_RUN",
+   "evidence": null
+  },
+  "L16": {
+   "status": "NOT_RUN",
+   "evidence": null
+  }
+ }
+}

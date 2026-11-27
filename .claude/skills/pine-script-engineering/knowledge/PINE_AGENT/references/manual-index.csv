@@ -1,0 +1,79 @@
+id,section,chapter,navigation_source,status
+M00,Welcome,Welcome to Pine Script v6,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M01,Primer,First steps,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M02,Primer,First indicator,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M03,Primer,Next steps,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M04,Language,Execution model,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M05,Language,Type system,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M06,Language,Script structure,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M07,Language,Identifiers,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M08,Language,Declaration statements,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M09,Language,Variable declarations,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M10,Language,Operators,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M11,Language,Conditional structures,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M12,Language,Loops,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M13,Language,Built-ins,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M14,Language,User-defined functions,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M15,Language,Objects,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M16,Language,Enums,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M17,Language,Methods,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M18,Language,Arrays,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M19,Language,Matrices,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M20,Language,Maps,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M21,Visuals,Overview,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M22,Visuals,Backgrounds,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M23,Visuals,Bar coloring,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M24,Visuals,Bar plotting,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M25,Visuals,Colors,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M26,Visuals,Fills,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M27,Visuals,Levels,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M28,Visuals,Lines and boxes,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M29,Visuals,Plots,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M30,Visuals,Tables,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M31,Visuals,Text and shapes,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M32,Concepts,Alerts,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M33,Concepts,Bar states,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M34,Concepts,Chart information,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M35,Concepts,Inputs,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M36,Concepts,Libraries,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M37,Concepts,Non-standard charts data,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M38,Concepts,Other timeframes and data,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M39,Concepts,Repainting,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M40,Concepts,Sessions,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M41,Concepts,Strategies,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M42,Concepts,Strings,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M43,Concepts,Time,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M44,Concepts,Timeframes,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M45,Writing scripts,Style guide,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M46,Writing scripts,Debugging,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M47,Writing scripts,Profiling and optimization,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M48,Writing scripts,Publishing scripts,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M49,Writing scripts,Limitations,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M50,Errors and warnings,Overview,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M51,Errors and warnings,CE10101,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M52,Errors and warnings,CE10117,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M53,Errors and warnings,CW10003,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M54,Errors and warnings,CW10026,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M55,Errors and warnings,RE10139,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M56,Errors and warnings,RE10143,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M57,FAQ,General,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M58,FAQ,Alerts,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M59,FAQ,Data structures,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M60,FAQ,Functions,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M61,FAQ,Indicators,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M62,FAQ,Other data and timeframes,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M63,FAQ,Programming,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M64,FAQ,Strategies,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M65,FAQ,Strings and formatting,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M66,FAQ,Techniques,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M67,FAQ,"Times, dates, and sessions",https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M68,FAQ,Variables and operators,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M69,FAQ,Visuals,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M70,Release notes,Release notes,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M71,Migration guides,Overview,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY
+M72,Migration guides,To Pine Script version 6,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M73,Migration guides,To Pine Script version 5,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M74,Migration guides,To Pine Script version 4,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M75,Migration guides,To Pine Script version 3,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M76,Migration guides,To Pine Script version 2,https://www.tradingview.com/pine-script-docs/welcome/,TOPIC_SOURCE_LOCATED_NOT_FULL_READ
+M77,More information,Where can I get more information?,https://www.tradingview.com/pine-script-docs/welcome/,TOC_ONLY

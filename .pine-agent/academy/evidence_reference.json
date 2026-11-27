@@ -1,0 +1,191 @@
+{
+ "runtime": "PineTS 0.13.1 (third party, not TradingView)",
+ "label": "reference",
+ "labs": {
+  "L01": {
+   "sha256": "057e53ed71c7b263731746c73b4d6ca0778901897a1d015f6c6f814ff9d8cfe6",
+   "results": [
+    {
+     "criterion": "SMA len3 bar3=11, bar5=37/3",
+     "pass": true,
+     "observed": [
+      null,
+      null,
+      11,
+      11.3333333333,
+      12.3333333333
+     ]
+    },
+    {
+     "criterion": "warm-up SMA is na (not 0)",
+     "pass": true,
+     "observed": [
+      null,
+      null
+     ]
+    },
+    {
+     "criterion": "first change missing, others 1,1,-1,3",
+     "pass": true,
+     "observed": [
+      null,
+      1,
+      1,
+      -1,
+      3
+     ]
+    }
+   ]
+  },
+  "L02": {
+   "sha256": "62def4cdfdd5a140f5862a3b52eaafaa0c7c7cebe4f34347379ad90e20bd5014",
+   "results": [
+    {
+     "criterion": "RSI identical with gate on/off",
+     "pass": true,
+     "observed": null
+    }
+   ]
+  },
+  "L03": {
+   "sha256": "b7dfd5ee9ab35412d06f160ee789e7c54c7bcc754fabeee03144935e35563e6e",
+   "results": [
+    {
+     "criterion": "no state before first bullish close; doji ignored",
+     "pass": true,
+     "observed": [
+      [
+       null,
+       null,
+       12,
+       12,
+       14,
+       14
+      ],
+      [
+       0,
+       0,
+       1,
+       1,
+       2,
+       2
+      ]
+     ]
+    },
+    {
+     "criterion": "last bullish close 12,12,14,14",
+     "pass": true,
+     "observed": [
+      null,
+      null,
+      12,
+      12,
+      14,
+      14
+     ]
+    },
+    {
+     "criterion": "bull count 1,1,2,2",
+     "pass": true,
+     "observed": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2
+     ]
+    }
+   ]
+  },
+  "L04": {
+   "sha256": "25570fff8aa284c23634045e22261fc799108402766d307f63b54236bfea7080",
+   "results": [
+    {
+     "criterion": "size never exceeds N (N=3, N=1)",
+     "pass": true,
+     "observed": [
+      [
+       1,
+       2,
+       3,
+       3,
+       3
+      ],
+      [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     ]
+    },
+    {
+     "criterion": "mean == SMA(3) after warm-up",
+     "pass": true,
+     "observed": null
+    }
+   ]
+  },
+  "L05": {
+   "sha256": "c636373f02a07779be186363cd2d56fba3416b1f6afac656bd930eca8782c2c5",
+   "results": [
+    {
+     "criterion": "ATR=2, close=100 -> 2 %",
+     "pass": true,
+     "observed": 2
+    },
+    {
+     "criterion": "zero denominator -> na",
+     "pass": true,
+     "observed": null
+    },
+    {
+     "criterion": "warm-up na, not 0",
+     "pass": true,
+     "observed": null
+    }
+   ]
+  },
+  "L08": {
+   "sha256": "0e97bfc9200df4c6a43b64afac23f1cccc00dddf8b6c0fc211652ab05bf0926a",
+   "results": [
+    {
+     "criterion": "pivot at bar 3 observable at bar 5 (right=2)",
+     "pass": true,
+     "observed": [
+      5,
+      [
+       null,
+       null,
+       null,
+       null,
+       null,
+       10,
+       10,
+       10,
+       10,
+       10.5,
+       10.5
+      ]
+     ]
+    },
+    {
+     "criterion": "no signal at or before confirmation bar 5",
+     "pass": true,
+     "observed": [
+      7
+     ]
+    },
+    {
+     "criterion": "breakout on bar 7 only",
+     "pass": true,
+     "observed": [
+      7
+     ]
+    }
+   ]
+  }
+ }
+}

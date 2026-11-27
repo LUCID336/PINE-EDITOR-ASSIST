@@ -1,0 +1,46 @@
+[
+  {
+    "symbol": "request.security",
+    "version": 6,
+    "signature": "request.security(symbol, timeframe, expression, gaps, lookahead, ignore_invalid_symbol, currency, calc_bars_count) → series <type>",
+    "source": "https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/",
+    "status": "MANUAL_SIGNATURE_OBSERVED_PARTIAL",
+    "constraints": "Evaluate expression in requested context. Confirm HTF via offset expression and lookahead_on when strictly higher TF. Verify exact qualifiers and defaults.",
+    "full_overload_verified": false,
+    "compile_status": "NOT_RUN",
+    "verified_at": "2026-11-27"
+  },
+  {
+    "symbol": "request.security_lower_tf",
+    "version": 6,
+    "signature": "request.security_lower_tf(symbol, timeframe, expression, ignore_invalid_symbol, currency, ignore_invalid_timeframe, calc_bars_count) → array<type>",
+    "source": "https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/",
+    "status": "MANUAL_SIGNATURE_OBSERVED_PARTIAL",
+    "constraints": "Lower or equal TF only; intrabar arrays may be empty; tuple expression returns tuple of arrays.",
+    "full_overload_verified": false,
+    "compile_status": "NOT_RUN",
+    "verified_at": "2026-11-27"
+  },
+  {
+    "symbol": "request.footprint",
+    "version": 6,
+    "signature": "request.footprint(ticks_per_row, va_percent, imbalance_percent) → series footprint",
+    "source": "https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/",
+    "status": "MANUAL_SIGNATURE_OBSERVED_PARTIAL",
+    "constraints": "Premium/Ultimate per current manual; guard na; only one unique footprint request, including requests copied into another context. Classified volume is not full order book.",
+    "full_overload_verified": false,
+    "compile_status": "NOT_RUN",
+    "verified_at": "2026-11-27"
+  },
+  {
+    "symbol": "alert",
+    "version": 6,
+    "signature": "alert(message, freq)",
+    "source": "https://www.tradingview.com/pine-script-docs/concepts/alerts/",
+    "status": "MANUAL_SIGNATURE_OBSERVED_PARTIAL",
+    "constraints": "Dynamic series string message, input string frequency. Realtime alert requires UI setup; test actual event.",
+    "full_overload_verified": false,
+    "compile_status": "NOT_RUN",
+    "verified_at": "2026-11-27"
+  }
+]

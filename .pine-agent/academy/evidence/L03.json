@@ -1,0 +1,82 @@
+{
+ "lesson_id": "L03",
+ "status": "BLOCKED",
+ "pine_version": 6,
+ "script_sha256": "0696e6522699dbf12bccee8737d5b1703bff0f8a7ccb77e31f1bc66c652a0e0b",
+ "api_ledger": ".pine-agent/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
+ "chart_context": {
+  "symbol": "FIXTURE (synthetic)",
+  "feed": "none",
+  "timeframe": "D (fixture)",
+  "timezone": "UTC",
+  "bar_type": "standard OHLC",
+  "settings": "script defaults; N=1 variant for L04, gate=false variant for L02",
+  "date_range": "synthetic"
+ },
+ "compile": {
+  "status": "NOT_RUN",
+  "artifact": null,
+  "note": "No TradingView account/editor access in this environment"
+ },
+ "third_party_runtime": {
+  "engine": "PineTS 0.13.1 (not TradingView)",
+  "status": "PASS",
+  "checks": [
+   {
+    "criterion": "no state before first bullish close; doji ignored",
+    "pass": true,
+    "observed": [
+     [
+      null,
+      null,
+      12,
+      12,
+      14,
+      14
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "criterion": "last bullish close 12,12,14,14",
+    "pass": true,
+    "observed": [
+     null,
+     null,
+     12,
+     12,
+     14,
+     14
+    ]
+   },
+   {
+    "criterion": "bull count 1,1,2,2",
+    "pass": true,
+    "observed": [
+     0,
+     0,
+     1,
+     1,
+     2,
+     2
+    ]
+   }
+  ]
+ },
+ "adversarial_test": "doji and bearish bars must not update state",
+ "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: no findings",
+ "score": null,
+ "blockers": [
+  "Official Pine Editor compile + realtime/reload checks NOT_RUN"
+ ],
+ "learning": [
+  "see .pine-agent/learning/2026-11-27-tooling-and-method-lessons.md"
+ ]
+}

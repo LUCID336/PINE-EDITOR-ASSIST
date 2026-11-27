@@ -1,0 +1,41 @@
+# Training research register
+
+Checked 2026-11-27. The register describes evidence actually retrieved, not course completion. No private lessons, transcripts, or paid course materials are reproduced. Use official version-specific reference for exact overloads.
+
+- **S01 — [TradingView First steps](https://www.tradingview.com/pine-script-docs/primer/first-steps/)** | primary; free docs. start and inspect built-in code. Evidence: retrieved search excerpt.
+- **S02 — [TradingView Next steps](https://www.tradingview.com/pine-script-docs/primer/next-steps/)** | primary; free docs. version matching and script categories. Evidence: retrieved search excerpt.
+- **S03 — [PineCoders learning roadmap](https://www.pinecoders.com/learning_pine_roadmap/)** | community specialist; public. series thinking and code reading; legacy examples. Evidence: page opened.
+- **S04 — [PineCoders resource directory](https://www.pinecoders.com/resources/)** | community specialist; public. course and Q&A discovery. Evidence: page opened.
+- **S05 — [The Art of Trading: Basics](https://courses.theartoftrading.com/courses/pine-script-basics-course)** | course provider; free enrollment advertised. 31 lessons listed; editor, types, alerts, charts. Evidence: public syllabus opened; lessons not taken.
+- **S06 — [The Art of Trading: Mastery](https://courses.theartoftrading.com/courses/pine-script-mastery)** | course provider; paid. 194 lessons advertised in course listing; advanced scripts. Evidence: public listing only; price inconsistent across listings; no purchase.
+- **S07 — [The Art of Trading: public lessons](https://zenandtheartoftrading.com/pinescript/)** | tutorial provider; public. indicator practice; mixed/older versions. Evidence: retrieved search excerpt.
+- **S08 — [The Art of Trading: video examples](https://courses.theartoftrading.com/pages/youtube-pine-script-tutorials)** | tutorial provider; public index. arrays, strategies and bid/ask examples. Evidence: retrieved search excerpt; videos not watched.
+- **S09 — [QuantNomad Academy](https://courses.quantnomad.com/)** | course provider; paid courses; free videos elsewhere. hands-on indicator and strategy examples. Evidence: page opened; no enrollment.
+- **S10 — [Udemy: Learn TradingView Pine Script Programming From Scratch](https://www.udemy.com/course/learn-tradingview-pine-script-programming-from-scratch/)** | course provider; paid. project-based coding and v5-v6 migration. Evidence: retrieved search excerpt; no enrollment.
+- **S11 — [CodeReindeer tutorials](https://codereindeer.com/en/tradingview_and_pine_script/)** | tutorial provider; public index. 16 chapters; language through MTF and webhook concepts. Evidence: page opened; individual chapters not fully read.
+- **S12 — [Casoon: Pine Script lernen](https://learn.casoon.dev/courses/pine-lernen/)** | tutorial provider; public syllabus; access terms unverified. German; 13 lessons, 9 exercises; v5 with v6 update. Evidence: page opened; no full course completion.
+- **S13 — [Kodify TradingView tutorials](https://kodify.net/tradingview/)** | community specialist; public per PineCoders. topic-specific exercises; check version. Evidence: direct fetch 403; discovery only via S04.
+- **S14 — [PineWizards video channel](https://www.youtube.com/channel/UCMw07QiT6Wt9BwnXIm9XgYg)** | tutorial provider; public videos. beginner series; version may be old. Evidence: search excerpt; videos not watched.
+- **S15 — [TradingView execution model](https://www.tradingview.com/pine-script-docs/language/execution-model/)** | primary; free docs. bar-by-bar execution, realtime and rollback. Evidence: retrieved search excerpt.
+- **S16 — [TradingView type system](https://www.tradingview.com/pine-script-docs/language/type-system/)** | primary; free docs. qualifiers, objects and tuples. Evidence: retrieved search excerpt.
+- **S17 — [TradingView v6 migration](https://www.tradingview.com/pine-script-docs/migration-guides/to-pine-version-6/)** | primary; free docs. lazy evaluation, bool and sequential migrations. Evidence: retrieved search excerpt.
+- **S18 — [TradingView arrays](https://www.tradingview.com/pine-script-docs/language/arrays/)** | primary; free docs. typed dynamic collections. Evidence: retrieved search excerpt.
+- **S19 — [TradingView other timeframes and data](https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/)** | primary; free docs. HTF and LTF, footprints, request restrictions. Evidence: retrieved search excerpt.
+- **S20 — [TradingView FAQ other data](https://www.tradingview.com/pine-script-docs/faq/other-data-and-timeframes/)** | primary; free docs. timeframe checks and request behavior. Evidence: retrieved search excerpt.
+- **S21 — [TradingView repainting](https://www.tradingview.com/pine-script-docs/concepts/repainting/)** | primary; free docs. historical vs realtime behavior. Evidence: retrieved search excerpt.
+- **S22 — [TradingView techniques FAQ](https://www.tradingview.com/pine-script-docs/faq/techniques/)** | primary; free docs. state, drawing limits and optimization. Evidence: retrieved search excerpt.
+- **S23 — [TradingView debugging](https://www.tradingview.com/pine-script-docs/writing/debugging/)** | primary; free docs. logs, plots, diagnostics. Evidence: retrieved search excerpt.
+- **S24 — [TradingView profiler](https://www.tradingview.com/pine-script-docs/writing/profiling-and-optimization/)** | primary; free docs. measure before optimization, update objects. Evidence: retrieved search excerpt.
+- **S25 — [TradingView style guide](https://www.tradingview.com/pine-script-docs/writing/style-guide/)** | primary; free docs. naming and code organization. Evidence: retrieved search excerpt.
+- **S26 — [TradingView strategies](https://www.tradingview.com/pine-script-docs/concepts/strategies/)** | primary; free docs. broker emulator, fees, execution assumptions. Evidence: retrieved search excerpt.
+- **S27 — [TradingView strategies FAQ](https://www.tradingview.com/pine-script-docs/faq/strategies/)** | primary; free docs. order timing and recalculation pitfalls. Evidence: retrieved search excerpt.
+- **S28 — [TradingView alerts FAQ](https://www.tradingview.com/pine-script-docs/faq/alerts/)** | primary; free docs. JSON, alert snapshots. Evidence: retrieved search excerpt.
+- **S29 — [TradingView webhook help](https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/)** | primary; free docs; features plan-dependent. timeouts, JSON transport. Evidence: retrieved search excerpt.
+- **S30 — [TradingView CSV export](https://www.tradingview.com/support/solutions/43000537255-how-to-export-chart-data/)** | primary; free docs; features plan-dependent. export chart data. Evidence: retrieved search excerpt.
+- **S31 — [TradingView indicators FAQ](https://www.tradingview.com/pine-script-docs/faq/indicators/)** | primary; free docs. plots in CSV exports. Evidence: retrieved search excerpt.
+- **S32 — [TradingView limitations](https://www.tradingview.com/pine-script-docs/writing/limitations/)** | primary; free docs. resource limits. Evidence: retrieved search excerpt.
+- **S33 — [TradingView release notes](https://www.tradingview.com/pine-script-docs/release-notes/)** | primary; free docs. version freshness. Evidence: retrieved search excerpt.
+- **S34 — [TradingView bar states](https://www.tradingview.com/pine-script-docs/concepts/bar-states/)** | primary; free docs. confirmation and last bar. Evidence: retrieved search excerpt.
+- **S35 — [TradingView tables](https://www.tradingview.com/pine-script-docs/concepts/tables/)** | primary; free docs. table lifecycle. Evidence: retrieved search excerpt.
+- **S36 — [TradingView user-defined functions](https://www.tradingview.com/pine-script-docs/language/user-defined-functions/)** | primary; free docs. functions, return types and call scopes. Evidence: retrieved search excerpt.
+- **S37 — [TradingView webhook credential guidance](https://www.tradingview.com/support/solutions/43000722015-using-credentials-for-webhooks/)** | primary; free docs. no secrets in alerts; not designed for automated trading. Evidence: retrieved search excerpt.

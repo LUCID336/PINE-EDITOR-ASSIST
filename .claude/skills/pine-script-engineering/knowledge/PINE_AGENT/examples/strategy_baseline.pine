@@ -1,0 +1,18 @@
+//@version=6
+strategy("Pine Agent | EMA research baseline", overlay = true, pyramiding = 0, initial_capital = 10000, default_qty_type = strategy.percent_of_equity, default_qty_value = 10, commission_type = strategy.commission.percent, commission_value = 0.10, slippage = 2, margin_long = 100, margin_short = 100, calc_on_every_tick = false, calc_on_order_fills = false, process_orders_on_close = false)
+// Illustrative costs and sizing, not a validated trading system. Long-only baseline.
+int fastLen = input.int(20, "Fast EMA", minval = 1)
+int slowLen = input.int(50, "Slow EMA", minval = 2)
+if fastLen >= slowLen
+    runtime.error("Fast EMA must be shorter than slow EMA")
+float fast = ta.ema(close, fastLen)
+float slow = ta.ema(close, slowLen)
+bool up = ta.crossover(fast, slow)
+bool down = ta.crossunder(fast, slow)
+if barstate.isconfirmed and bar_index >= slowLen
+    if up and strategy.position_size == 0
+        strategy.entry("L", strategy.long)
+    if down and strategy.position_size > 0
+        strategy.close("L")
+plot(fast, "Fast EMA", color = color.blue)
+plot(slow, "Slow EMA", color = color.orange)

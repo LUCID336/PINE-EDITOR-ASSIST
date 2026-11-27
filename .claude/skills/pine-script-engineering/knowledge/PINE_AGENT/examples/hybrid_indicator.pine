@@ -1,0 +1,42 @@
+//@version=6
+indicator("Pine Agent | Feature Monitor v1", overlay = true)
+string mode = input.string("Human", "Mode", options = ["Human", "AI"], group = "Output")
+string htf = input.timeframe("1D", "Higher timeframe", group = "Data")
+int emaLen = input.int(20, "EMA length", minval = 1, group = "Features")
+int rsiLen = input.int(14, "RSI length", minval = 1, group = "Features")
+int atrLen = input.int(14, "ATR length", minval = 1, group = "Features")
+int volLen = input.int(20, "Volume baseline", minval = 1, group = "Features")
+bool emit = input.bool(false, "Enable JSON alerts", group = "Output")
+if timeframe.in_seconds(htf) <= timeframe.in_seconds()
+    runtime.error("Higher timeframe must exceed chart timeframe")
+float ema = ta.ema(close, emaLen)
+float rsi = ta.rsi(close, rsiLen)
+float atr = ta.atr(atrLen)
+float volBase = ta.sma(volume, volLen)
+float rvol = not na(volume) and not na(volBase) and volBase > 0 ? volume / volBase : na
+float htfClose = request.security(syminfo.tickerid, htf, close[1], lookahead = barmerge.lookahead_on)
+bool ready = not na(ema) and not na(rsi) and not na(atr) and not na(rvol) and not na(htfClose)
+bool human = mode == "Human"
+plot(human ? ema : na, "EMA overlay", color = color.blue, linewidth = 2)
+plot(ema, "f_ema", display = display.data_window)
+plot(rsi, "f_rsi", display = display.data_window)
+plot(atr, "f_atr", display = display.data_window)
+plot(rvol, "f_rvol", display = display.data_window)
+plot(htfClose, "f_htf_close", display = display.data_window)
+plot(ready ? 1 : 0, "quality_ready", display = display.data_window)
+var table panel = table.new(position.top_right, 2, 3)
+if barstate.islast and human
+    table.cell(panel, 0, 0, "Quality")
+    table.cell(panel, 1, 0, ready ? "READY" : "MISSING")
+    table.cell(panel, 0, 1, "RSI")
+    table.cell(panel, 1, 1, str.tostring(rsi, "#.0"))
+    table.cell(panel, 0, 2, "Bar")
+    table.cell(panel, 1, 2, barstate.isconfirmed ? "CLOSED" : "OPEN")
+jsonNum(float x) =>
+    na(x) ? "null" : str.tostring(x, "0.##########")
+// All interpolated strings are fixed labels, numeric inputs, timeframe, or platform ticker IDs.
+// Production deployments must validate allowed ticker IDs; this example is for standard time-based charts.
+string config = "e" + str.tostring(emaLen) + "_r" + str.tostring(rsiLen) + "_a" + str.tostring(atrLen) + "_v" + str.tostring(volLen) + "_h" + htf
+if emit and barstate.isconfirmed and barstate.isrealtime and not na(time_close)
+    string msg = '{"schema_version":"1.0","build":"example-1","config_id":"' + config + '","symbol":"' + syminfo.tickerid + '","timeframe":"' + timeframe.period + '","bar_open_ms":' + str.tostring(time) + ',"bar_close_ms":' + str.tostring(time_close) + ',"confirmed":true,"quality":"' + (ready ? "READY" : "MISSING") + '","features":{"ema":' + jsonNum(ema) + ',"rsi":' + jsonNum(rsi) + ',"atr":' + jsonNum(atr) + ',"rvol":' + jsonNum(rvol) + ',"htf_close":' + jsonNum(htfClose) + '}}'
+    alert(msg, alert.freq_once_per_bar_close)

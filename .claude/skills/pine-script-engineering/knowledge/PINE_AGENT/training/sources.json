@@ -1,0 +1,372 @@
+[
+  {
+    "id": "S01",
+    "title": "TradingView First steps",
+    "url": "https://www.tradingview.com/pine-script-docs/primer/first-steps/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "start and inspect built-in code",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S02",
+    "title": "TradingView Next steps",
+    "url": "https://www.tradingview.com/pine-script-docs/primer/next-steps/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "version matching and script categories",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S03",
+    "title": "PineCoders learning roadmap",
+    "url": "https://www.pinecoders.com/learning_pine_roadmap/",
+    "authority": "community specialist",
+    "access": "public",
+    "scope": "series thinking and code reading; legacy examples",
+    "retrieval": "page opened",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S04",
+    "title": "PineCoders resource directory",
+    "url": "https://www.pinecoders.com/resources/",
+    "authority": "community specialist",
+    "access": "public",
+    "scope": "course and Q&A discovery",
+    "retrieval": "page opened",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S05",
+    "title": "The Art of Trading: Basics",
+    "url": "https://courses.theartoftrading.com/courses/pine-script-basics-course",
+    "authority": "course provider",
+    "access": "free enrollment advertised",
+    "scope": "31 lessons listed; editor, types, alerts, charts",
+    "retrieval": "public syllabus opened; lessons not taken",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S06",
+    "title": "The Art of Trading: Mastery",
+    "url": "https://courses.theartoftrading.com/courses/pine-script-mastery",
+    "authority": "course provider",
+    "access": "paid",
+    "scope": "194 lessons advertised in course listing; advanced scripts",
+    "retrieval": "public listing only; price inconsistent across listings; no purchase",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S07",
+    "title": "The Art of Trading: public lessons",
+    "url": "https://zenandtheartoftrading.com/pinescript/",
+    "authority": "tutorial provider",
+    "access": "public",
+    "scope": "indicator practice; mixed/older versions",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S08",
+    "title": "The Art of Trading: video examples",
+    "url": "https://courses.theartoftrading.com/pages/youtube-pine-script-tutorials",
+    "authority": "tutorial provider",
+    "access": "public index",
+    "scope": "arrays, strategies and bid/ask examples",
+    "retrieval": "retrieved search excerpt; videos not watched",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S09",
+    "title": "QuantNomad Academy",
+    "url": "https://courses.quantnomad.com/",
+    "authority": "course provider",
+    "access": "paid courses; free videos elsewhere",
+    "scope": "hands-on indicator and strategy examples",
+    "retrieval": "page opened; no enrollment",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S10",
+    "title": "Udemy: Learn TradingView Pine Script Programming From Scratch",
+    "url": "https://www.udemy.com/course/learn-tradingview-pine-script-programming-from-scratch/",
+    "authority": "course provider",
+    "access": "paid",
+    "scope": "project-based coding and v5-v6 migration",
+    "retrieval": "retrieved search excerpt; no enrollment",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S11",
+    "title": "CodeReindeer tutorials",
+    "url": "https://codereindeer.com/en/tradingview_and_pine_script/",
+    "authority": "tutorial provider",
+    "access": "public index",
+    "scope": "16 chapters; language through MTF and webhook concepts",
+    "retrieval": "page opened; individual chapters not fully read",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S12",
+    "title": "Casoon: Pine Script lernen",
+    "url": "https://learn.casoon.dev/courses/pine-lernen/",
+    "authority": "tutorial provider",
+    "access": "public syllabus; access terms unverified",
+    "scope": "German; 13 lessons, 9 exercises; v5 with v6 update",
+    "retrieval": "page opened; no full course completion",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S13",
+    "title": "Kodify TradingView tutorials",
+    "url": "https://kodify.net/tradingview/",
+    "authority": "community specialist",
+    "access": "public per PineCoders",
+    "scope": "topic-specific exercises; check version",
+    "retrieval": "direct fetch 403; discovery only via S04",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S14",
+    "title": "PineWizards video channel",
+    "url": "https://www.youtube.com/channel/UCMw07QiT6Wt9BwnXIm9XgYg",
+    "authority": "tutorial provider",
+    "access": "public videos",
+    "scope": "beginner series; version may be old",
+    "retrieval": "search excerpt; videos not watched",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S15",
+    "title": "TradingView execution model",
+    "url": "https://www.tradingview.com/pine-script-docs/language/execution-model/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "bar-by-bar execution, realtime and rollback",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S16",
+    "title": "TradingView type system",
+    "url": "https://www.tradingview.com/pine-script-docs/language/type-system/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "qualifiers, objects and tuples",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S17",
+    "title": "TradingView v6 migration",
+    "url": "https://www.tradingview.com/pine-script-docs/migration-guides/to-pine-version-6/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "lazy evaluation, bool and sequential migrations",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S18",
+    "title": "TradingView arrays",
+    "url": "https://www.tradingview.com/pine-script-docs/language/arrays/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "typed dynamic collections",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S19",
+    "title": "TradingView other timeframes and data",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "HTF and LTF, footprints, request restrictions",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S20",
+    "title": "TradingView FAQ other data",
+    "url": "https://www.tradingview.com/pine-script-docs/faq/other-data-and-timeframes/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "timeframe checks and request behavior",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S21",
+    "title": "TradingView repainting",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/repainting/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "historical vs realtime behavior",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S22",
+    "title": "TradingView techniques FAQ",
+    "url": "https://www.tradingview.com/pine-script-docs/faq/techniques/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "state, drawing limits and optimization",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S23",
+    "title": "TradingView debugging",
+    "url": "https://www.tradingview.com/pine-script-docs/writing/debugging/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "logs, plots, diagnostics",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S24",
+    "title": "TradingView profiler",
+    "url": "https://www.tradingview.com/pine-script-docs/writing/profiling-and-optimization/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "measure before optimization, update objects",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S25",
+    "title": "TradingView style guide",
+    "url": "https://www.tradingview.com/pine-script-docs/writing/style-guide/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "naming and code organization",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S26",
+    "title": "TradingView strategies",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/strategies/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "broker emulator, fees, execution assumptions",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S27",
+    "title": "TradingView strategies FAQ",
+    "url": "https://www.tradingview.com/pine-script-docs/faq/strategies/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "order timing and recalculation pitfalls",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S28",
+    "title": "TradingView alerts FAQ",
+    "url": "https://www.tradingview.com/pine-script-docs/faq/alerts/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "JSON, alert snapshots",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S29",
+    "title": "TradingView webhook help",
+    "url": "https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/",
+    "authority": "primary",
+    "access": "free docs; features plan-dependent",
+    "scope": "timeouts, JSON transport",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S30",
+    "title": "TradingView CSV export",
+    "url": "https://www.tradingview.com/support/solutions/43000537255-how-to-export-chart-data/",
+    "authority": "primary",
+    "access": "free docs; features plan-dependent",
+    "scope": "export chart data",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S31",
+    "title": "TradingView indicators FAQ",
+    "url": "https://www.tradingview.com/pine-script-docs/faq/indicators/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "plots in CSV exports",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S32",
+    "title": "TradingView limitations",
+    "url": "https://www.tradingview.com/pine-script-docs/writing/limitations/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "resource limits",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S33",
+    "title": "TradingView release notes",
+    "url": "https://www.tradingview.com/pine-script-docs/release-notes/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "version freshness",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S34",
+    "title": "TradingView bar states",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/bar-states/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "confirmation and last bar",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S35",
+    "title": "TradingView tables",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/tables/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "table lifecycle",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S36",
+    "title": "TradingView user-defined functions",
+    "url": "https://www.tradingview.com/pine-script-docs/language/user-defined-functions/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "functions, return types and call scopes",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  },
+  {
+    "id": "S37",
+    "title": "TradingView webhook credential guidance",
+    "url": "https://www.tradingview.com/support/solutions/43000722015-using-credentials-for-webhooks/",
+    "authority": "primary",
+    "access": "free docs",
+    "scope": "no secrets in alerts; not designed for automated trading",
+    "retrieval": "retrieved search excerpt",
+    "checked": "2026-11-27"
+  }
+]

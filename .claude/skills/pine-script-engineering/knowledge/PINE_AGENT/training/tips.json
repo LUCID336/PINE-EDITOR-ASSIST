@@ -1,0 +1,477 @@
+[
+  {
+    "id": "T01",
+    "category": "language",
+    "title": "Pin version before coding",
+    "action": "Use explicit version and verify each overload against same-version reference; if unavailable mark blocked.",
+    "why": "Legacy and current signatures differ.",
+    "test": "Compile in target version and record evidence.",
+    "sources": "S02 S17 S33",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T02",
+    "category": "language",
+    "title": "Think in series",
+    "action": "Treat close[1] as preceding bar history, not an array element; handle initial missing values.",
+    "why": "Pine executes across bars, with separate realtime updates.",
+    "test": "Synthetic warm-up and closed-bar comparison.",
+    "sources": "S15 S16",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T03",
+    "category": "language",
+    "title": "Respect qualifiers",
+    "action": "Trace strongest qualifier of an expression before passing lengths, symbols or plot titles; do not cast blindly.",
+    "why": "Many APIs require weaker qualifiers.",
+    "test": "Read exact overload and test dynamic inputs.",
+    "sources": "S16 S36",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T04",
+    "category": "language",
+    "title": "Hoist stateful calls",
+    "action": "Compute moving averages, RSI and crosses on each bar, then apply gating.",
+    "why": "v6 lazy boolean evaluation can skip evaluations needed for history.",
+    "test": "Compare gated and ungated feature series.",
+    "sources": "S17 S15",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T05",
+    "category": "language",
+    "title": "Use typed missing values",
+    "action": "Declare initial na with explicit type and check na(x), not numeric substitutes.",
+    "why": "Missing and zero have different meanings.",
+    "test": "Zero and missing fixture.",
+    "sources": "S16",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T06",
+    "category": "state",
+    "title": "Choose var deliberately",
+    "action": "Use var for cross-bar persistence; use ordinary declarations for per-execution values.",
+    "why": "Persistent state must not reset inadvertently.",
+    "test": "Reload and compare known closed-bar events.",
+    "sources": "S15 S22",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T07",
+    "category": "state",
+    "title": "Treat varip as intrabar-only unless proved",
+    "action": "Describe what cannot be reconstructed after reload; never infer historical tick sequence.",
+    "why": "Realtime intrabar state differs from history.",
+    "test": "Live log versus reload; do not expect identity for tick-only state.",
+    "sources": "S15 S21",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "repainting",
+      "rollback"
+    ]
+  },
+  {
+    "id": "T08",
+    "category": "state",
+    "title": "Guard collection reads",
+    "action": "Check size before get, pop or shift; cap growth.",
+    "why": "Empty arrays and unbounded memory break scripts.",
+    "test": "Empty, one element and capacity tests.",
+    "sources": "S18 S32",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T09",
+    "category": "state",
+    "title": "Use functions with clear contracts",
+    "action": "Specify units, na behavior and qualifiers; avoid hidden state unless needed.",
+    "why": "Simplifies parity and tests.",
+    "test": "Verify caller behavior across chart contexts.",
+    "sources": "S36 S16",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T10",
+    "category": "temporal",
+    "title": "Confirm chart signals",
+    "action": "Separate provisional values from confirmed signals; barstate.isconfirmed at chart scope only for this purpose.",
+    "why": "Open-bar values can change.",
+    "test": "Compare realtime close versus reload.",
+    "sources": "S15 S21 S34",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "repainting",
+      "intrabar",
+      "confirmation"
+    ]
+  },
+  {
+    "id": "T11",
+    "category": "temporal",
+    "title": "Use confirmed HTF pattern",
+    "action": "For strictly higher TF, request the previous expression value with lookahead_on and guard timeframe.",
+    "why": "Unshifted lookahead_on may expose future history.",
+    "test": "Test HTF boundary, same/lower rejection, reload.",
+    "sources": "S19 S20 S21",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "repainting",
+      "lookahead",
+      "MTF"
+    ]
+  },
+  {
+    "id": "T12",
+    "category": "temporal",
+    "title": "Do not confuse offsets",
+    "action": "Offset expression inside request context, not result after request, when retrieving prior HTF expression.",
+    "why": "A chart-bar shift is not an HTF-bar shift.",
+    "test": "Compare against native HTF close.",
+    "sources": "S19 S20",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "repainting",
+      "MTF"
+    ]
+  },
+  {
+    "id": "T13",
+    "category": "temporal",
+    "title": "Request lower timeframe arrays",
+    "action": "Use security_lower_tf for available intrabars when needed; check counts and missingness.",
+    "why": "One LTF sample is not all intrabars.",
+    "test": "Test low-liquidity periods and empty arrays.",
+    "sources": "S19 S20",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T14",
+    "category": "temporal",
+    "title": "Separate pivot anchor from discovery",
+    "action": "Store confirmation time and original pivot time separately; never backdate tradable signal.",
+    "why": "Right-side pivot confirmation requires later observations.",
+    "test": "Replay right-strength delay.",
+    "sources": "S21 S22",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "repainting",
+      "backdating",
+      "BOS",
+      "CHOCH"
+    ]
+  },
+  {
+    "id": "T15",
+    "category": "temporal",
+    "title": "Use actual timestamps",
+    "action": "Store exchange/timezone/session assumptions; distinguish event, receipt and availability timestamps.",
+    "why": "A feature may not be observable at its chart anchor.",
+    "test": "DST, overnight and session-boundary tests.",
+    "sources": "S15 S19",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T16",
+    "category": "data",
+    "title": "Tag feed and units",
+    "action": "Use venue-qualified symbols, quote currency, contract type, units and feature source.",
+    "why": "Spot, perpetual and aggregated values are not interchangeable.",
+    "test": "Cross-feed and missing-data comparison.",
+    "sources": "S19 S30",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T17",
+    "category": "data",
+    "title": "Reject synthetic orderflow claims",
+    "action": "Label OHLCV-derived delta or liquidity as proxy; use verified footprint/feed features only when supported.",
+    "why": "A bar-derived estimate is not an exchange L2/L3 book.",
+    "test": "Compare availability and provenance; do not claim hidden orders.",
+    "sources": "S19 S32",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "orderflow",
+      "liquidity",
+      "L2",
+      "L3"
+    ]
+  },
+  {
+    "id": "T18",
+    "category": "data",
+    "title": "Check footprint availability",
+    "action": "Verify current signature, plan, feed, na handling and request-count restrictions; test on supported symbol.",
+    "why": "Footprint may be unavailable or request composition may exceed restrictions.",
+    "test": "Missing-feed and single-request probe.",
+    "sources": "S19 S32 S33",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "footprint",
+      "orderflow"
+    ]
+  },
+  {
+    "id": "T19",
+    "category": "data",
+    "title": "Distinguish RVOL definitions",
+    "action": "Specify baseline (including/excluding current bar, session-adjusted or not) and zero-volume policy.",
+    "why": "Different definitions produce different numbers.",
+    "test": "Known window fixture and no-volume case.",
+    "sources": "S16 S22",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T20",
+    "category": "human",
+    "title": "Separate calculation from rendering",
+    "action": "Compute features regardless of display mode; toggle only presentation.",
+    "why": "Mode changes must not alter underlying signals.",
+    "test": "Export parity with toggles.",
+    "sources": "S25 S31",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T21",
+    "category": "human",
+    "title": "Use one persistent dashboard",
+    "action": "Allocate table once and update on last bar; calculate rolling values on all bars.",
+    "why": "Avoid unnecessary object allocations and missing series history.",
+    "test": "Profiler and mode toggle check.",
+    "sources": "S24 S35 S34",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T22",
+    "category": "human",
+    "title": "Keep overlays sparse",
+    "action": "Use grouped inputs, optional layers, stable color meaning and text/shape cues.",
+    "why": "Readability is not the same as more information.",
+    "test": "Review dark/light themes, dense charts and mobile.",
+    "sources": "S25 S02",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T23",
+    "category": "human",
+    "title": "Reuse drawings",
+    "action": "Update persistent objects and delete expired ones instead of creating every bar.",
+    "why": "Drawings have limits and cost.",
+    "test": "Check object count and profiling.",
+    "sources": "S22 S24 S32",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T24",
+    "category": "ai",
+    "title": "Stable feature IDs",
+    "action": "Define names, units, schema version, build, effective config, feed and times.",
+    "why": "Agents need stable numeric contracts rather than screenshots.",
+    "test": "Compare exported data and alert payload.",
+    "sources": "S28 S30 S31",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T25",
+    "category": "ai",
+    "title": "Serialize missing as JSON null",
+    "action": "Use explicit null token and validate at receiver; reject NaN/Infinity and unescaped strings.",
+    "why": "Invalid JSON and fake zeros contaminate models.",
+    "test": "Offline JSON tests and actual alert check.",
+    "sources": "S28 S29",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "JSON",
+      "webhook",
+      "missing"
+    ]
+  },
+  {
+    "id": "T26",
+    "category": "ai",
+    "title": "Respect alert snapshot",
+    "action": "Recreate the alert when source, inputs or context change; include config/build ID.",
+    "why": "Server-side alert uses saved context.",
+    "test": "Test new and old configurations separately.",
+    "sources": "S28",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T27",
+    "category": "ai",
+    "title": "Separate ingestion from execution",
+    "action": "Use sink-only HTTPS endpoint, durable queue and reconciliation; no credentials in payload; acknowledge within documented timeout.",
+    "why": "Delivery can fail and alerts are not a guaranteed execution API.",
+    "test": "Duplicate, missing, late and malformed messages.",
+    "sources": "S29 S37",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T28",
+    "category": "ai",
+    "title": "Use CSV for historical samples",
+    "action": "Export chart/indicator data where permitted; verify actual columns, history coverage and time alignment.",
+    "why": "Realtime alert stream is not historical export.",
+    "test": "Compare exact row timestamps and plot IDs.",
+    "sources": "S30 S31",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T29",
+    "category": "strategy",
+    "title": "Separate signal and fill time",
+    "action": "Record order generation, actual simulated fill, and settings; do not assume signal close fills.",
+    "why": "Broker emulator execution differs by order type and settings.",
+    "test": "Strategy Tester trade list vs plotted event.",
+    "sources": "S26 S27",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T30",
+    "category": "strategy",
+    "title": "Explicit transaction friction",
+    "action": "Set commission, slippage and size; model spreads/funding externally when necessary; test costs per side.",
+    "why": "Gross edge can vanish after friction.",
+    "test": "Stress costs and compare net baseline.",
+    "sources": "S26 S27",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T31",
+    "category": "strategy",
+    "title": "Use standard chart prices for baseline",
+    "action": "Prefer ordinary candles for fill realism; document any synthetic chart use and emulator configuration.",
+    "why": "Synthetic OHLC may not be executable prices.",
+    "test": "Repeat on standard candles.",
+    "sources": "S26",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T32",
+    "category": "strategy",
+    "title": "Stop semantics matter",
+    "action": "Distinguish absolute price from tick distance, stop from limit and trailing activation from offset; verify API per version.",
+    "why": "Unit errors distort orders and results.",
+    "test": "Known-price trade fixture and fill review.",
+    "sources": "S26 S27",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T33",
+    "category": "strategy",
+    "title": "Check sizing units",
+    "action": "For linear instrument cash risk divided by stop distance times point value, then round down; include costs, conversion and margin separately.",
+    "why": "Different instruments have different payoff geometry.",
+    "test": "Synthetic sizing fixture plus exchange metadata.",
+    "sources": "S26 S16",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": [
+      "risk",
+      "position sizing",
+      "contracts"
+    ]
+  },
+  {
+    "id": "T34",
+    "category": "quant",
+    "title": "Do not optimize holdout",
+    "action": "Separate chronological development/validation/test, record trials, compare baseline and test robustness.",
+    "why": "Selection bias inflates apparent performance.",
+    "test": "Review split boundaries and trial ledger.",
+    "sources": "S26; project RESEARCH.md",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T35",
+    "category": "quant",
+    "title": "Confluence is not independent by default",
+    "action": "Group correlated momentum/trend features; require incremental out-of-sample benefit.",
+    "why": "Multiple transforms of same price are redundant evidence.",
+    "test": "Ablation and cost stress tests.",
+    "sources": "project RESEARCH.md; derived engineering rule",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T36",
+    "category": "debug",
+    "title": "Reduce to minimal reproducible script",
+    "action": "Isolate one compiler warning or runtime failure with same version and inputs; use logs selectively.",
+    "why": "Smaller state space reveals root cause.",
+    "test": "Save original error and corrected result.",
+    "sources": "S23 S25",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T37",
+    "category": "debug",
+    "title": "Profile then optimize",
+    "action": "Measure hot paths on same context; prefer built-ins when semantics match; update drawings; reduce repeated requests where valid.",
+    "why": "Shorter code is not necessarily faster.",
+    "test": "Repeated before/after profiling and parity checks.",
+    "sources": "S24 S32",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T38",
+    "category": "debug",
+    "title": "Track resource budgets",
+    "action": "Read current plot, object, execution and request limitations; prototype worst-case inputs.",
+    "why": "Limits can vary by plan and release.",
+    "test": "Worst-case stress and controlled failure.",
+    "sources": "S32 S33",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T39",
+    "category": "migration",
+    "title": "Migrate one version at a time",
+    "action": "Snapshot baseline and follow ordered migration guides, especially v5→v6 lazy eval and bool changes.",
+    "why": "Silent changes may alter signals, not just syntax.",
+    "test": "Compile and compare every intermediate where supported.",
+    "sources": "S17 S33",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  },
+  {
+    "id": "T40",
+    "category": "learning",
+    "title": "Use independent reconstruction",
+    "action": "Predict, code, test, then read reference; record one counterexample and verify correction.",
+    "why": "Reading alone does not demonstrate competence.",
+    "test": "Evidence rubric and regression checks.",
+    "sources": "S03; derived training protocol",
+    "kind": "derived practice; verify API/behavior",
+    "aliases": []
+  }
+]

@@ -1,0 +1,69 @@
+test_confirmation (test_event.TestEvent.test_confirmation) ... ok
+test_dedup (test_event.TestEvent.test_dedup) ... ok
+test_extra_field (test_event.TestEvent.test_extra_field) ... ok
+test_invalid_number (test_event.TestEvent.test_invalid_number) ... ok
+test_missing (test_event.TestEvent.test_missing) ... ok
+test_quality_mismatch (test_event.TestEvent.test_quality_mismatch) ... ok
+test_roundtrip (test_event.TestEvent.test_roundtrip) ... ok
+test_rsi (test_event.TestEvent.test_rsi) ... ok
+test_timestamps (test_event.TestEvent.test_timestamps) ... ok
+test_bounded_buffer (test_training.TrainingTests.test_bounded_buffer) ... ok
+test_changes (test_training.TrainingTests.test_changes) ... ok
+test_event_dedup_fixture (test_training.TrainingTests.test_event_dedup_fixture) ... ok
+test_friction (test_training.TrainingTests.test_friction) ... ok
+test_pivot_observation (test_training.TrainingTests.test_pivot_observation) ... ok
+test_prerequisite_gate (test_training.TrainingTests.test_prerequisite_gate) ... ok
+test_sizing (test_training.TrainingTests.test_sizing) ... ok
+test_sma (test_training.TrainingTests.test_sma) ... ok
+test_sources_and_routes (test_training.TrainingTests.test_sources_and_routes) ... ok
+test_tips_search (test_training.TrainingTests.test_tips_search) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.004s
+
+OK
+PASS: 01 sources: unique IDs, retrieval and access status
+PASS: 02 curriculum: 16 unique labs, DAG, references and acceptance criteria
+PASS: 03 Pine static sanity: 14 v6 headers, single declaration, uncompiled state
+PASS: 04 tips/quiz: 40 IDs and source pointers, 18 question/answer pairs
+PASS: 05 local routing and fixture/regression tests
+PASS: 06 integration and honest progress defaults
+V3 local checks complete; Pine runtime NOT_RUN; external courses not completed.
+PASS: 78/78 topic identities + sheets
+PASS: 612/612 candidates preserved + status
+PASS: 43 namespace files + valid references
+PASS: lookup exact/unknown/namespace + route paths
+PASS: error-specific repair evidence
+PASS: source statuses and manifest
+All v2 local gates passed. Pine compiler NOT_RUN. Complete API coverage NOT ESTABLISHED.
+test_confirmation (test_event.TestEvent.test_confirmation) ... ok
+test_dedup (test_event.TestEvent.test_dedup) ... ok
+test_extra_field (test_event.TestEvent.test_extra_field) ... ok
+test_invalid_number (test_event.TestEvent.test_invalid_number) ... ok
+test_missing (test_event.TestEvent.test_missing) ... ok
+test_quality_mismatch (test_event.TestEvent.test_quality_mismatch) ... ok
+test_roundtrip (test_event.TestEvent.test_roundtrip) ... ok
+test_rsi (test_event.TestEvent.test_rsi) ... ok
+test_timestamps (test_event.TestEvent.test_timestamps) ... ok
+test_bounded_buffer (test_training.TrainingTests.test_bounded_buffer) ... ok
+test_changes (test_training.TrainingTests.test_changes) ... ok
+test_event_dedup_fixture (test_training.TrainingTests.test_event_dedup_fixture) ... ok
+test_friction (test_training.TrainingTests.test_friction) ... ok
+test_pivot_observation (test_training.TrainingTests.test_pivot_observation) ... ok
+test_prerequisite_gate (test_training.TrainingTests.test_prerequisite_gate) ... ok
+test_sizing (test_training.TrainingTests.test_sizing) ... ok
+test_sma (test_training.TrainingTests.test_sma) ... ok
+test_sources_and_routes (test_training.TrainingTests.test_sources_and_routes) ... ok
+test_tips_search (test_training.TrainingTests.test_tips_search) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.004s
+
+OK
+1: TOC inventory and unique candidate IDs, explicit incomplete coverage: PASS
+2: Pine header and single declaration static checks: PASS
+3: HTF offset/guard, confirmation, null representation (static): PASS
+4: Explicit emulator assumptions and quant validation policy: PASS
+5: Schema/feature plot contract: PASS
+6: Release prerequisites and residual blockers documented: PASS
+78 manual topics; 612 candidate identifiers; 4 baseline Pine examples; Python regression suite passed. Pine compile NOT RUN; completeness NOT ESTABLISHED.

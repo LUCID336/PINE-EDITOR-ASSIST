@@ -1,0 +1,9 @@
+//@version=6
+indicator("Lab 12 | Sizing diagnostic")
+float risk = input.float(100, "Risk in quote currency", minval = 0)
+float step = input.float(1, "Quantity step", minval = 0.00000001)
+float distance = ta.atr(14) * 2
+float unitRisk = distance * syminfo.pointvalue
+float rawQty = not na(unitRisk) and unitRisk > 0 ? risk / unitRisk : na
+float qty = not na(rawQty) ? math.floor(rawQty / step) * step : na
+plot(qty, "Illustrative quantity")

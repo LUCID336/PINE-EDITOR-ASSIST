@@ -1,0 +1,28 @@
+{
+  "version": "3.0",
+  "default_pine_version": 6,
+  "topic_count": 78,
+  "candidate_count": 612,
+  "namespace_count": 43,
+  "entrypoint": "instructions/START_HERE.md",
+  "topic_index": "instructions/topic-index.json",
+  "api_index": "instructions/api-index.json",
+  "source_policy": "official version-specific reference first; candidates not verified; no wholesale copy",
+  "runtime_status": "NOT_RUN",
+  "legacy_versions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "partial_signature_evidence_count": 4,
+  "partial_signature_evidence": "instructions/api-signature-evidence.json",
+  "training_entrypoint": "training/START_HERE.md",
+  "training_labs": 16,
+  "training_pine_solutions": 14,
+  "training_tips": 40,
+  "training_sources": 37,
+  "training_runtime_status": "NOT_RUN"
+}

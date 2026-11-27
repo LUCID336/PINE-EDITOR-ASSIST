@@ -1,0 +1,54 @@
+{
+ "lesson_id": "L02",
+ "status": "BLOCKED",
+ "pine_version": 6,
+ "script_sha256": "8403ee7357b5888a7cd50c071bc8e66065a6095fd5c0d8035d2dd1773ea2fc9c",
+ "api_ledger": ".pine-agent/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
+ "chart_context": {
+  "symbol": "FIXTURE (synthetic)",
+  "feed": "none",
+  "timeframe": "D (fixture)",
+  "timezone": "UTC",
+  "bar_type": "standard OHLC",
+  "settings": "script defaults; N=1 variant for L04, gate=false variant for L02",
+  "date_range": "synthetic"
+ },
+ "compile": {
+  "status": "NOT_RUN",
+  "artifact": null,
+  "note": "No TradingView account/editor access in this environment"
+ },
+ "third_party_runtime": {
+  "engine": "PineTS 0.13.1 (not TradingView)",
+  "status": "PASS",
+  "checks": [
+   {
+    "criterion": "RSI identical with gate on/off",
+    "pass": true,
+    "observed": null
+   },
+   {
+    "criterion": "built-in RSI == manual rma RSI",
+    "pass": true,
+    "observed": 286
+   },
+   {
+    "criterion": "flat prices: manual RSI == built-in",
+    "pass": true,
+    "observed": [
+     100,
+     100
+    ]
+   }
+  ]
+ },
+ "adversarial_test": "gate toggling must not change RSI; flat prices",
+ "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: INFO: flat prices built-in vs manual RSI -> confirmed in PineTS, manual aligned, test added",
+ "score": null,
+ "blockers": [
+  "Official Pine Editor compile + realtime/reload checks NOT_RUN"
+ ],
+ "learning": [
+  "see .pine-agent/learning/2026-11-27-tooling-and-method-lessons.md"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "lesson_id": "L08",
+ "status": "BLOCKED",
+ "pine_version": 6,
+ "script_sha256": "ec48593fbbe570c702017d7b30d3286678d8f37a9a34904ba00a759afb8e3871",
+ "api_ledger": ".pine-agent/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
+ "chart_context": {
+  "symbol": "FIXTURE (synthetic)",
+  "feed": "none",
+  "timeframe": "D (fixture)",
+  "timezone": "UTC",
+  "bar_type": "standard OHLC",
+  "settings": "script defaults; N=1 variant for L04, gate=false variant for L02",
+  "date_range": "synthetic"
+ },
+ "compile": {
+  "status": "NOT_RUN",
+  "artifact": null,
+  "note": "No TradingView account/editor access in this environment"
+ },
+ "third_party_runtime": {
+  "engine": "PineTS 0.13.1 (not TradingView)",
+  "status": "PASS",
+  "checks": [
+   {
+    "criterion": "pivot at bar 3 observable at bar 5 (right=2)",
+    "pass": true,
+    "observed": [
+     5,
+     [
+      null,
+      null,
+      null,
+      null,
+      null,
+      10,
+      10,
+      10,
+      10,
+      10.5,
+      10.5
+     ]
+    ]
+   },
+   {
+    "criterion": "no signal at or before confirmation bar 5",
+    "pass": true,
+    "observed": [
+     7
+    ]
+   },
+   {
+    "criterion": "breakout on bar 7 only",
+    "pass": true,
+    "observed": [
+     7
+    ]
+   }
+  ]
+ },
+ "adversarial_test": "breakout before pivot confirmation; past marker not tradable",
+ "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: MEDIUM: provisional pivot on open realtime bar -> fixed (observedNow gated by barstate.isconfirmed)",
+ "score": null,
+ "blockers": [
+  "Official Pine Editor compile + realtime/reload checks NOT_RUN"
+ ],
+ "learning": [
+  "see .pine-agent/learning/2026-11-27-tooling-and-method-lessons.md"
+ ]
+}

@@ -1,0 +1,8 @@
+//@version=6
+library("FeatureCoreExample")
+// Library draft. Publish privately only after compiler and parity tests, then pin import version.
+export relativeVolume(series float vol, simple int length) =>
+    float baseline = ta.sma(vol, length)
+    not na(vol) and not na(baseline) and baseline > 0 ? vol / baseline : na
+export normalizedDistance(series float price, series float reference, series float scale) =>
+    not na(scale) and scale > 0 ? (price - reference) / scale : na

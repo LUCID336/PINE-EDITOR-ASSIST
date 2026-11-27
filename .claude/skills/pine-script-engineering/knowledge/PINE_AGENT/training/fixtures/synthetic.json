@@ -1,0 +1,68 @@
+{
+  "description": "Original deterministic data; not a market backtest and not Pine runtime evidence.",
+  "close": [
+    10,
+    11,
+    12,
+    11,
+    14
+  ],
+  "length": 3,
+  "expected_sma": [
+    null,
+    null,
+    11,
+    11.333333333333334,
+    12.333333333333334
+  ],
+  "expected_changes": [
+    null,
+    1,
+    1,
+    -1,
+    3
+  ],
+  "expected_buffer": [
+    12,
+    11,
+    14
+  ],
+  "sizing": {
+    "risk": 100,
+    "distance": 5,
+    "point_value": 2,
+    "step": 1,
+    "expected": 10
+  },
+  "friction": {
+    "gross": 10,
+    "fees": [
+      1,
+      1
+    ],
+    "slippage": [
+      0.5,
+      0.5
+    ],
+    "expected": 7
+  },
+  "pivot": {
+    "anchor": 100,
+    "right": 3,
+    "expected_observable": 103
+  },
+  "events": [
+    {
+      "key": "build|config|symbol|15|100",
+      "rsi": null
+    },
+    {
+      "key": "build|config|symbol|15|100",
+      "rsi": null
+    },
+    {
+      "key": "build|config|symbol|15|115",
+      "rsi": 52.5
+    }
+  ]
+}

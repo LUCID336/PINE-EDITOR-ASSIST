@@ -1,0 +1,12 @@
+//@version=6
+indicator("Academy L03 | Confirmed bullish state", overlay = true)
+// `var` state is rolled back on every realtime tick and only committed on the closing tick.
+// Requiring barstate.isconfirmed keeps the open realtime bar from changing visible state.
+var float lastBullClose = na
+var int   bullCount     = 0
+bool isBullish = close > open   // a doji (close == open) is not bullish
+if barstate.isconfirmed and isBullish
+    lastBullClose := close
+    bullCount     += 1
+plot(lastBullClose, "Last bullish close", color = color.green, style = plot.style_stepline)
+plot(bullCount, "Bull count", display = display.data_window)

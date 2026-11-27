@@ -1,0 +1,5 @@
+# Compiler, warning, runtime and performance debugging
+
+Route M46 M47 M49 M50–M56. Record version, source hash, exact message/code, line, input, symbol, TF, first failing bar and realtime/history state. Reproduce in a minimal script. Classify compile error, warning or runtime failure. Apply one root-cause repair and rerun both reproducer and full regression. Use official error sheet, not guessed diagnostic codes.
+
+CE10101: boolean condition; CE10117: compiled IL token budget; CW10003: inconsistent history-dependent call; CW10026: input inline alignment; RE10139: memory; RE10143: history buffer. Consult individual sheets. Other errors: official reference and exact current message. For performance, measure profiler, bound data structures, return scalars rather than collections across requests, avoid unnecessary object creation, size history selectively. Respect plan limits and verify current values in M49. Document remaining warnings with reason; never hide bugs by deleting error-producing functionality silently.

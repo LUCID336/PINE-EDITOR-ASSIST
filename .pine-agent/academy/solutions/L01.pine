@@ -1,0 +1,8 @@
+//@version=6
+indicator("Academy L01 | SMA and one-bar change", overlay = true)
+// close[1] is na on the first bar: no prior bar exists in the dataset. Never replace it with 0.
+int lengthInput = input.int(3, "SMA length", minval = 1)
+float smaValue  = ta.sma(close, lengthInput)
+float changeOne = close - close[1]
+plot(smaValue, "SMA", color = color.new(color.blue, 0), linewidth = 2)
+plot(changeOne, "Change", display = display.data_window)

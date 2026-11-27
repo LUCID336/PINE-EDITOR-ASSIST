@@ -1,0 +1,27 @@
+{
+  "lesson_id": "L01",
+  "status": "NOT_RUN",
+  "pine_version": 6,
+  "script_sha256": null,
+  "api_ledger": null,
+  "source_ids": [],
+  "chart_context": {
+    "symbol": null,
+    "feed": null,
+    "timeframe": null,
+    "timezone": null,
+    "bar_type": null,
+    "settings": {},
+    "date_range": null
+  },
+  "compile": {
+    "status": "NOT_RUN",
+    "artifact": null
+  },
+  "checks": [],
+  "adversarial_test": null,
+  "reviewer": null,
+  "score": null,
+  "blockers": [],
+  "learning": []
+}

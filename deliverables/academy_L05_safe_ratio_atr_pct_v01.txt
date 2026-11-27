@@ -1,0 +1,10 @@
+//@version=6
+indicator("Academy L05 | Safe ratio feature core")
+//@function Returns numerator / denominator, or na when either input is missing or the denominator is zero.
+safeRatio(float numerator, float denominator) =>
+    na(numerator) or na(denominator) or denominator == 0 ? na : numerator / denominator
+int   atrLengthInput = input.int(14, "ATR length", minval = 1)
+// Single feature computation; human plot and machine data-window output read the same variable.
+float atrPercent = 100.0 * safeRatio(ta.atr(atrLengthInput), close)
+plot(atrPercent, "ATR percent", color = color.purple)
+plot(atrPercent, "ATR percent (export)", display = display.data_window)

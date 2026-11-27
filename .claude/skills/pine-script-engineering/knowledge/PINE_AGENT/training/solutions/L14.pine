@@ -1,0 +1,6 @@
+//@version=6
+indicator("Lab 14 | Migrated condition")
+float delta = close - close[1]
+float mean = ta.sma(close, 10)
+bool hasChange = not na(delta) and delta != 0
+plot(hasChange ? mean : na, "Mean when price changes")

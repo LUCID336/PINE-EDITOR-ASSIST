@@ -1,0 +1,11 @@
+//@version=6
+indicator("Lab 08 | Confirmed structure", overlay = true)
+int strength = input.int(2, "Pivot strength", minval = 1, maxval = 50)
+float ph = ta.pivothigh(high, strength, strength)
+var float level = na
+float priorLevel = level
+bool breakUp = barstate.isconfirmed and not na(priorLevel) and close > priorLevel and close[1] <= priorLevel
+if barstate.isconfirmed and not na(ph)
+    level := ph
+plot(level, "Confirmed swing high", style = plot.style_stepline)
+plotshape(breakUp, title = "Close crosses prior level", style = shape.triangleup, location = location.belowbar, color = color.teal)

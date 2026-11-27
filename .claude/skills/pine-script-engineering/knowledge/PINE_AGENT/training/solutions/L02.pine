@@ -1,0 +1,8 @@
+//@version=6
+indicator("Lab 02 | Evaluation")
+int lengthInput = input.int(14, "RSI length", minval = 1)
+bool enabled = input.bool(true, "Enable signal")
+float rsi = ta.rsi(close, lengthInput)
+bool signal = enabled and barstate.isconfirmed and rsi > 60
+plot(rsi, "RSI")
+plot(signal ? 1 : 0, "Signal", display = display.data_window)

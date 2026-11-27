@@ -1,0 +1,13 @@
+//@version=6
+indicator("Lab 09 | Human panel", overlay = true)
+bool showOverlay = input.bool(true, "Show EMA", group = "Display")
+float ema = ta.ema(close, 20)
+string regime = na(ema) ? "MISSING" : close > ema ? "ABOVE" : "AT/BELOW"
+plot(showOverlay ? ema : na, "EMA", color = color.blue)
+plot(ema, "f_ema", display = display.data_window)
+var table panel = table.new(position.top_right, 2, 2)
+if barstate.islast
+    table.cell(panel, 0, 0, "Regime")
+    table.cell(panel, 1, 0, regime)
+    table.cell(panel, 0, 1, "Bar state")
+    table.cell(panel, 1, 1, barstate.isconfirmed ? "CLOSED" : "OPEN")

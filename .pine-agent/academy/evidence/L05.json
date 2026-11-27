@@ -1,0 +1,51 @@
+{
+ "lesson_id": "L05",
+ "status": "BLOCKED",
+ "pine_version": 6,
+ "script_sha256": "597a11e6afacabd7d101712e195e0dfcb6b62f9e57417f3702a19017cecc1440",
+ "api_ledger": ".pine-agent/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
+ "chart_context": {
+  "symbol": "FIXTURE (synthetic)",
+  "feed": "none",
+  "timeframe": "D (fixture)",
+  "timezone": "UTC",
+  "bar_type": "standard OHLC",
+  "settings": "script defaults; N=1 variant for L04, gate=false variant for L02",
+  "date_range": "synthetic"
+ },
+ "compile": {
+  "status": "NOT_RUN",
+  "artifact": null,
+  "note": "No TradingView account/editor access in this environment"
+ },
+ "third_party_runtime": {
+  "engine": "PineTS 0.13.1 (not TradingView)",
+  "status": "PASS",
+  "checks": [
+   {
+    "criterion": "ATR=2, close=100 -> 2 %",
+    "pass": true,
+    "observed": 2
+   },
+   {
+    "criterion": "zero denominator -> na",
+    "pass": true,
+    "observed": null
+   },
+   {
+    "criterion": "warm-up na, not 0",
+    "pass": true,
+    "observed": null
+   }
+  ]
+ },
+ "adversarial_test": "zero denominator and warm-up must be na, not nz()",
+ "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: no findings",
+ "score": null,
+ "blockers": [
+  "Official Pine Editor compile + realtime/reload checks NOT_RUN"
+ ],
+ "learning": [
+  "see .pine-agent/learning/2026-11-27-tooling-and-method-lessons.md"
+ ]
+}

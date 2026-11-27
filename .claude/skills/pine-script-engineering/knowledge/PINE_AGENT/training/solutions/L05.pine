@@ -1,0 +1,7 @@
+//@version=6
+indicator("Lab 05 | Shared core")
+safeRatio(float numerator, float denominator) =>
+    not na(numerator) and not na(denominator) and denominator != 0 ? numerator / denominator : na
+float atrValue = ta.atr(14)
+float atrPct = safeRatio(atrValue, close) * 100
+plot(atrPct, "ATR percent")

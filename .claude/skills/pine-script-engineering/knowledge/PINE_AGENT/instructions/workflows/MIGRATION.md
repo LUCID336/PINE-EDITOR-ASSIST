@@ -1,0 +1,7 @@
+# Version migration runbook
+
+Route M70–M76. Start from the exact source annotation or establish version from editor; never just change annotation. Preserve a frozen original and output fixtures: symbol, date window, timeframe, chart type, session, parameters, plot series and trade list. Migrate one adjacent version per step. Use official migration guide and reference for target version; verify any compiler auto-conversion with output parity.
+
+v1→v2: inspect historical guide and actual supported syntax; do not assume modern functions. v2→v3: security lookahead defaults and self-referencing state are critical. v3→v4: inspect type/namespace changes and variable declarations. v4→v5: study/indicator, namespaced calls, specialized inputs, named constants, transparency and session days. v5→v6: boolean NA/implicit casts, lazy evaluation, dynamic requests, integer division, loop end behavior, margin, strategy exit semantics, removed parameters and other current migration entries. These are checklists, not exhaustive mapping tables.
+
+Per step compile, compare values and timing, explain intended differences (e.g. correcting historical future leak), verify alerts and trade fills if relevant. Keep unresolved legacy signatures BLOCKED. If original compiler unavailable, do not claim equivalence. Pin library imports and preserve compatibility for consumers. For new v6 work check current release notes before adopting features.

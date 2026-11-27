@@ -1,0 +1,17 @@
+//@version=6
+indicator("Academy L04 | Bounded confirmed buffer", overlay = true)
+int capacityInput = input.int(3, "Capacity N", minval = 1, maxval = 500)
+var array<float> buffer = array.new<float>()
+if barstate.isconfirmed and not na(close)
+    buffer.push(close)
+    while buffer.size() > capacityInput
+        buffer.shift()
+// Realtime note: the open bar is not in the buffer, so intrabar bufferMean equals ta.sma(close, N)[1];
+// compare with the SMA only on confirmed bars.
+float bufferMean = buffer.size() == capacityInput ? buffer.avg() : na
+plot(bufferMean, "Buffer mean", color = color.orange)
+plot(ta.sma(close, capacityInput), "SMA", display = display.data_window)
+plot(buffer.size(), "Buffer size", display = display.data_window)
+plot(buffer.size() > 0 ? buffer.get(0) : na, "B0", display = display.data_window)
+plot(buffer.size() > 1 ? buffer.get(1) : na, "B1", display = display.data_window)
+plot(buffer.size() > 2 ? buffer.get(2) : na, "B2", display = display.data_window)

@@ -1,0 +1,12 @@
+//@version=6
+strategy("Lab 11 | Benchmark", overlay = true, pyramiding = 0, commission_type = strategy.commission.percent, commission_value = 0.1, slippage = 2, calc_on_every_tick = false, calc_on_order_fills = false, process_orders_on_close = false, default_qty_type = strategy.fixed, default_qty_value = 1)
+float fast = ta.ema(close, 10)
+float slow = ta.ema(close, 30)
+bool crossUp = ta.crossover(fast, slow)
+bool crossDown = ta.crossunder(fast, slow)
+if barstate.isconfirmed and crossUp and strategy.position_size == 0
+    strategy.entry("Long", strategy.long)
+if barstate.isconfirmed and crossDown and strategy.position_size > 0
+    strategy.close("Long")
+plot(fast, "Fast")
+plot(slow, "Slow")

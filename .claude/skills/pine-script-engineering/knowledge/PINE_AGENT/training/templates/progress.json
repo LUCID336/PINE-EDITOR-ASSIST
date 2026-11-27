@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "lessons": {
+    "L01": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L02": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L03": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L04": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L05": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L06": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L07": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L08": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L09": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L10": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L11": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L12": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L13": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L14": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L15": {
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    "L16": {
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  }
+}

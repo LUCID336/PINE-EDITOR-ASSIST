@@ -1,0 +1,10 @@
+//@version=6
+indicator("Lab 10 | AI event")
+bool emit = input.bool(false, "Enable training alert")
+float feature = ta.rsi(close, 14)
+jsonNumber(float x) =>
+    na(x) ? "null" : str.tostring(x, "0.########")
+plot(feature, "f_rsi", display = display.data_window)
+if emit and barstate.isrealtime and barstate.isconfirmed and not na(time_close)
+    string message = '{"schema":"training-1","bar_open_ms":' + str.tostring(time) + ',"bar_close_ms":' + str.tostring(time_close) + ',"rsi":' + jsonNumber(feature) + '}'
+    alert(message, alert.freq_once_per_bar_close)

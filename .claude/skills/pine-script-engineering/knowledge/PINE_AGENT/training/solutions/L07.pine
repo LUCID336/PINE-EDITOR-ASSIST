@@ -1,0 +1,10 @@
+//@version=6
+indicator("Lab 07 | Intrabar coverage")
+string ltf = input.timeframe("1", "Lower timeframe")
+if timeframe.in_seconds(ltf) >= timeframe.in_seconds()
+    runtime.error("Select a strictly lower timeframe")
+array<float> values = request.security_lower_tf(syminfo.tickerid, ltf, close)
+int count = array.size(values)
+float mean = count > 0 ? array.avg(values) : na
+plot(barstate.isconfirmed ? mean : na, "Closed-bar intrabar mean")
+plot(count, "Available intrabars", display = display.data_window)

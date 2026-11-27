@@ -1,0 +1,7 @@
+//@version=6
+indicator("Lab 06 | Confirmed HTF", overlay = true)
+string htf = input.timeframe("1D", "Higher timeframe")
+if timeframe.in_seconds(htf) <= timeframe.in_seconds()
+    runtime.error("Select a strictly higher timeframe")
+float prior = request.security(syminfo.tickerid, htf, close[1], lookahead = barmerge.lookahead_on)
+plot(prior, "Previous HTF close", style = plot.style_stepline)

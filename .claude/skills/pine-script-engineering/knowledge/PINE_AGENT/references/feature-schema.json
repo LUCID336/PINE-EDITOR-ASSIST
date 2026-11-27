@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pine market feature event v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "build", "config_id", "symbol", "timeframe", "bar_open_ms", "bar_close_ms", "confirmed", "quality", "features"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "build": {"type": "string", "minLength": 1},
+    "config_id": {"type": "string", "minLength": 1},
+    "symbol": {"type": "string", "minLength": 1},
+    "timeframe": {"type": "string", "minLength": 1},
+    "bar_open_ms": {"type": "integer", "minimum": 0},
+    "bar_close_ms": {"type": "integer", "minimum": 0},
+    "confirmed": {"const": true},
+    "quality": {"enum": ["READY", "MISSING"]},
+    "features": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ema", "rsi", "atr", "rvol", "htf_close"],
+      "properties": {
+        "ema": {"type": ["number", "null"]},
+        "rsi": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "atr": {"type": ["number", "null"], "minimum": 0},
+        "rvol": {"type": ["number", "null"], "minimum": 0},
+        "htf_close": {"type": ["number", "null"]}
+      }
+    }
+  }
+}

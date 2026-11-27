@@ -1,0 +1,368 @@
+[
+  {
+    "id": "L01",
+    "title": "Editor, inputs and series",
+    "route": "indicator",
+    "prerequisites": [],
+    "sources": [
+      "S01",
+      "S02",
+      "S05",
+      "S15",
+      "S25"
+    ],
+    "checks": [
+      "Compile in v6; no warnings.",
+      "Length=3: for close 10,11,12,11,14, SMA at third bar=11 and at fifth=37/3.",
+      "First change is missing, never forced to zero."
+    ],
+    "path": "training/labs/L01.md",
+    "solution": "training/solutions/L01.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L02",
+    "title": "Qualifiers and lazy evaluation",
+    "route": "debug",
+    "prerequisites": [
+      "L01"
+    ],
+    "sources": [
+      "S15",
+      "S16",
+      "S17",
+      "S36"
+    ],
+    "checks": [
+      "Verify RSI against built-in using identical source and length.",
+      "Disable and re-enable gate; values are not computed conditionally.",
+      "Record exact overload/qualifier from official reference."
+    ],
+    "path": "training/labs/L02.md",
+    "solution": "training/solutions/L02.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L03",
+    "title": "State, events and rollback",
+    "route": "indicator",
+    "prerequisites": [
+      "L02"
+    ],
+    "sources": [
+      "S15",
+      "S22",
+      "S34"
+    ],
+    "checks": [
+      "No update on an open bar.",
+      "After reload compare closed bars for same dataset.",
+      "A doji is not bullish; no event before first bullish close."
+    ],
+    "path": "training/labs/L03.md",
+    "solution": "training/solutions/L03.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L04",
+    "title": "Bounded collections",
+    "route": "debug",
+    "prerequisites": [
+      "L03"
+    ],
+    "sources": [
+      "S18",
+      "S16",
+      "S32"
+    ],
+    "checks": [
+      "Array size never exceeds N.",
+      "N=1 and N=3 pass.",
+      "On synthetic closes 10,11,12,11,14 with N=3 final buffer [12,11,14]."
+    ],
+    "path": "training/labs/L04.md",
+    "solution": "training/solutions/L04.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L05",
+    "title": "Functions and shared feature core",
+    "route": "library",
+    "prerequisites": [
+      "L02"
+    ],
+    "sources": [
+      "S16",
+      "S36",
+      "S25"
+    ],
+    "checks": [
+      "Denominator zero or missing returns na.",
+      "With ATR=2 and close=100, output=2 percent.",
+      "Check both views use same output, not copied formulas."
+    ],
+    "path": "training/labs/L05.md",
+    "solution": "training/solutions/L05.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L06",
+    "title": "HTF confirmation and lookahead",
+    "route": "mtf",
+    "prerequisites": [
+      "L02"
+    ],
+    "sources": [
+      "S19",
+      "S20",
+      "S21"
+    ],
+    "checks": [
+      "On 15m/1D, confirmed value changes at new daily bar, not every 15m tick.",
+      "Equal or lower TF fails explicitly.",
+      "Compare chart reload and live values across HTF boundary."
+    ],
+    "path": "training/labs/L06.md",
+    "solution": "training/solutions/L06.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L07",
+    "title": "Intrabars and missing coverage",
+    "route": "mtf",
+    "prerequisites": [
+      "L04",
+      "L06"
+    ],
+    "sources": [
+      "S18",
+      "S19",
+      "S20",
+      "S32"
+    ],
+    "checks": [
+      "1m data on 15m chart; count can be below 15.",
+      "Empty array returns na and count 0.",
+      "Equal/higher LTF rejected."
+    ],
+    "path": "training/labs/L07.md",
+    "solution": "training/solutions/L07.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L08",
+    "title": "Market structure and pivot timing",
+    "route": "indicator",
+    "prerequisites": [
+      "L03",
+      "L06"
+    ],
+    "sources": [
+      "S21",
+      "S22",
+      "S34"
+    ],
+    "checks": [
+      "Pivot with right=2 becomes observable two bars after candidate.",
+      "No signal before confirmation.",
+      "Separate visual anchor from observation timestamp."
+    ],
+    "path": "training/labs/L08.md",
+    "solution": "training/solutions/L08.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L09",
+    "title": "Human dashboard",
+    "route": "human",
+    "prerequisites": [
+      "L05",
+      "L08"
+    ],
+    "sources": [
+      "S25",
+      "S34",
+      "S35"
+    ],
+    "checks": [
+      "Only one table object.",
+      "Toggle overlay without changing feature values.",
+      "Text identifies state independent of color; open vs closed obvious."
+    ],
+    "path": "training/labs/L09.md",
+    "solution": "training/solutions/L09.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L10",
+    "title": "AI feature export and alerts",
+    "route": "ai",
+    "prerequisites": [
+      "L05",
+      "L09"
+    ],
+    "sources": [
+      "S28",
+      "S29",
+      "S30",
+      "S31",
+      "S37"
+    ],
+    "checks": [
+      "No message by default; enable explicitly.",
+      "Null is JSON null, not a string or zero.",
+      "Check time-based chart, config snapshot, event dedup and missed messages."
+    ],
+    "path": "training/labs/L10.md",
+    "solution": "training/solutions/L10.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L11",
+    "title": "Strategy emulator and friction",
+    "route": "strategy",
+    "prerequisites": [
+      "L02",
+      "L06"
+    ],
+    "sources": [
+      "S26",
+      "S27",
+      "S21"
+    ],
+    "checks": [
+      "Standard candles; compare signal bar vs order fill bar.",
+      "Commission and slippage set and visible in tester.",
+      "Benchmark only; no live orders or profitability claim."
+    ],
+    "path": "training/labs/L11.md",
+    "solution": "training/solutions/L11.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L12",
+    "title": "Risk sizing and invalidation",
+    "route": "quant",
+    "prerequisites": [
+      "L11"
+    ],
+    "sources": [
+      "S26",
+      "S27",
+      "S16"
+    ],
+    "checks": [
+      "Risk=100, distance=5, point value=2, step=1 gives 10 units.",
+      "Invalid zero distance or point value means unavailable.",
+      "Explain currency conversion, inverse contracts, min size, fees, gaps and margin."
+    ],
+    "path": "training/labs/L12.md",
+    "solution": "training/solutions/L12.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L13",
+    "title": "Debugging and performance regression",
+    "route": "optimization",
+    "prerequisites": [
+      "L04",
+      "L09"
+    ],
+    "sources": [
+      "S22",
+      "S23",
+      "S24",
+      "S32"
+    ],
+    "checks": [
+      "Length=3 fixture matches SMA.",
+      "Tolerance appropriate to floating point; exclude warm-up.",
+      "Profiler evidence from multiple runs; no claimed speedup without measurements."
+    ],
+    "path": "training/labs/L13.md",
+    "solution": "training/solutions/L13.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L14",
+    "title": "Legacy migration v1–v6",
+    "route": "migration",
+    "prerequisites": [
+      "L02",
+      "L11"
+    ],
+    "sources": [
+      "S17",
+      "S33",
+      "S03"
+    ],
+    "checks": [
+      "Baseline v5 and v6 on identical data.",
+      "No implicit numeric bool; missing value policy explicit.",
+      "Record version-by-version unresolved differences and actual compile results."
+    ],
+    "path": "training/labs/L14.md",
+    "solution": "training/solutions/L14.pine",
+    "runtime_status": "NOT_RUN"
+  },
+  {
+    "id": "L15",
+    "title": "Quant experiment and adversarial validation",
+    "route": "quant",
+    "prerequisites": [
+      "L11",
+      "L12",
+      "L13"
+    ],
+    "sources": [
+      "S26",
+      "S27",
+      "S21",
+      "S24"
+    ],
+    "checks": [
+      "Synthetic gross 10, two fees of 1, two slippage costs of 0.5 -> net 7.",
+      "No overlapping future label between splits; record purge/embargo if needed.",
+      "Report all trials; do not claim edge without actual OOS and forward evidence."
+    ],
+    "path": "training/labs/L15.md",
+    "solution": "training/solutions/L15.md",
+    "runtime_status": "NOT_APPLICABLE_TO_PLAN"
+  },
+  {
+    "id": "L16",
+    "title": "Capstone: human/AI market feature pipeline",
+    "route": "ai",
+    "prerequisites": [
+      "L06",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12",
+      "L13",
+      "L14",
+      "L15"
+    ],
+    "sources": [
+      "S19",
+      "S25",
+      "S28",
+      "S29",
+      "S30",
+      "S31",
+      "S32",
+      "S37"
+    ],
+    "checks": [
+      "Human/AI feature parity on same symbol/feed/timeframe/config.",
+      "Missing data emits null or blocks action, confirmed state and observation time explicit.",
+      "Duplicate/out-of-order/missing events tested at receiver; no broker routing.",
+      "Compile, reload, live, export and alert checks recorded."
+    ],
+    "path": "training/labs/L16.md",
+    "solution": "training/solutions/L16.md",
+    "runtime_status": "NOT_RUN"
+  }
+]

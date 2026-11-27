@@ -1,0 +1,28 @@
+PASS: 78/78 topic identities + sheets
+PASS: 612/612 candidates preserved + status
+PASS: 43 namespace files + valid references
+PASS: lookup exact/unknown/namespace + route paths
+PASS: error-specific repair evidence
+PASS: source statuses and manifest
+All v2 local gates passed. Pine compiler NOT_RUN. Complete API coverage NOT ESTABLISHED.
+test_confirmation (test_event.TestEvent.test_confirmation) ... ok
+test_dedup (test_event.TestEvent.test_dedup) ... ok
+test_extra_field (test_event.TestEvent.test_extra_field) ... ok
+test_invalid_number (test_event.TestEvent.test_invalid_number) ... ok
+test_missing (test_event.TestEvent.test_missing) ... ok
+test_quality_mismatch (test_event.TestEvent.test_quality_mismatch) ... ok
+test_roundtrip (test_event.TestEvent.test_roundtrip) ... ok
+test_rsi (test_event.TestEvent.test_rsi) ... ok
+test_timestamps (test_event.TestEvent.test_timestamps) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+1: TOC inventory and unique candidate IDs, explicit incomplete coverage: PASS
+2: Pine header and single declaration static checks: PASS
+3: HTF offset/guard, confirmation, null representation (static): PASS
+4: Explicit emulator assumptions and quant validation policy: PASS
+5: Schema/feature plot contract: PASS
+6: Release prerequisites and residual blockers documented: PASS
+78 manual topics; 612 candidate identifiers; 4 Pine examples; 9 Python tests. Pine compile NOT RUN; completeness NOT ESTABLISHED.

@@ -1,0 +1,1 @@
+{"task_id":null,"gates":[{"id":1,"name":"requirements_sources","status":"NOT_RUN"},{"id":2,"name":"syntax_version","status":"NOT_RUN"},{"id":3,"name":"temporal_data","status":"NOT_RUN"},{"id":4,"name":"quant_risk","status":"NOT_RUN"},{"id":5,"name":"human_ai","status":"NOT_RUN"},{"id":6,"name":"release","status":"NOT_RUN"}],"findings":[],"repairs":[],"retests":[],"blockers":[]}

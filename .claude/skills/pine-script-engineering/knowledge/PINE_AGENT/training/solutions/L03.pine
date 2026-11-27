@@ -1,0 +1,9 @@
+//@version=6
+indicator("Lab 03 | State", overlay = true)
+var float lastBull = na
+var int bullCount = 0
+if barstate.isconfirmed and close > open
+    lastBull := close
+    bullCount += 1
+plot(lastBull, "Last confirmed bullish close", style = plot.style_stepline)
+plot(bullCount, "Bull count", display = display.data_window)

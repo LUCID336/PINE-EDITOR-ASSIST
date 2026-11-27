@@ -1,0 +1,66 @@
+{
+ "lesson_id": "L01",
+ "status": "BLOCKED",
+ "pine_version": 6,
+ "script_sha256": "8d1c76a6c3bb5a6d58b7042918d661c646ca530bde11ff1f976c3babb21a74ea",
+ "api_ledger": ".pine-agent/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
+ "chart_context": {
+  "symbol": "FIXTURE (synthetic)",
+  "feed": "none",
+  "timeframe": "D (fixture)",
+  "timezone": "UTC",
+  "bar_type": "standard OHLC",
+  "settings": "script defaults; N=1 variant for L04, gate=false variant for L02",
+  "date_range": "synthetic"
+ },
+ "compile": {
+  "status": "NOT_RUN",
+  "artifact": null,
+  "note": "No TradingView account/editor access in this environment"
+ },
+ "third_party_runtime": {
+  "engine": "PineTS 0.13.1 (not TradingView)",
+  "status": "PASS",
+  "checks": [
+   {
+    "criterion": "SMA len3 bar3=11, bar5=37/3",
+    "pass": true,
+    "observed": [
+     null,
+     null,
+     11,
+     11.3333333333,
+     12.3333333333
+    ]
+   },
+   {
+    "criterion": "warm-up SMA is na (not 0)",
+    "pass": true,
+    "observed": [
+     null,
+     null
+    ]
+   },
+   {
+    "criterion": "first change missing, others 1,1,-1,3",
+    "pass": true,
+    "observed": [
+     null,
+     1,
+     1,
+     -1,
+     3
+    ]
+   }
+  ]
+ },
+ "adversarial_test": "warm-up filled with 0 (SMA and change must be na)",
+ "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: no findings",
+ "score": null,
+ "blockers": [
+  "Official Pine Editor compile + realtime/reload checks NOT_RUN"
+ ],
+ "learning": [
+  "see .pine-agent/learning/2026-11-27-tooling-and-method-lessons.md"
+ ]
+}

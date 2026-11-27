@@ -1,0 +1,10 @@
+//@version=6
+indicator("Pine Agent | Footprint availability probe", overlay = false)
+int ticks = input.int(10, "Ticks per row", minval = 1)
+footprint fp = request.footprint(ticks)
+float delta = not na(fp) ? fp.delta() : na
+float total = not na(fp) ? fp.total_volume() : na
+plot(delta, "Footprint delta", style = plot.style_columns)
+plot(total, "Footprint total", display = display.data_window)
+plot(not na(fp) ? 1 : 0, "Footprint available", display = display.data_window)
+// Plan/market/feed restrictions apply; not an L2 order book or verified aggressor-side series.

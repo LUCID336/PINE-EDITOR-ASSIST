@@ -1,0 +1,11 @@
+//@version=6
+indicator("Lab 04 | Bounded buffer")
+int capacity = input.int(3, "Capacity", minval = 1, maxval = 500)
+var array<float> buffer = array.new<float>()
+if barstate.isconfirmed and not na(close)
+    array.push(buffer, close)
+    if array.size(buffer) > capacity
+        array.shift(buffer)
+float mean = array.size(buffer) == capacity ? array.avg(buffer) : na
+plot(mean, "Confirmed buffer mean")
+plot(array.size(buffer), "Buffer size", display = display.data_window)

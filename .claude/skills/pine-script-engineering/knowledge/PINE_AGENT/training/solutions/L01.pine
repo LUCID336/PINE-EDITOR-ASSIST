@@ -1,0 +1,7 @@
+//@version=6
+indicator("Lab 01 | Series", overlay = true)
+int lengthInput = input.int(3, "SMA length", minval = 1)
+float mean = ta.sma(close, lengthInput)
+float changeOne = close - close[1]
+plot(mean, "SMA", color = color.blue)
+plot(changeOne, "One-bar change", display = display.data_window)

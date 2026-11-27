@@ -1,0 +1,21 @@
+//@version=6
+indicator("Academy L02 | RSI gate outside stateful calls")
+int   lengthInput = input.int(14, "RSI length", minval = 1)
+bool  gateInput   = input.bool(true, "Enable signals")
+float upperInput  = input.float(70.0, "Upper", minval = 0, maxval = 100)
+float lowerInput  = input.float(30.0, "Lower", minval = 0, maxval = 100)
+// Stateful calculations run on every bar, independent of the gate (v6 lazy `and`/`or`).
+float rsiBuiltIn = ta.rsi(close, lengthInput)
+float up         = math.max(close - close[1], 0)
+float down       = math.max(close[1] - close, 0)
+float upRma      = ta.rma(up, lengthInput)
+float downRma    = ta.rma(down, lengthInput)
+// Degenerate cases follow the built-in (observed in PineTS 0.13.1: flat prices -> 100). TradingView parity: unverified.
+float rsiManual  = downRma == 0 ? 100.0 : upRma == 0 ? 0.0 : 100.0 - 100.0 / (1.0 + upRma / downRma)
+bool  crossUp    = ta.crossover(rsiBuiltIn, lowerInput)
+bool  crossDown  = ta.crossunder(rsiBuiltIn, upperInput)
+// Signal only on closed bars; values above are computed regardless (review fix 2026-11-27).
+int   signal     = gateInput and barstate.isconfirmed ? (crossUp ? 1 : crossDown ? -1 : 0) : 0
+plot(rsiBuiltIn, "RSI")
+plot(rsiManual, "RSI manual", display = display.data_window)
+plot(signal, "Signal", display = display.data_window)

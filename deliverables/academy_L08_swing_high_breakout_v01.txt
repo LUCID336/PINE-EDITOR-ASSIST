@@ -1,0 +1,22 @@
+//@version=6
+indicator("Academy L08 | Confirmed swing high breakout", overlay = true)
+int leftInput  = input.int(2, "Left bars", minval = 1)
+int rightInput = input.int(2, "Right bars", minval = 1)
+// ta.pivothigh returns a value only `rightInput` bars AFTER the candidate bar (observation time).
+float pivotHigh = ta.pivothigh(high, leftInput, rightInput)
+var float lastLevel  = na
+var int   anchorBar  = na
+// Gate the observation: on an open realtime bar a provisional pivot can vanish on the next tick
+// (independent review finding, 2026-11-27). ta.pivothigh itself still runs on every bar.
+bool  observedNow = barstate.isconfirmed and not na(pivotHigh)
+if observedNow
+    lastLevel := pivotHigh
+    anchorBar := bar_index - rightInput   // visual anchor only; not tradable at that bar
+// Event uses a level known on the previous bar: no backdating, no same-bar level switch.
+// barstate.isconfirmed: no transient intrabar signal on the open realtime bar (review fix 2026-11-27).
+bool breakout = barstate.isconfirmed and not na(lastLevel[1]) and close > lastLevel[1] and close[1] <= lastLevel[1]
+plot(lastLevel, "Swing level", color = color.gray, style = plot.style_stepline)
+plot(observedNow ? 1 : 0, "Observed", display = display.data_window)
+plot(anchorBar, "Anchor bar", display = display.data_window)
+plot(breakout ? 1 : 0, "Breakout", display = display.data_window)
+plotshape(breakout, "Breakout marker", shape.triangleup, location.belowbar, color.green)
