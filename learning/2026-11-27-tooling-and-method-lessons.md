@@ -47,3 +47,13 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 ## LR-07 Official example corpus as regression set — VERIFIED
 - 478 TradingView-authored v6 examples are a free regression corpus for any static tool change. Extraction scripts in
   `tools/refresh/`; the corpus itself is regenerated locally, not committed (copyright).
+
+## LR-08 TradingView ground truth via AI Copilot (round 1) — TV_VERIFIED_RELAYED
+- ta.ema warm-up: first non-na at bar length-1 (SMA seed) on TradingView = PineTS. The v6 reference
+  "same on pine" pseudocode for ta.ema is NOT warm-up-equivalent; never use it as a parity oracle for early bars.
+- ta.rsi of a constant series = 100 on TradingView (last bar) = PineTS.
+- `once` executes repeatedly on an open realtime bar (counter 5 seen) — matches official docs; gate side effects
+  with `barstate.isconfirmed`.
+- 2026 features compile on TradingView; PineTS 0.13.1 rejects aggressor_side → UNSUPPORTED locally.
+- Global `runtime.error` guard + request.security: PineTS fires it, TradingView did not → local false alarm; pending T3b.
+- Method: pre-register local predictions before each TradingView round (testing/regression/tv_probes/PREREGISTRATION.md).

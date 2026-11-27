@@ -1,0 +1,21 @@
+//@version=6
+indicator("T6 HTF non-repaint idiom probe")
+float htfPrev = request.security(syminfo.tickerid, "D", close[1], lookahead = barmerge.lookahead_on)
+float dClose  = request.security(syminfo.tickerid, "D", close)
+bool  newDay  = ta.change(time("D")) != 0
+var int checkedDays = 0
+var int mismatches  = 0
+if newDay and not na(htfPrev) and not na(dClose[1])
+    checkedDays += 1
+    if htfPrev != dClose[1]
+        mismatches += 1
+varip float firstRealtimeValue = na
+varip int   realtimeChanges    = 0
+if barstate.isrealtime
+    if na(firstRealtimeValue)
+        firstRealtimeValue := htfPrev
+    else if htfPrev != firstRealtimeValue and not newDay
+        realtimeChanges += 1
+plot(checkedDays, "days_checked")
+plot(mismatches, "historical_mismatches")
+plot(realtimeChanges, "realtime_value_changes_within_day")

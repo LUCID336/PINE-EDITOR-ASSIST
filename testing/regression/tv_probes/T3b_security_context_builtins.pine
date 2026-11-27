@@ -1,0 +1,5 @@
+//@version=6
+indicator("T3b security context built-ins probe")
+float tfSecondsInDailyContext = request.security(syminfo.tickerid, "D", timeframe.in_seconds())
+plot(tfSecondsInDailyContext, "tf_seconds_seen_inside_D_context")
+plot(timeframe.in_seconds(), "tf_seconds_main_context")
