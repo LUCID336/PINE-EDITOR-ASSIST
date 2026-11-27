@@ -4,7 +4,7 @@ Usage: python pine_api.py NAME            exact entry (e.g. request.security, ba
        python pine_api.py NAME --json"""
 import json, sys
 from pathlib import Path
-L = json.loads((Path(__file__).resolve().parent.parent / 'reference' / 'v6-api-ledger.json').read_text(encoding='utf-8'))
+L = json.loads((Path(__file__).resolve().parent.parent / 'knowledge' / 'reference' / 'v6-api-ledger.json').read_text(encoding='utf-8'))
 args = [a for a in sys.argv[1:] if a != '--json']
 if not args:
     print(__doc__); sys.exit(2)

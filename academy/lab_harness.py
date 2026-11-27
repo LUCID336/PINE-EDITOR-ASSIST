@@ -14,7 +14,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-RUNTIME = ROOT.parent / 'runtime' / 'run_pine.mjs'
+RUNTIME = ROOT.parent / 'tools' / 'runtime' / 'run_pine.mjs'
 T0 = 1704067200000
 DAY = 86400000
 

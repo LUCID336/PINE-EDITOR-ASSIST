@@ -3,7 +3,7 @@
  "status": "BLOCKED",
  "pine_version": 6,
  "script_sha256": "0696e6522699dbf12bccee8737d5b1703bff0f8a7ccb77e31f1bc66c652a0e0b",
- "api_ledger": ".pine-agent/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
+ "api_ledger": "knowledge/reference/v6-api-ledger.json (official v6 snapshot 2026-11-27); static check STATIC-PASS",
  "chart_context": {
   "symbol": "FIXTURE (synthetic)",
   "feed": "none",
@@ -77,6 +77,6 @@
   "Official Pine Editor compile + realtime/reload checks NOT_RUN"
  ],
  "learning": [
-  "see .pine-agent/learning/2026-11-27-tooling-and-method-lessons.md"
+  "see learning/2026-11-27-tooling-and-method-lessons.md"
  ]
 }

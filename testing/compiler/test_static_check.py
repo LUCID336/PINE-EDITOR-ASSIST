@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools'))
 import pine_static_check as psc  # noqa: E402
 
 LEDGER = psc.load_ledger()
@@ -55,6 +55,15 @@ class StaticCheckTests(unittest.TestCase):
                       '    a.push(Pt.new(p, time))\nvar pts = array.new<Pt>()\npts.add(close)\n'
                       'pts.sort(order.ascending, sort_field = "price")\n')
         self.assertEqual(errs(src), [])
+
+    def test_literal_type_mismatch(self):
+        self.assertTrue(errs(HEAD + 'int x = "abc"\nplot(x)\n'))
+        self.assertTrue(errs(HEAD + 'int n = 1.5\nplot(n)\n'))
+        self.assertTrue(errs(HEAD + 'bool b = 1\nplot(b ? 1 : 0)\n'))
+
+    def test_literal_types_ok(self):
+        self.assertEqual(errs(HEAD + 'float f = 1\nint i = 2\nstring s = "a"\nbool b = true\n'
+                              'color c = #FF0000\nvar float v = 0.5\nplot(f + i + v, color = c)\n'), [])
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
 {
-  "name": "pine-agent-runtime",
+  "name": "pine-engineering-lab-runtime",
   "private": true,
   "description": "Third-party local Pine runtime (PineTS, AGPL-3.0, LuxAlgo) for deterministic offline tests. NOT TradingView; results are not compile/runtime evidence for TradingView.",
   "type": "module",

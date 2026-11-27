@@ -1,2 +1,6 @@
-.pine-agent/runtime/node_modules/
+tools/runtime/node_modules/
 __pycache__/
+.pytest_cache/
+releases/dist/
+testing/regression/corpus/
+workspace/**/runs/

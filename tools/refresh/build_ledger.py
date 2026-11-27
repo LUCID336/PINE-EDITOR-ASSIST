@@ -1,4 +1,4 @@
-"""Build .pine-agent/reference/v6-api-ledger.json from refresh_reference.mjs output; write example corpus.
+"""Build knowledge/reference/v6-api-ledger.json from refresh_reference.mjs output; write example corpus.
 Usage: python build_ledger.py RAW_DIR [--date YYYY-MM-DD]"""
 import collections, json, re, sys
 from pathlib import Path
@@ -17,7 +17,7 @@ meta = {'source': 'https://www.tradingview.com/pine-script-reference/v6/', 'retr
         'status': 'VERIFIED_FROM_OFFICIAL_REFERENCE_SNAPSHOT',
         'caveat': 'Snapshot only; re-extract after release-note changes. Argument qualifier labels are copied from the page; overload-specific qualifiers may differ per overload.',
         'counts': dict(collections.Counter(e['kind'] for e in entries))}
-out = Path(__file__).resolve().parents[2] / 'reference' / 'v6-api-ledger.json'
+out = Path(__file__).resolve().parents[2] / 'knowledge' / 'reference' / 'v6-api-ledger.json'
 out.write_text(json.dumps({'meta': meta, 'entries': entries}, indent=1, ensure_ascii=False))
 corpus = raw / 'corpus'; corpus.mkdir(exist_ok=True)
 n = 0

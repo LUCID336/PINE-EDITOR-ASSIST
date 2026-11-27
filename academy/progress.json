@@ -3,23 +3,23 @@
  "lessons": {
   "L01": {
    "status": "BLOCKED",
-   "evidence": ".pine-agent/academy/evidence/L01.json"
+   "evidence": "academy/evidence/L01.json"
   },
   "L02": {
    "status": "BLOCKED",
-   "evidence": ".pine-agent/academy/evidence/L02.json"
+   "evidence": "academy/evidence/L02.json"
   },
   "L03": {
    "status": "BLOCKED",
-   "evidence": ".pine-agent/academy/evidence/L03.json"
+   "evidence": "academy/evidence/L03.json"
   },
   "L04": {
    "status": "BLOCKED",
-   "evidence": ".pine-agent/academy/evidence/L04.json"
+   "evidence": "academy/evidence/L04.json"
   },
   "L05": {
    "status": "BLOCKED",
-   "evidence": ".pine-agent/academy/evidence/L05.json"
+   "evidence": "academy/evidence/L05.json"
   },
   "L06": {
    "status": "NOT_RUN",
@@ -31,7 +31,7 @@
   },
   "L08": {
    "status": "BLOCKED",
-   "evidence": ".pine-agent/academy/evidence/L08.json"
+   "evidence": "academy/evidence/L08.json"
   },
   "L09": {
    "status": "NOT_RUN",

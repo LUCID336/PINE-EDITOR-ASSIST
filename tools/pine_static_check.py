@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-LEDGER = Path(__file__).resolve().parent.parent / 'reference' / 'v6-api-ledger.json'
+LEDGER = Path(__file__).resolve().parent.parent / 'knowledge' / 'reference' / 'v6-api-ledger.json'
 
 KEYWORDS = {'if', 'else', 'for', 'to', 'by', 'in', 'while', 'switch', 'var', 'varip', 'and', 'or',
             'not', 'true', 'false', 'na', 'import', 'export', 'method', 'type', 'enum', 'return',
@@ -164,6 +164,17 @@ def check(src, ledger):
         # NOTE: a former blanket exemption "any member.<x>" let every color.<typo> pass because
         # `color` is also a type entry (mutation test 2026-11-27: 60% -> see learning log).
         add('ERROR', line_of(m.start(1)), f'unknown built-in variable/constant "{name}"')
+
+    # literal type mismatches in explicitly typed declarations (PineTS accepts these silently)
+    lit = {'string': r'"[ ]*"', 'bool': r'(?:true|false)\b', 'float': r'-?\d+\.\d*|-?\.\d+', 'int': r'-?\d+(?![.\d])',
+           'color': r'#[0-9A-Fa-f]{6}'}
+    for m in re.finditer(r'^[ \t]*(?:var[ \t]+|varip[ \t]+|const[ \t]+)*(int|float|bool|string|color)[ \t]+[A-Za-z_]\w*[ \t]*=[ \t]*'
+                         r'("[ ]*"|true\b|false\b|#[0-9A-Fa-f]{6}|-?\d+\.\d*|-?\.\d+|-?\d+)(?=[ \t]*$)', code, re.M):
+        declared_type, value = m.group(1), m.group(2)
+        kind = next(k for k, rx in lit.items() if re.fullmatch(rx, value))
+        ok = kind == declared_type or (declared_type == 'float' and kind == 'int')
+        if not ok:
+            add('ERROR', line_of(m.start()), f'type mismatch: "{declared_type}" declared but {kind} literal assigned')
 
     # v6 pitfalls (documented in migration guide)
     for m in re.finditer(r'\btransp\s*=', code):

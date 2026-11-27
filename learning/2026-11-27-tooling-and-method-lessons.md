@@ -6,13 +6,13 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 - Claim: the interactive reference https://www.tradingview.com/pine-script-reference/v6/ is a JS shell for curl,
   but a single headless-Chromium render exposes all 948 entries (475 fun incl. 121 multi-overload, 163 var,
   243 const, 20 type, 16 kw, 21 op, 10 annotations; 758 syntax lines).
-- Evidence: `.pine-agent/reference/v6-api-ledger.json` (signatures, arg type labels, return/type, learn-more URL).
+- Evidence: `knowledge/reference/v6-api-ledger.json` (signatures, arg type labels, return/type, learn-more URL).
 - Result: all 612 V3 candidate identifiers exist in v6 (`map.new` = `map.new<type,type>`); 312 official entries were
-  missing from the V3 catalog (`.pine-agent/reference/catalog-diff-2026-11-27.json`).
+  missing from the V3 catalog (`knowledge/reference/catalog-diff-2026-11-27.json`).
 - Scope: v6 only. v3–v5 reference pages not extracted yet. Re-extract after each release-note change.
 
 ## LR-03 Static API checker — VERIFIED (static only)
-- Tool: `.pine-agent/tools/pine_static_check.py` (built-ins, named args per overload, namespace members, v6 pitfalls).
+- Tool: `tools/pine_static_check.py` (built-ins, named args per overload, namespace members, v6 pitfalls).
 - False positives: 0 / 478 official example scripts (414 reference examples + 64 manual examples).
 - Mutation detection (3 seeds): unknown function 100 %, wrong named argument 99.3 %, unknown member 99.3–100 %.
 - Root causes fixed during calibration: (a) regex backtracking flagged `strategy.risk`; (b) named arguments
@@ -46,4 +46,4 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 
 ## LR-07 Official example corpus as regression set — VERIFIED
 - 478 TradingView-authored v6 examples are a free regression corpus for any static tool change. Extraction scripts in
-  `.pine-agent/tools/refresh/`; the corpus itself is regenerated locally, not committed (copyright).
+  `tools/refresh/`; the corpus itself is regenerated locally, not committed (copyright).
