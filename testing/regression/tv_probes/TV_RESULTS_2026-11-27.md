@@ -14,3 +14,11 @@ Evidence label: TV_VERIFIED_RELAYED (official engine, second-hand report).
 Follow-ups (round 2): T3b built-in timeframe inside security context; T6 HTF non-repaint idiom historical check.
 Local predictions round 2: T3b → 86400 (D ctx) / 3600 (main); T6 → mismatches 0 (29 days synthetic data).
 Copilot self-report: claims no knowledge of 2026 features, cannot fetch Pine docs → use it as an execution channel only.
+
+# Round 2 (2026-11-27), same channel and chart
+| Probe | PineTS (pre-registered) | TradingView | Verdict |
+|---|---|---|---|
+| T3b in_seconds() inside request.security("D") | 86400 / main 3600 | 86400 / main 3600 (B) | MATCH. Combined with T3 (no error on TV): TradingView evaluates only the requested expression in the HTF context, NOT global side-effect code. PineTS re-executes the whole script → DIVERGENT (local false runtime.error). |
+| T6 close[1]+lookahead_on vs prior D close at day change | 0 mismatches / 29 days (synthetic 24/7) | 7 mismatches / 234 days, realtime changes 0 (brief) (B) | OPEN: session/feed effect on XAUUSD vs flaw in probe; synthetic 24/7 data cannot reproduce. Diagnosis probe T6b. |
+| L01–L05, L08 compile | STATIC-PASS | valid: true (A) | COMPILE TV_VERIFIED_RELAYED. Warnings channel not exposed by the tool → "no warnings" UNVERIFIED. |
+Local prediction T6b (synthetic 24/7): 0 mismatches, all weekday counters 0.

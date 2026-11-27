@@ -1,0 +1,34 @@
+//@version=6
+indicator("T6b HTF mismatch diagnosis")
+float htfPrev = request.security(syminfo.tickerid, "D", close[1], lookahead = barmerge.lookahead_on)
+float dClose  = request.security(syminfo.tickerid, "D", close)
+bool  newDay  = ta.change(time("D")) != 0
+var int   mismatches = 0
+var float lastTime   = na
+var float lastHtf    = na
+var float lastDClose = na
+var float lastClose1 = na
+var int   lastGapH   = na
+var array<int> perWeekday = array.new<int>(8, 0)
+float gapHours = (time - time[1]) / 3600000.0
+if newDay and not na(htfPrev) and not na(dClose[1]) and htfPrev != dClose[1]
+    mismatches += 1
+    lastTime   := time
+    lastHtf    := htfPrev
+    lastDClose := dClose[1]
+    lastClose1 := close[1]
+    lastGapH   := int(gapHours)
+    perWeekday.set(dayofweek, perWeekday.get(dayofweek) + 1)
+plot(mismatches, "mismatches")
+plot(lastTime, "last_mismatch_time_unix_ms")
+plot(lastHtf, "last_htfPrev")
+plot(lastDClose, "last_dClose_prev_bar")
+plot(lastClose1, "last_chart_close_prev_bar")
+plot(lastGapH, "last_gap_hours_to_prev_bar")
+plot(perWeekday.get(dayofweek.sunday), "count_sunday")
+plot(perWeekday.get(dayofweek.monday), "count_monday")
+plot(perWeekday.get(dayofweek.tuesday), "count_tuesday")
+plot(perWeekday.get(dayofweek.wednesday), "count_wednesday")
+plot(perWeekday.get(dayofweek.thursday), "count_thursday")
+plot(perWeekday.get(dayofweek.friday), "count_friday")
+plot(perWeekday.get(dayofweek.saturday), "count_saturday")

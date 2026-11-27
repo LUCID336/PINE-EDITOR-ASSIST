@@ -14,9 +14,11 @@
   "date_range": "synthetic"
  },
  "compile": {
-  "status": "NOT_RUN",
-  "artifact": null,
-  "note": "No TradingView account/editor access in this environment"
+  "status": "PASS",
+  "evidence_level": "TV_VERIFIED_RELAYED",
+  "channel": "TradingView AI Copilot server-side compile, user-operated, 2026-11-27, VANTAGE:XAUUSD 1H",
+  "artifact": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md (round 2)",
+  "warnings": "not exposed by tool (only valid:true returned) -> UNVERIFIED"
  },
  "third_party_runtime": {
   "engine": "PineTS 0.13.1 (not TradingView)",
@@ -74,7 +76,8 @@
  "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: no findings",
  "score": null,
  "blockers": [
-  "Official Pine Editor compile + realtime/reload checks NOT_RUN"
+  "Realtime/reload acceptance checks NOT_RUN",
+  "Compiler warnings not observable via channel"
  ],
  "learning": [
   "see learning/2026-11-27-tooling-and-method-lessons.md"

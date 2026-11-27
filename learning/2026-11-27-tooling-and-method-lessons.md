@@ -57,3 +57,11 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 - 2026 features compile on TradingView; PineTS 0.13.1 rejects aggressor_side → UNSUPPORTED locally.
 - Global `runtime.error` guard + request.security: PineTS fires it, TradingView did not → local false alarm; pending T3b.
 - Method: pre-register local predictions before each TradingView round (testing/regression/tv_probes/PREREGISTRATION.md).
+
+## LR-09 TradingView round 2 — TV_VERIFIED_RELAYED
+- Built-ins inside request.security reflect the requested context (in_seconds() = 86400 for "D") on TV and PineTS.
+- TradingView does not execute global side-effect code (runtime.error) in the security context; PineTS does →
+  local runtime must flag scripts combining global runtime.error with request.security as DIVERGENT, not FAIL.
+- Six academy scripts compile on TradingView (valid:true). Copilot compile channel exposes no warnings field.
+- Synthetic 24/7 UTC data showed 0 HTF day-boundary mismatches, TradingView XAUUSD 7/234 → session/feed effects
+  are invisible to local synthetic tests; need session-shaped fixtures (weekend gaps, holidays, DST) — open item.
