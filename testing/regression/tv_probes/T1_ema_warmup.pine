@@ -1,0 +1,15 @@
+//@version=6
+indicator("T1 EMA warm-up probe")
+float e = ta.ema(close, 20)
+// Official "same on pine" pseudocode from the v6 reference (seeds with the first value)
+pine_ema(float src, int length) =>
+    float alpha = 2.0 / (length + 1)
+    float sum = 0.0
+    sum := na(sum[1]) ? src : alpha * src + (1 - alpha) * nz(sum[1])
+float p = pine_ema(close, 20)
+var int firstEmaBar = na
+if na(firstEmaBar) and not na(e)
+    firstEmaBar := bar_index
+float diffAtBar19 = ta.valuewhen(bar_index == 19, e - p, 0)
+plot(firstEmaBar, "first_non_na_bar_of_ta_ema")
+plot(diffAtBar19, "ta_ema_minus_pine_ema_at_bar_19")

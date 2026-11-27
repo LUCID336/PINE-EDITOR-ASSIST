@@ -1,0 +1,6 @@
+//@version=6
+indicator("T3 security context probe")
+if timeframe.in_seconds() > 3600
+    runtime.error("GLOBAL CODE RAN IN HIGHER TIMEFRAME CONTEXT")
+float dClose = request.security(syminfo.tickerid, "D", close)
+plot(dClose, "daily_close")

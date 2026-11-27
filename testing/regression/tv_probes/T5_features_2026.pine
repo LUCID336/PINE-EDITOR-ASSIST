@@ -1,0 +1,6 @@
+//@version=6
+strategy("T5 2026 feature compile probe", calc_on_every_history_tick = false)
+string payload = """line one
+line two"""
+plot(aggressor_side == aggressor.buy ? 1 : 0, "aggressor_buy")
+plot(str.length(payload), "multiline_length")

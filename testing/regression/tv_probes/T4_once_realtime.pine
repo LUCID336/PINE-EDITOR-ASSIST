@@ -1,0 +1,7 @@
+//@version=6
+indicator("T4 once realtime probe")
+varip int tickExecutions = 0
+if barstate.isrealtime
+    once true
+        tickExecutions += 1
+plot(tickExecutions, "once_executions_counted_with_varip")

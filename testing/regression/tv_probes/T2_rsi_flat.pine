@@ -1,0 +1,5 @@
+//@version=6
+indicator("T2 RSI flat probe")
+float flatSrc = 100.0 + 0.0 * close
+float r = ta.rsi(flatSrc, 14)
+plot(na(r) ? -1.0 : r, "rsi_of_constant_series_minus1_means_na")

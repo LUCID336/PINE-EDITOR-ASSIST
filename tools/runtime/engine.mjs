@@ -4,12 +4,14 @@
 // RESPONSE: {ok, engine, error?, time[], plots{}, strategy?, warnings[], alerts[], logs[], duration_ms}
 // Never reports success for transpile/runtime/data errors; never approximates unsupported timeframes.
 import fs from 'fs';
-import { createRequire } from 'module';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { PineTS, Indicator } from 'pinets';
 import { LocalProvider, UnsupportedTimeframeError } from './local_provider.mjs';
 
-const require = createRequire(import.meta.url);
-const ENGINE = { name: 'PineTS', version: require('pinets/package.json').version, adapter: 'pinelab-engine/1' };
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const PKG = JSON.parse(fs.readFileSync(path.join(HERE, 'node_modules', 'pinets', 'package.json'), 'utf8'));
+const ENGINE = { name: 'PineTS', version: PKG.version, adapter: 'pinelab-engine/1' };
 const [, , reqPath, outPath] = process.argv;
 const req = JSON.parse(fs.readFileSync(reqPath, 'utf8'));
 const logs = [];
