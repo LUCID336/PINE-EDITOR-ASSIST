@@ -4,8 +4,10 @@ Source: https://www.tradingview.com/mcp/docs (public documentation). Own-words s
 ## Data-use constraints (binding when the user's MCP / AI Copilot is used)
 Personal use only; no sharing/publishing of retrieved data; no bulk collection; **no use of MCP data to train, test or
 improve AI models**; no automated trading or broker actions; no working around limits. AI answers are not advice.
-Lab policy derived from this: use TradingView only to compile/run the user's own scripts on demand; store only
-pass/fail facts about Pine language behavior, never market prices, values series or datasets; no bulk runs.
+Lab policy (operator decision 2026-11-27): TradingView is used only to compile/run the operator's own scripts on demand,
+for personal use. Probe results may be logged in full (including individual values read from the chart) as personal
+test records. Not allowed: training/testing/improving AI models with MCP data, sharing or publishing retrieved data,
+bulk collection of price series or datasets, automated trading.
 
 ## Pine tools (server "tv-mcp")
 - validate_pine_script(code) → valid, errors[], warnings[]  (diagnostic shape: {message, start:{line,column}, end:{line,column}}, 1-based, end inclusive; warnings do not block)
