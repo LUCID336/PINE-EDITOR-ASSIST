@@ -65,3 +65,16 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
 - Six academy scripts compile on TradingView (valid:true). Copilot compile channel exposes no warnings field.
 - Synthetic 24/7 UTC data showed 0 HTF day-boundary mismatches, TradingView XAUUSD 7/234 → session/feed effects
   are invisible to local synthetic tests; need session-shaped fixtures (weekend gaps, holidays, DST) — open item.
+
+## LR-10 TradingView round 3 — TV_VERIFIED_RELAYED
+- Broker emulator (87 trades, XAUUSD 1h): market orders fill at the NEXT bar open; percent commission = rate · qty ·
+  (entry + exit). Identical to PineTS → spec for the independent Python backtester.
+- Pivots: value = high[right], reported `right` bars later (728 cases); ties with an equal neighbour occur (side unknown).
+- HTF idiom close[1]+lookahead_on was right at all mismatch points examined; the lookahead_off comparison series was stale at
+  weekend reopen and US Thanksgiving (2026-11-26 23:00 UTC, 4 h gap). Lesson: lookahead_off HTF values on the last chart bar
+  of an irregular session can lag → never use them as a reference; test with session-shaped fixtures.
+- Compiler: warnings[] is returned when present (T7) → absent warnings mean none. `valid` can be true while errors[] is
+  filled (relay quirk) → judge by errors[]. Message templates stored in knowledge/reference/tv_compiler_messages_2026-11-27.json.
+- Static checker now emits the T7-equivalent consistency warning (same line as TradingView; 0 false warnings on 414 examples).
+- Copilot AGENTS.md stored as CANDIDATE (knowledge/candidates/); one [D] claim corrected via ledger
+  (ta.sma/ta.highest accept series int length; ta.ema/ta.rsi/ta.atr require simple int).

@@ -176,6 +176,25 @@ def check(src, ledger):
         if not ok:
             add('ERROR', line_of(m.start()), f'type mismatch: "{declared_type}" declared but {kind} literal assigned')
 
+    # TradingView consistency warning (observed T7, 2026-11-27): history-dependent ta.* call inside a conditional
+    # local block (if/else/for/while/switch), not inside a function body.
+    stack = []  # (indent, kind)
+    for ln_no, ln in enumerate(code.split('\n'), 1):
+        if not ln.strip():
+            continue
+        ind = len(ln) - len(ln.lstrip(' \t'))
+        while stack and ind <= stack[-1][0]:
+            stack.pop()
+        body = ln.strip()
+        if any(k == 'cond' for _, k in stack):
+            for m in re.finditer(r'(?<![\w.])(ta\.\w+)\s*\(', body):
+                add('WARN', ln_no, f'{m.group(1)}() inside a conditional block: TradingView warns "The function ... should be '
+                                   'called on each calculation for consistency"; compute it unconditionally')
+        if re.search(r'=>\s*$', body):
+            stack.append((ind, 'func'))
+        elif re.match(r'(?:else\b|if\b|for\b|while\b|switch\b)|.*(?:=|:=)\s*(?:if|switch|for|while)\b', body):
+            stack.append((ind, 'cond'))
+
     # v6 pitfalls (documented in migration guide)
     for m in re.finditer(r'\btransp\s*=', code):
         add('ERROR', line_of(m.start()), '"transp" parameter removed; use color.new() transparency')

@@ -65,6 +65,15 @@ class StaticCheckTests(unittest.TestCase):
         self.assertEqual(errs(HEAD + 'float f = 1\nint i = 2\nstring s = "a"\nbool b = true\n'
                               'color c = #FF0000\nvar float v = 0.5\nplot(f + i + v, color = c)\n'), [])
 
+    def test_conditional_ta_warning_t7(self):
+        src = HEAD + 'float x = na\nif close > open\n    x := ta.ema(close, 10)\nplot(x)\n'
+        warns = [f for f in psc.check(src, LEDGER) if f['severity'] == 'WARN']
+        self.assertEqual([w['line'] for w in warns], [5])   # TradingView reported 5:10 for T7
+
+    def test_ta_in_function_body_no_warning(self):
+        src = HEAD + 'f(float s) =>\n    ta.sma(s, 3)\nplot(f(close))\n'
+        self.assertEqual([f for f in psc.check(src, LEDGER) if f['severity'] == 'WARN'], [])
+
 
 if __name__ == '__main__':
     unittest.main()

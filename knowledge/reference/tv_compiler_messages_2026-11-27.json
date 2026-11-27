@@ -1,0 +1,10 @@
+{
+  "source": "TradingView Pine compiler via user-operated AI Copilot validate, 2026-11-27 (TV_VERIFIED_RELAYED)",
+  "note": "Templates as returned (placeholders unresolved). Positions 1-based line:column of the offending token.",
+  "messages": [
+    {"kind": "error", "case": "unknown named argument", "template": "The \"{signature}\" function does not have an argument with the name \"{name}\"", "position": "start of argument name", "probe": "T8a 3:13"},
+    {"kind": "error", "case": "literal type mismatch in typed declaration", "template": "Cannot assign a value of the \"{assignedValueType}\" type to the \"{variableName}\" variable. The variable is declared with the \"{ownValueType}\" type.", "position": "start of declaration", "probe": "T8b 3:1"},
+    {"kind": "error", "case": "undeclared identifier", "template": "Undeclared identifier \"{identifier}\"", "position": "start of identifier", "probe": "T8c 3:6"},
+    {"kind": "warning", "case": "stateful built-in called conditionally", "template": "The function \"{functionName}\" should be called on each calculation for consistency. It is recommended to extract the call from this scope", "position": "start of call", "probe": "T7 5:10"}
+  ]
+}

@@ -18,7 +18,7 @@
   "evidence_level": "TV_VERIFIED_RELAYED",
   "channel": "TradingView AI Copilot server-side compile, user-operated, 2026-11-27, VANTAGE:XAUUSD 1H",
   "artifact": "testing/regression/tv_probes/TV_RESULTS_2026-11-27.md (round 2)",
-  "warnings": "not exposed by tool (only valid:true returned) -> UNVERIFIED"
+  "warnings": "none: field absent; round 3 (T7) proved the channel returns warnings[] when present"
  },
  "third_party_runtime": {
   "engine": "PineTS 0.13.1 (not TradingView)",
@@ -48,8 +48,7 @@
  "reviewer": "independent temporal review (general-purpose agent with pine-temporal-reviewer brief), 2026-11-27: INFO: flat prices built-in vs manual RSI -> confirmed in PineTS, manual aligned, test added",
  "score": null,
  "blockers": [
-  "Realtime/reload acceptance checks NOT_RUN",
-  "Compiler warnings not observable via channel"
+  "Realtime/reload acceptance checks NOT_RUN"
  ],
  "learning": [
   "see learning/2026-11-27-tooling-and-method-lessons.md"
