@@ -88,3 +88,16 @@ Status legend: VERIFIED = observed in this session with reproducible command; HY
   UNVERIFIED_TV until probed on TradingView. Signals are now recomputed independently in tests.
 - Feature quality must be derived from exactly the exported field list; presence is not freshness (STALE state).
 - Reference tests that never fail need mutation checks: the pivot tie rule was invisible without dedicated fixtures.
+
+## LR-12 Gold Multi-Setup v7 overhaul (user script) — VERIFIED locally
+- Regression method for refactors of user scripts: instrument old and new copies identically (engine state as
+  data-window plots, alert() -> log.info) and compare bar-by-bar on the same data. v7 with legacy statistics = v6 exactly
+  (26 state series + every webhook JSON), 32 tests (testing/regression/gold/).
+- "Realistic exits" must follow the user's execution path: with webhook execution the BE stop is moved only at the
+  close of the TP1 bar, so an open beyond the stop on the next bar exits at the open. My first "gap-only" rule
+  (prev close on this side) was too optimistic - found by independent temporal review, test kept.
+- The original drew stop/TP lines at spread-adjusted simulation levels while tooltip and webhook used broker levels
+  (0.20 $ apart): draw what the user trades (broker levels) and say where spread is applied.
+- PineTS silently ignores unknown input titles (a renamed input invalidated a test run) -> pinelab now returns
+  INPUT_INVALID, mirroring the TradingView MCP code input_invalid.
+- UI: secret inputs need display = display.none (status line); white text on light setup colours fails contrast.

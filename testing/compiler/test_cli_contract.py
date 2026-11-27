@@ -61,3 +61,10 @@ def test_script_size_limit(tmp_path):
     s.write_text('//@version=6\nindicator("big")\n' + '// x\n' * 200000 + 'plot(close)\n')
     rc, e = cli('validate', str(s))
     assert rc == 4 and e['errors'][0]['code'] == 'resource_limit'
+
+
+def test_unknown_input_title_is_rejected():
+    gold = LAB / 'workspace' / 'indicators' / 'gold_multi_setup_v07.pine'
+    assert 'Realistische Ausstiege (Statistik)' in core.input_titles(gold.read_text())
+    r = core.run_engine(gold, inputs={'Gap-realistische Statistik': False})
+    assert not r['ok'] and r['error']['type'] == 'INPUT_INVALID'

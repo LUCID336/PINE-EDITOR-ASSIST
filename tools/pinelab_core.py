@@ -77,11 +77,24 @@ def _preexec():  # POSIX only: CPU-time limit for the engine process
         pass
 
 
+def input_titles(source):
+    """Declared input titles (positional 2nd argument or title=...). Used to reject unknown input overrides."""
+    import re
+    code = source
+    titles = set(re.findall(r'\binput(?:\.\w+)?\s*\(\s*[^,()]+(?:\([^()]*\))?\s*,\s*"([^"]*)"', code))
+    titles |= set(re.findall(r'\binput(?:\.\w+)?\s*\([^)]*?\btitle\s*=\s*"([^"]*)"', code, re.S))
+    return titles
+
+
 def run_engine(script, csv=None, base_tf=None, timeframe='60', symbol='LOCAL:SYNTH', inputs=None,
                max_bars=None, timeout_s=None):
     """Run a Pine script in PineTS on a local CSV. Returns the engine response dict (+ 'process' metadata).
     Raises nothing for script problems; they come back as ok=False with error.type."""
     csv = Path(csv or DEFAULT_DATA)
+    if inputs:
+        unknown = sorted(set(inputs) - input_titles(Path(script).read_text(encoding='utf-8-sig')))
+        if unknown:   # PineTS silently ignores unknown titles; TradingView MCP answers input_invalid
+            return {'ok': False, 'error': {'type': 'INPUT_INVALID', 'message': f'unknown input title(s): {unknown}'}}
     req = {'script': str(Path(script).resolve()), 'csv': str(csv.resolve()), 'base_timeframe': str(base_tf or DEFAULT_BASE_TF),
            'timeframe': str(timeframe), 'symbol': symbol, 'inputs': inputs, 'max_bars': max_bars, 'max_loops': LIMITS['max_loops']}
     with tempfile.TemporaryDirectory(prefix='pinelab-') as td:

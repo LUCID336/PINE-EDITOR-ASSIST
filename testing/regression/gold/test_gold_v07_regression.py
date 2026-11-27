@@ -26,7 +26,7 @@ def run(src_path, tmp_path, name, inputs=None, data=DATA):
 @pytest.fixture(scope='module')
 def both(tmp_path_factory):
     t = tmp_path_factory.mktemp('gold')
-    return run(V6, t, 'v6'), run(V7, t, 'v7', inputs={'Gap-realistische Statistik': False}), run(V7, t, 'v7d')
+    return run(V6, t, 'v6'), run(V7, t, 'v7', inputs={'Realistische Ausstiege (Statistik)': False}), run(V7, t, 'v7d')
 
 
 def test_original_produces_trades(both):
@@ -48,9 +48,20 @@ def test_webhook_payloads_identical(both):
         json.loads(line.split('] ', 1)[1])                               # every payload is valid JSON
 
 
-def test_default_gap_setting_identical_on_gapless_data(both):
+def test_default_realistic_exits_only_change_statistics(both):
+    """Default (realistic exits) may only change booked R - never signals, stages, trade counts or alerts."""
     _, v7, v7d = both
-    assert all(v7d['plots'][f'stR_{k}'] == v7['plots'][f'stR_{k}'] for k in range(5))
+    for k in range(5):
+        for n in ('sDir', 'sStage', 'stN', 'stW'):
+            assert v7d['plots'][f'{n}_{k}'] == v7['plots'][f'{n}_{k}']
+        assert v7d['plots'][f'stR_{k}'][-1] <= v7['plots'][f'stR_{k}'][-1] + 1e-9   # never more optimistic
+    assert v7d['logs'] == v7['logs']
+
+
+def test_secret_is_json_escaped(tmp_path):
+    r = run(V7, tmp_path, 'sec', inputs={'Webhook SECRET': 'a"b\\c'})
+    ev = json.loads(r['logs'][0].split('] ', 1)[1])
+    assert ev['secret'] == 'a"b\\c'
 
 
 def test_gap_realistic_loss_exceeds_one_r(tmp_path):
