@@ -1,0 +1,32 @@
+# Fresh install log - final release ZIP
+date_utc: 2026-11-27T14:43:11Z
+zip_sha256: 910292f1641edf8e4c6e17c12cedb82522ece0bc4290070d11f4ee92ec695ccc
+target: empty directory, not a git repository; Linux, Python 3.13.18, Node v22.23.5
+content checksums: OK
+
+$ python3 install.py
+[install] Python 3.13.18, Node v22.23.5, npm at /opt/node22/bin/npm
+[install] runtime installed: pinets 0.13.1 (license AGPL-3.0-only)
+[install] backed up existing .mcp.json -> .mcp.json.backup-20261127T144312Z
+[install] .mcp.json written (local stdio server, no secrets, no remote endpoint)
+[install] running offline self-test ...
+PASS  capabilities  (engine: OK)
+PASS  validate good script  (status: LOCAL_VALIDATED)
+PASS  validate syntax error -> FAILED  (status: FAILED)
+PASS  validate unknown function -> FAILED  (status: FAILED)
+PASS  invalid input (missing data) -> usage error  (status: FAILED)
+PASS  unsupported feature -> BLOCKED  (status: BLOCKED)
+PASS  EMA indicator on local OHLCV  (status: OK)
+PASS  backtest with parity  (parity: OK)
+PASS  static checker unit tests  ()
+PASS  V3/V4 knowledge base tests  (OK)
+PASS  pytest suites (reference, contract, backtest)  (78 passed in 14.42s)
+SELFTEST PASS
+[install] installation complete
+
+$ (update) python3 install.py --skip-npm --no-selftest   # second run: idempotent, backup of .mcp.json
+[install] Python 3.13.18, Node v22.23.5, npm at /opt/node22/bin/npm
+[install] .mcp.json written (local stdio server, no secrets, no remote endpoint)
+[install] done (self-test not run)
+.mcp.json
+.mcp.json.backup-20261127T144312Z
